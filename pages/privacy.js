@@ -178,7 +178,7 @@ export default function Privacy() {
             className="bg-slate-900/50 backdrop-blur-sm rounded-3xl p-8 border border-white/5 mb-8"
           >
             <p className="text-slate-300 leading-relaxed">
-              At Media Share ("we", "our", or "us"), we take your privacy seriously. This Privacy Policy explains how we 
+              At Media Share (&quot;we&quot;, &quot;our&quot;, or &quot;us&quot;), we take your privacy seriously. This Privacy Policy explains how we 
               collect, use, disclose, and safeguard your information when you use our Service.
             </p>
           </motion.div>

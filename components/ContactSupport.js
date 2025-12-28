@@ -71,7 +71,7 @@ export default function ContactSupport() {
           </motion.div>
 
           <h2 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4">
-            We're Here to Help
+            We&apos;re Here to Help
           </h2>
           <p className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
             Choose how you want to connect with us

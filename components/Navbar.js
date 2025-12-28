@@ -16,10 +16,10 @@ export default function Navbar() {
   }, [])
 
   const navLinks = [
-    { label: 'Features', href: '#features' },
-    { label: 'Platforms', href: '#platforms' },
+    { label: 'Features', href: '/#features' },
+    { label: 'Platforms', href: '/#platforms' },
     { label: 'Pricing', href: '/pricing' },
-    { label: 'Docs', href: '#developer-experience' },
+    { label: 'Docs', href: '/#developer-experience' },
   ]
 
   return (
@@ -33,12 +33,12 @@ export default function Navbar() {
           {/* Logo */}
           <Link href="/" className="flex items-center gap-3 group">
             <div className="w-10 h-10 bg-gradient-primary rounded-lg flex items-center justify-center shadow-lg group-hover:shadow-xl transition-shadow">
-              <span className="text-white font-bold text-xl">M</span>
+              <span className="text-white font-bold text-xl">K</span>
             </div>
             <span className={`font-bold text-xl transition-colors ${
               isScrolled ? 'text-gray-900' : 'text-white'
             }`}>
-              Media Share
+              KabonShare
             </span>
           </Link>
 
@@ -60,7 +60,7 @@ export default function Navbar() {
           {/* CTA Buttons */}
           <div className="hidden md:flex items-center gap-4">
             <a
-              href="#pricing"
+              href="https://dashboard.kabonshare.com"
               className={`font-medium transition-colors ${
                 isScrolled ? 'text-gray-700 hover:text-primary' : 'text-white/90 hover:text-white'
               }`}
@@ -68,7 +68,7 @@ export default function Navbar() {
               Sign In
             </a>
             <a
-              href="#pricing"
+              href="https://dashboard.kabonshare.com"
               className="bg-gradient-primary text-white px-6 py-2.5 rounded-lg font-semibold hover:shadow-xl transition-all duration-300 hover:scale-105"
             >
               Start Free Trial
@@ -101,13 +101,13 @@ export default function Navbar() {
             ))}
             <div className="px-4 py-3 space-y-2">
               <a
-                href="#pricing"
+                href="https://dashboard.kabonshare.com"
                 className="block text-center text-gray-700 hover:text-primary py-2"
               >
                 Sign In
               </a>
               <a
-                href="#pricing"
+                href="https://dashboard.kabonshare.com"
                 className="block text-center bg-gradient-primary text-white py-2.5 rounded-lg font-semibold"
               >
                 Start Free Trial

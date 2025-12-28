@@ -95,7 +95,7 @@ export default function Platforms() {
             </span>
           </h2>
           <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto leading-relaxed">
-            Publish to the world's most popular social networks with one unified API. 
+            Publish to the world&apos;s most popular social networks with one unified API. 
             <span className="block mt-2 font-semibold text-primary">No platform-specific integration needed.</span>
           </p>
         </motion.div>
@@ -211,7 +211,7 @@ const response = await mediaShare.posts.create({
             Need a Different Platform?
           </h3>
           <p className="text-lg mb-6 opacity-90 max-w-2xl mx-auto">
-            We're constantly adding new integrations. Request a platform and we'll prioritize it for our roadmap.
+            We&apos;re constantly adding new integrations. Request a platform and we&apos;ll prioritize it for our roadmap.
           </p>
           <a
             href="mailto:support@media-share.io?subject=Platform Request"

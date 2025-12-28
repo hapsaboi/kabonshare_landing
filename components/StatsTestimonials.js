@@ -76,7 +76,7 @@ export default function StatsTestimonials() {
                 {/* Quote */}
                 <div className="mt-6 mb-6">
                   <p className="text-gray-700 dark:text-gray-300 leading-relaxed italic">
-                    "{testimonial.quote}"
+                    &quot;{testimonial.quote}&quot;
                   </p>
                 </div>
 
