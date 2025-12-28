@@ -15,7 +15,7 @@ const supportChannels = [
     icon: FaDiscord,
     title: 'Discord Community',
     description: '5,000+ active developers',
-    link: 'https://discord.gg/mediashare',
+    link: 'https://discord.gg/kabonshare',
     linkText: 'Join Discord',
     gradient: 'from-indigo-500 to-purple-500'
   },

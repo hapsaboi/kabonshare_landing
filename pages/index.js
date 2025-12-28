@@ -3,7 +3,6 @@ import HeroNew from '../components/HeroNew'
 import Features from '../components/Features'
 import UseCases from '../components/UseCases'
 import Platforms from '../components/Platforms'
-import Pricing from '../components/Pricing'
 import DeveloperExperience from '../components/DeveloperExperience'
 import StatsTestimonials from '../components/StatsTestimonials'
 import ContactSupport from '../components/ContactSupport'
@@ -13,10 +12,10 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>Media Share API - One API for All Social Media Platforms</title>
-        <meta name="description" content="Professional API for Instagram, TikTok, YouTube, Facebook, Twitter & LinkedIn. Publish everywhere with one call. Trusted by 50K+ developers." />
+        <title>Media Share - Publish Once, Reach Everyone</title>
+        <meta name="description" content="Multi-platform social media publishing API and app. Publish to Instagram, Facebook, Threads, TikTok, and YouTube with one API. Includes OAuth, scheduling, asset library, and workspaces." />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <meta name="keywords" content="social media API, multi-platform publishing API, Instagram API integration, TikTok publishing API, social media automation" />
+        <meta name="keywords" content="social media API, multi-platform posting, Instagram API, TikTok API, YouTube API, Facebook API, Threads API, social media automation, content management API, developer tools" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className="min-h-screen bg-white">
@@ -24,7 +23,6 @@ export default function Home() {
         <Features />
         <UseCases />
         <Platforms />
-        <Pricing />
         <DeveloperExperience />
         <StatsTestimonials />
         <ContactSupport />

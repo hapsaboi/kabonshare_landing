@@ -1,41 +1,32 @@
 'use client'
 import { FaTwitter, FaLinkedin, FaGithub, FaDiscord, FaHeart } from 'react-icons/fa'
+import { siteConfig } from '../config/siteConfig'
 
 const footerLinks = {
-  company: [
-    { label: 'About Us', href: '/about' },
-    { label: 'Careers', href: '/careers' },
-    { label: 'Press Kit', href: '/press' },
-    { label: 'Contact', href: '#contact-support' }
-  ],
   product: [
     { label: 'Features', href: '#features' },
-    { label: 'Pricing', href: '#pricing' },
-    { label: 'Documentation', href: 'https://docs.media-share.io' },
-    { label: 'API Status', href: 'https://status.media-share.io' },
+    { label: 'Pricing', href: '/pricing' },
+    { label: 'Documentation', href: siteConfig.api.docs },
     { label: 'Changelog', href: '/changelog' }
   ],
   resources: [
     { label: 'Blog', href: '/blog' },
     { label: 'Case Studies', href: '/case-studies' },
-    { label: 'API Guides', href: 'https://docs.media-share.io/guides' },
+    { label: 'API Guides', href: siteConfig.api.docs + '/guides' },
     { label: 'Video Tutorials', href: '/tutorials' },
     { label: 'Community Forum', href: 'https://community.media-share.io' }
   ],
   legal: [
     { label: 'Terms of Service', href: '/terms' },
-    { label: 'Privacy Policy', href: '/privacy' },
-    { label: 'Security', href: '/security' },
-    { label: 'GDPR Compliance', href: '/gdpr' },
-    { label: 'Cookie Policy', href: '/cookies' }
+    { label: 'Privacy Policy', href: '/privacy' }
   ]
 }
 
 const socialLinks = [
-  { icon: FaTwitter, href: 'https://twitter.com/mediashareapi', label: '@mediashareapi', color: 'hover:text-blue-400' },
-  { icon: FaLinkedin, href: 'https://linkedin.com/company/media-share', label: 'LinkedIn', color: 'hover:text-blue-600' },
-  { icon: FaGithub, href: 'https://github.com/media-share', label: 'GitHub', color: 'hover:text-gray-600' },
-  { icon: FaDiscord, href: 'https://discord.gg/mediashare', label: 'Discord', color: 'hover:text-indigo-500' }
+  { icon: FaTwitter, href: siteConfig.social.twitter, label: '@kabonshare', color: 'hover:text-blue-400' },
+  { icon: FaLinkedin, href: siteConfig.social.linkedin, label: 'LinkedIn', color: 'hover:text-blue-600' },
+  { icon: FaGithub, href: siteConfig.social.github, label: 'GitHub', color: 'hover:text-gray-600' },
+  { icon: FaDiscord, href: siteConfig.social.discord, label: 'Discord', color: 'hover:text-indigo-500' }
 ]
 
 export default function Footer() {
@@ -43,7 +34,7 @@ export default function Footer() {
     <footer className="bg-gray-900 text-gray-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         {/* Top Section */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-8 mb-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 mb-12">
           {/* Brand Column */}
           <div className="lg:col-span-2">
             <h3 className="text-2xl font-bold text-white mb-4">Media Share API</h3>
@@ -65,23 +56,6 @@ export default function Footer() {
                 </a>
               ))}
             </div>
-          </div>
-
-          {/* Company */}
-          <div>
-            <h4 className="text-white font-bold mb-4">Company</h4>
-            <ul className="space-y-2">
-              {footerLinks.company.map((link, index) => (
-                <li key={index}>
-                  <a
-                    href={link.href}
-                    className="text-gray-400 hover:text-white transition-colors duration-200"
-                  >
-                    {link.label}
-                  </a>
-                </li>
-              ))}
-            </ul>
           </div>
 
           {/* Product */}
@@ -173,7 +147,7 @@ export default function Footer() {
             <div className="text-sm">
               <span className="text-gray-500">API: </span>
               <code className="text-primary bg-gray-800 px-2 py-1 rounded">
-                https://api.media-share.io/v1
+                https://api.kabonshare.com
               </code>
             </div>
           </div>

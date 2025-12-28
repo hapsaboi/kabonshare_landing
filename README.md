@@ -131,7 +131,7 @@ Contributions, issues, and feature requests are welcome!
 
 - Support: support@media-share.io
 - Sales: sales@media-share.io
-- Twitter: [@mediashareapi](https://twitter.com/mediashareapi)
+- Twitter: [@kabonshare](https://twitter.com/kabonshare)
 
 ---
 

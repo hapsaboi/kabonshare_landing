@@ -1,256 +1,253 @@
+'use client'
 import Head from 'next/head'
 import Link from 'next/link'
+import { motion } from 'framer-motion'
+import { HiShieldCheck, HiLockClosed, HiEye, HiDatabase, HiUserGroup, HiGlobe } from 'react-icons/hi'
+import Navbar from '../components/Navbar'
+import Footer from '../components/Footer'
+import { siteConfig } from '../config/siteConfig'
 
 export default function Privacy() {
+  const sections = [
+    {
+      icon: HiDatabase,
+      title: '1. Information We Collect',
+      content: [
+        {
+          subtitle: '1.1 Information You Provide',
+          items: [
+            '<strong>Account Information:</strong> Name, email address, company name, billing information',
+            '<strong>Social Media Credentials:</strong> OAuth tokens for connected social media accounts',
+            '<strong>Content Data:</strong> Posts, images, videos, and other content you publish through our platform',
+            '<strong>Communication Data:</strong> Messages you send to our support team'
+          ]
+        },
+        {
+          subtitle: '1.2 Automatically Collected Information',
+          items: [
+            '<strong>API Usage Data:</strong> API calls, endpoints accessed, request/response data, timestamps',
+            '<strong>Device Information:</strong> IP address, browser type, operating system',
+            '<strong>Cookies and Tracking:</strong> Session cookies, analytics cookies'
+          ]
+        }
+      ]
+    },
+    {
+      icon: HiEye,
+      title: '2. How We Use Your Information',
+      content: [
+        {
+          items: [
+            'Provide, operate, and maintain our Service',
+            'Process and complete transactions',
+            'Authenticate social media accounts and publish content on your behalf',
+            'Send you technical notices, updates, security alerts',
+            'Respond to your comments, questions, and customer service requests',
+            'Analyze usage patterns to improve our Service',
+            'Detect, prevent, and address technical issues and fraudulent activity'
+          ]
+        }
+      ]
+    },
+    {
+      icon: HiUserGroup,
+      title: '3. Information Sharing',
+      content: [
+        {
+          subtitle: 'We may share your information with:',
+          items: [
+            '<strong>Social Media Platforms:</strong> We share content with platforms you\'ve connected (Instagram, TikTok, YouTube, etc.)',
+            '<strong>Service Providers:</strong> Cloud hosting, payment processors, analytics providers',
+            '<strong>Legal Requirements:</strong> When required by law or to protect our rights',
+            '<strong>Business Transfers:</strong> In connection with a merger, acquisition, or sale of assets'
+          ]
+        },
+        {
+          subtitle: 'We do NOT:',
+          items: [
+            'Sell your personal information to third parties',
+            'Share your OAuth tokens with anyone',
+            'Use your content for our own marketing without permission'
+          ]
+        }
+      ]
+    },
+    {
+      icon: HiLockClosed,
+      title: '4. Data Security',
+      content: [
+        {
+          items: [
+            '<strong>Encryption:</strong> All data in transit is encrypted using TLS 1.3',
+            '<strong>OAuth Security:</strong> Social media tokens are encrypted at rest and rotated regularly',
+            '<strong>Access Controls:</strong> Strict access controls and authentication for our systems',
+            '<strong>Regular Audits:</strong> Security assessments and penetration testing',
+            '<strong>Compliance:</strong> SOC 2 Type II certified, GDPR compliant'
+          ]
+        }
+      ]
+    },
+    {
+      icon: HiShieldCheck,
+      title: '5. Your Rights',
+      content: [
+        {
+          subtitle: 'You have the right to:',
+          items: [
+            '<strong>Access:</strong> Request a copy of your personal data',
+            '<strong>Correction:</strong> Update or correct inaccurate information',
+            '<strong>Deletion:</strong> Request deletion of your account and associated data',
+            '<strong>Export:</strong> Download your content and data in a portable format',
+            '<strong>Opt-out:</strong> Unsubscribe from marketing communications',
+            '<strong>Revoke Access:</strong> Disconnect social media accounts at any time'
+          ]
+        }
+      ]
+    },
+    {
+      icon: HiGlobe,
+      title: '6. Data Retention',
+      content: [
+        {
+          items: [
+            '<strong>Active Accounts:</strong> Data retained as long as your account is active',
+            '<strong>Deleted Accounts:</strong> Most data deleted within 30 days; some logs retained for 90 days for security',
+            '<strong>Backups:</strong> Backup data may persist for up to 180 days',
+            '<strong>Legal Obligations:</strong> Some data may be retained longer to comply with legal requirements'
+          ]
+        }
+      ]
+    }
+  ]
+
   return (
     <>
       <Head>
-        <title>Privacy Policy - Media Share API</title>
-        <meta name="description" content="Privacy Policy for Media Share API" />
+        <title>Privacy Policy - Media Share</title>
+        <meta name="description" content="Privacy Policy for Media Share - How we collect, use, and protect your data" />
       </Head>
 
-      <div className="min-h-screen bg-white dark:bg-dark">
+      <Navbar />
+
+      <div className="min-h-screen bg-slate-950 relative overflow-hidden">
+        {/* Background Elements */}
+        <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
+          <div className="absolute top-0 left-1/4 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl"></div>
+          <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl"></div>
+        </div>
+
         {/* Header */}
-        <header className="bg-gradient-primary text-white py-6">
+        <div className="relative z-10 pt-24 pb-12 bg-gradient-to-b from-slate-900/50 to-transparent">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-            <Link href="/" className="text-sm hover:underline mb-2 inline-block">
-              ← Back to Home
-            </Link>
-            <h1 className="text-4xl font-bold">Privacy Policy</h1>
-            <p className="text-purple-200 mt-2">Last Updated: November 24, 2025</p>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              className="text-center"
+            >
+              <motion.div
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.5 }}
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 backdrop-blur-sm mb-6"
+              >
+                <HiShieldCheck className="text-indigo-400" />
+                <span className="text-sm font-medium text-indigo-300">Your Privacy Matters</span>
+              </motion.div>
+
+              <h1 className="text-5xl md:text-6xl font-bold text-white mb-6 tracking-tight">
+                Privacy <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-cyan-400">Policy</span>
+              </h1>
+              <p className="text-xl text-slate-400 mb-6 leading-relaxed max-w-2xl mx-auto">
+                We take your privacy seriously. This policy explains how we collect, use, and protect your information.
+              </p>
+              <p className="text-sm text-slate-500">
+                Last Updated: November 24, 2025
+              </p>
+            </motion.div>
           </div>
-        </header>
+        </div>
 
         {/* Content */}
-        <main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-          <div className="prose prose-lg dark:prose-invert max-w-none">
-            
-            <section className="mb-8">
-              <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
-                At Media Share API ("we", "our", or "us"), we take your privacy seriously. This Privacy Policy explains how we 
-                collect, use, disclose, and safeguard your information when you use our Service.
-              </p>
-            </section>
+        <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+          {/* Introduction */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="bg-slate-900/50 backdrop-blur-sm rounded-3xl p-8 border border-white/5 mb-8"
+          >
+            <p className="text-slate-300 leading-relaxed">
+              At Media Share ("we", "our", or "us"), we take your privacy seriously. This Privacy Policy explains how we 
+              collect, use, disclose, and safeguard your information when you use our Service.
+            </p>
+          </motion.div>
 
-            <section className="mb-8">
-              <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">1. Information We Collect</h2>
-              
-              <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-3">1.1 Information You Provide</h3>
-              <ul className="list-disc pl-6 text-gray-700 dark:text-gray-300 space-y-2 mb-4">
-                <li><strong>Account Information:</strong> Name, email address, company name, billing information</li>
-                <li><strong>Social Media Credentials:</strong> OAuth tokens for connected social media accounts</li>
-                <li><strong>Content Data:</strong> Posts, images, videos, and other content you publish through our API</li>
-                <li><strong>Communication Data:</strong> Messages you send to our support team</li>
-              </ul>
+          {/* Sections */}
+          <div className="space-y-8">
+            {sections.map((section, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.1 * index }}
+                className="bg-slate-900/50 backdrop-blur-sm rounded-3xl p-8 border border-white/5 hover:border-white/10 transition-colors"
+              >
+                <div className="flex items-start gap-4 mb-6">
+                  <div className="p-3 bg-gradient-to-br from-indigo-500/20 to-cyan-500/20 rounded-2xl border border-indigo-500/20">
+                    <section.icon className="text-3xl text-indigo-400" />
+                  </div>
+                  <h2 className="text-2xl font-bold text-white pt-2">{section.title}</h2>
+                </div>
 
-              <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-3">1.2 Automatically Collected Information</h3>
-              <ul className="list-disc pl-6 text-gray-700 dark:text-gray-300 space-y-2 mb-4">
-                <li><strong>API Usage Data:</strong> API calls, endpoints accessed, request/response data, timestamps</li>
-                <li><strong>Device Information:</strong> IP address, browser type, operating system</li>
-                <li><strong>Cookies and Tracking:</strong> Session cookies, analytics cookies (see Cookie Policy)</li>
-                <li><strong>Log Data:</strong> Error logs, performance data, security logs</li>
-              </ul>
-            </section>
-
-            <section className="mb-8">
-              <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">2. How We Use Your Information</h2>
-              <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
-                We use the collected information for the following purposes:
-              </p>
-              <ul className="list-disc pl-6 text-gray-700 dark:text-gray-300 space-y-2 mb-4">
-                <li><strong>Provide the Service:</strong> Process API requests, publish content to social platforms</li>
-                <li><strong>Account Management:</strong> Create and manage your account, process payments</li>
-                <li><strong>Customer Support:</strong> Respond to inquiries and provide technical assistance</li>
-                <li><strong>Service Improvement:</strong> Analyze usage patterns, improve features and performance</li>
-                <li><strong>Security:</strong> Detect and prevent fraud, abuse, and security incidents</li>
-                <li><strong>Legal Compliance:</strong> Comply with legal obligations and enforce our terms</li>
-                <li><strong>Marketing:</strong> Send newsletters and promotional materials (with your consent)</li>
-              </ul>
-            </section>
-
-            <section className="mb-8">
-              <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">3. Information Sharing and Disclosure</h2>
-              <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
-                We may share your information in the following circumstances:
-              </p>
-              
-              <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-3">3.1 Third-Party Platforms</h3>
-              <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
-                We share your content with social media platforms (Instagram, TikTok, YouTube, Facebook, Twitter/X, LinkedIn, Threads) 
-                as necessary to provide the Service. Each platform has its own privacy policy governing how they handle your data.
-              </p>
-
-              <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-3">3.2 Service Providers</h3>
-              <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
-                We work with third-party service providers who assist us with:
-              </p>
-              <ul className="list-disc pl-6 text-gray-700 dark:text-gray-300 space-y-2 mb-4">
-                <li>Cloud hosting and storage (AWS, Google Cloud)</li>
-                <li>Payment processing (Stripe, PayPal)</li>
-                <li>Analytics and monitoring (Google Analytics, Mixpanel)</li>
-                <li>Customer support tools (Zendesk, Intercom)</li>
-                <li>Email services (SendGrid, Mailchimp)</li>
-              </ul>
-
-              <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-3">3.3 Legal Requirements</h3>
-              <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
-                We may disclose your information if required by law, court order, or government request, or to protect our rights, 
-                property, or safety.
-              </p>
-
-              <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-3">3.4 Business Transfers</h3>
-              <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
-                In the event of a merger, acquisition, or sale of assets, your information may be transferred to the acquiring entity.
-              </p>
-            </section>
-
-            <section className="mb-8">
-              <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">4. Data Security</h2>
-              <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
-                We implement industry-standard security measures to protect your information:
-              </p>
-              <ul className="list-disc pl-6 text-gray-700 dark:text-gray-300 space-y-2 mb-4">
-                <li><strong>Encryption:</strong> Data encrypted in transit (TLS/SSL) and at rest (AES-256)</li>
-                <li><strong>Access Controls:</strong> Role-based access, multi-factor authentication</li>
-                <li><strong>Monitoring:</strong> 24/7 security monitoring and intrusion detection</li>
-                <li><strong>Regular Audits:</strong> Security audits and penetration testing</li>
-                <li><strong>Compliance:</strong> SOC 2, GDPR, and CCPA compliant practices</li>
-              </ul>
-              <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
-                However, no method of transmission over the Internet is 100% secure. We cannot guarantee absolute security.
-              </p>
-            </section>
-
-            <section className="mb-8">
-              <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">5. Data Retention</h2>
-              <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
-                We retain your information for as long as necessary to provide the Service and fulfill the purposes outlined in this policy:
-              </p>
-              <ul className="list-disc pl-6 text-gray-700 dark:text-gray-300 space-y-2 mb-4">
-                <li><strong>Account Data:</strong> Retained while your account is active plus 90 days after closure</li>
-                <li><strong>Content Data:</strong> Retained for 30 days after publication or as required by third-party platforms</li>
-                <li><strong>Transaction Records:</strong> Retained for 7 years for tax and legal purposes</li>
-                <li><strong>Log Data:</strong> Retained for 90 days unless needed for security or legal purposes</li>
-              </ul>
-            </section>
-
-            <section className="mb-8">
-              <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">6. Your Privacy Rights</h2>
-              
-              <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-3">6.1 General Rights</h3>
-              <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
-                You have the right to:
-              </p>
-              <ul className="list-disc pl-6 text-gray-700 dark:text-gray-300 space-y-2 mb-4">
-                <li><strong>Access:</strong> Request a copy of your personal data</li>
-                <li><strong>Correction:</strong> Update or correct inaccurate information</li>
-                <li><strong>Deletion:</strong> Request deletion of your data (subject to legal obligations)</li>
-                <li><strong>Portability:</strong> Receive your data in a machine-readable format</li>
-                <li><strong>Opt-Out:</strong> Unsubscribe from marketing communications</li>
-                <li><strong>Object:</strong> Object to processing of your data for certain purposes</li>
-              </ul>
-
-              <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-3">6.2 GDPR Rights (EU Users)</h3>
-              <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
-                If you are in the European Economic Area, you have additional rights under GDPR including the right to lodge a 
-                complaint with a supervisory authority.
-              </p>
-
-              <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-3">6.3 CCPA Rights (California Users)</h3>
-              <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
-                California residents have specific rights under the CCPA, including the right to know what personal information 
-                is collected and the right to opt-out of sale of personal information (we do not sell your data).
-              </p>
-
-              <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
-                To exercise your rights, contact us at <a href="mailto:privacy@media-share.io" className="text-primary hover:text-secondary underline">privacy@media-share.io</a>
-              </p>
-            </section>
-
-            <section className="mb-8">
-              <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">7. Cookies and Tracking Technologies</h2>
-              <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
-                We use cookies and similar technologies to:
-              </p>
-              <ul className="list-disc pl-6 text-gray-700 dark:text-gray-300 space-y-2 mb-4">
-                <li><strong>Essential Cookies:</strong> Required for authentication and core functionality</li>
-                <li><strong>Analytics Cookies:</strong> Help us understand usage patterns (Google Analytics)</li>
-                <li><strong>Preference Cookies:</strong> Remember your settings and preferences</li>
-              </ul>
-              <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
-                You can control cookies through your browser settings. Disabling certain cookies may affect functionality.
-              </p>
-            </section>
-
-            <section className="mb-8">
-              <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">8. International Data Transfers</h2>
-              <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
-                Your information may be transferred to and processed in countries other than your country of residence. We ensure 
-                appropriate safeguards are in place for international transfers, including Standard Contractual Clauses approved 
-                by the European Commission.
-              </p>
-            </section>
-
-            <section className="mb-8">
-              <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">9. Children's Privacy</h2>
-              <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
-                Our Service is not intended for children under 13 years of age. We do not knowingly collect personal information 
-                from children. If you believe we have collected information from a child, please contact us immediately.
-              </p>
-            </section>
-
-            <section className="mb-8">
-              <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">10. Third-Party Links</h2>
-              <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
-                Our Service may contain links to third-party websites. We are not responsible for the privacy practices of these 
-                external sites. We encourage you to review their privacy policies.
-              </p>
-            </section>
-
-            <section className="mb-8">
-              <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">11. Changes to This Privacy Policy</h2>
-              <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
-                We may update this Privacy Policy from time to time. We will notify you of material changes by email or through 
-                the Service. The "Last Updated" date at the top indicates when the policy was last revised.
-              </p>
-            </section>
-
-            <section className="mb-8">
-              <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">12. Contact Us</h2>
-              <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
-                For questions or concerns about this Privacy Policy or our data practices, please contact:
-              </p>
-              <ul className="list-none text-gray-700 dark:text-gray-300 space-y-2 mb-4">
-                <li><strong>Privacy Officer:</strong> privacy@media-share.io</li>
-                <li><strong>General Support:</strong> support@media-share.io</li>
-                <li><strong>Data Protection Officer (EU):</strong> dpo@media-share.io</li>
-                <li><strong>Mailing Address:</strong> [Your Company Address]</li>
-              </ul>
-            </section>
-
-            <div className="bg-blue-50 dark:bg-blue-900/20 border-l-4 border-blue-500 p-6 rounded mt-8">
-              <p className="text-sm text-blue-900 dark:text-blue-300">
-                <strong>Note:</strong> This is a template Privacy Policy document. You should have this reviewed by a legal 
-                professional and customized for your specific business practices, jurisdiction, and compliance requirements 
-                (GDPR, CCPA, etc.).
-              </p>
-            </div>
-
+                <div className="space-y-6">
+                  {section.content.map((block, blockIndex) => (
+                    <div key={blockIndex}>
+                      {block.subtitle && (
+                        <h3 className="text-lg font-semibold text-white mb-4">{block.subtitle}</h3>
+                      )}
+                      <ul className="space-y-3">
+                        {block.items.map((item, itemIndex) => (
+                          <li key={itemIndex} className="flex items-start gap-3 text-slate-300">
+                            <span className="flex-shrink-0 w-1.5 h-1.5 rounded-full bg-indigo-500 mt-2"></span>
+                            <span 
+                              className="text-sm leading-relaxed"
+                              dangerouslySetInnerHTML={{ __html: item }}
+                            />
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  ))}
+                </div>
+              </motion.div>
+            ))}
           </div>
-        </main>
 
-        {/* Footer */}
-        <footer className="bg-gray-100 dark:bg-gray-800 py-6 mt-12">
-          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <div className="flex justify-center gap-8 text-sm text-gray-600 dark:text-gray-400">
-              <Link href="/" className="hover:text-primary">Home</Link>
-              <Link href="/terms" className="hover:text-primary">Terms of Service</Link>
-              <Link href="/security" className="hover:text-primary">Security</Link>
-              <Link href="mailto:privacy@media-share.io" className="hover:text-primary">Contact Privacy Team</Link>
+          {/* Contact Section */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.8 }}
+            className="mt-12 bg-gradient-to-br from-indigo-500/10 to-cyan-500/10 backdrop-blur-sm rounded-3xl p-8 border border-indigo-500/20"
+          >
+            <h2 className="text-2xl font-bold text-white mb-4">Contact Us</h2>
+            <p className="text-slate-300 leading-relaxed mb-4">
+              If you have questions about this Privacy Policy or how we handle your data, please contact us:
+            </p>
+            <div className="space-y-2 text-sm">
+              <p className="text-slate-400">
+                <strong className="text-white">Email:</strong> {siteConfig.contact.privacy}
+              </p>
+              {/* <p className="text-slate-400">
+                <strong className="text-white">Address:</strong> {siteConfig.address.line1}, {siteConfig.address.line2}, {siteConfig.address.city}, {siteConfig.address.state} {siteConfig.address.zip}, {siteConfig.address.country}
+              </p> */}
             </div>
-          </div>
-        </footer>
+          </motion.div>
+        </div>
       </div>
+
+      <Footer />
     </>
   )
 }

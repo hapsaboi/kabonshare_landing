@@ -6,50 +6,49 @@ import { HiCheckCircle, HiLightningBolt, HiCode, HiServer, HiShieldCheck } from 
 const features = [
   {
     icon: FaMobileAlt,
-    title: 'Unified Publishing API',
-    description: 'Post to Instagram, TikTok, YouTube, Facebook Pages, Threads, Twitter, and LinkedIn with one JSON payload',
+    title: 'Multi-Platform Publishing',
+    description: 'Post to Instagram (Feed, Stories, Reels), Facebook Pages, Threads, TikTok, and YouTube with one unified API endpoint',
     code: `{
-  "platforms": ["instagram", "tiktok"],
-  "content": {
-    "text": "Hello World!",
-    "media": ["video.mp4"]
-  }
+  "platforms": ["instagram", "tiktok", "youtube"],
+  "contentType": "reel",
+  "text": "Hello World! 🚀",
+  "media": ["video.mp4"]
 }`,
     color: '#3B82F6' // Blue
   },
   {
     icon: FaLock,
     title: 'OAuth Management',
-    description: 'We handle all the OAuth complexity. Users connect their accounts once, we manage tokens, refreshes, and security',
+    description: 'Complete OAuth flow handling with secure token storage, automatic refresh, and session management. Users connect once, we handle everything.',
     benefit: 'Save 100+ hours of implementation',
     color: '#8B5CF6' // Purple
   },
   {
     icon: FaImage,
-    title: 'Media Processing',
-    description: 'Upload images and videos once. We automatically optimize, resize, and format for each platform\'s specific requirements',
-    specs: 'Up to 4GB video support',
+    title: 'Asset Library & Storage',
+    description: 'Upload media once to your asset library, reuse across multiple posts. Includes smart storage quota management with 5GB to 100GB based on plan',
+    specs: 'Up to 4GB video files, organized folders',
     color: '#10B981' // Emerald
   },
   {
     icon: FaClock,
-    title: 'Smart Scheduling',
-    description: 'Schedule posts for optimal engagement times. Automatic retries with exponential backoff ensure delivery',
-    features: ['6-month scheduling window', 'Bulk upload support', 'Timezone management'],
+    title: 'Smart Scheduling & Queue',
+    description: 'Schedule posts with Redis-backed job queue. Automatic retries with exponential backoff ensure guaranteed delivery even if platforms are temporarily unavailable',
+    features: ['Bull/Redis queue system', 'Future scheduling', 'Automatic retries', 'Webhook notifications'],
     color: '#F59E0B' // Amber
   },
   {
     icon: FaBell,
-    title: 'Real-time Webhooks',
-    description: 'Get instant notifications when posts are published, engagement happens, or if any errors occur during processing',
-    webhookEvents: ['post.published', 'post.failed', 'post.engagement'],
+    title: 'Workspaces & Multi-Account',
+    description: 'Organize social accounts into separate workspaces. Perfect for agencies managing multiple clients or users with multiple brands',
+    features: ['Unlimited workspaces on Pro+', 'Per-workspace account limits', 'Isolated environments'],
     color: '#EF4444' // Red
   },
   {
     icon: FaChartLine,
-    title: 'Unified Analytics',
-    description: 'Track impressions, engagement, and reach across all connected platforms in a single standardized format',
-    metrics: ['Total reach & impressions', 'Engagement rates', 'Cross-platform comparison'],
+    title: 'Credit-Based Billing',
+    description: 'Flexible credit system with subscription and purchased credits. 1 credit per post regardless of media type or platform count. Track usage in real-time',
+    metrics: ['Monthly subscription credits', 'One-time purchased credits', 'Real-time tracking', 'Automatic renewals'],
     color: '#6366F1' // Indigo
   }
 ]

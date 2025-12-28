@@ -142,7 +142,7 @@ Search and replace throughout the project:
 - `https://api.media-share.io` → Your API URL
 - `support@media-share.io` → Your support email
 - `sales@media-share.io` → Your sales email
-- `@mediashareapi` → Your Twitter handle
+- `@kabonshare` → Your Twitter handle
 
 ### 🔹 Add Your Logo
 

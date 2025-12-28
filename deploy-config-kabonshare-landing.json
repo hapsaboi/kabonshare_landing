@@ -1,0 +1,11 @@
+{
+  "appName": "kabonshare_landing",
+  "repo": "git@github.com:hapsaboi/kabonshare-landing.git",
+  "branch": "main",
+  "clonePath": "/var/www/kabonshare_landing",
+  "appType": "3",
+  "nextMode": "static",
+  "overwrite": "y",
+  "hasEnv": "y",
+  "envFile": "c:/Users/MY PC/Documents/Development/ReactJS/kabonshare-landing/.env.local"
+}

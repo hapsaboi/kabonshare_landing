@@ -6,7 +6,7 @@ import { SiThreads } from 'react-icons/si'
 const platforms = [
   {
     name: 'Instagram',
-    features: 'Posts, Stories, Reels, Analytics',
+    features: 'Feed Posts, Stories, Reels with cover photos',
     status: 'live',
     icon: FaInstagram,
     color: 'bg-gradient-to-r from-purple-500 via-pink-500 to-orange-500',
@@ -14,7 +14,7 @@ const platforms = [
   },
   {
     name: 'Facebook Pages',
-    features: 'Posts, Albums, Analytics',
+    features: 'Feed Posts, Stories, Reels, Albums',
     status: 'live',
     icon: FaFacebook,
     color: 'bg-blue-600',
@@ -22,7 +22,7 @@ const platforms = [
   },
   {
     name: 'Threads',
-    features: 'Text posts, Images',
+    features: 'Text, Images, Videos, Carousels',
     status: 'live',
     icon: SiThreads,
     color: 'bg-black',
@@ -30,22 +30,22 @@ const platforms = [
   },
   {
     name: 'TikTok',
-    features: 'Videos, Analytics',
-    status: 'coming',
+    features: 'Videos, Photo Carousels with custom covers',
+    status: 'live',
     icon: FaTiktok,
     color: 'bg-black',
     iconColor: 'text-white'
   },
   {
     name: 'YouTube',
-    features: 'Videos, Shorts, Analytics',
-    status: 'coming',
+    features: 'Videos, Shorts with custom thumbnails',
+    status: 'live',
     icon: FaYoutube,
     color: 'bg-red-600',
     iconColor: 'text-white'
   },
   {
-    name: 'X',
+    name: 'X (Twitter)',
     features: 'Posts, Threads, Media',
     status: 'coming',
     icon: FaTwitter,
@@ -54,7 +54,7 @@ const platforms = [
   },
   {
     name: 'LinkedIn',
-    features: 'Posts, Company Pages',
+    features: 'Posts, Company Pages, Articles',
     status: 'coming',
     icon: FaLinkedin,
     color: 'bg-blue-700',

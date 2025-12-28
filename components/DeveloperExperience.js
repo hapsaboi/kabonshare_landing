@@ -6,52 +6,62 @@ import { SiNodedotjs, SiPython, SiCurl } from 'react-icons/si'
 
 const codeExamples = [
   {
+    language: 'cURL',
+    icon: SiCurl,
+    color: 'text-gray-600',
+    code: `curl -X POST https://api.kabonshare.com/api/posts \\
+  -H "X-API-Key: sk_your_api_key" \\
+  -F "platforms=instagram,tiktok,youtube" \\
+  -F "contentType=reel" \\
+  -F "text=Check out my new reel! 🎥" \\
+  -F "hashtags=viral,reels,trending" \\
+  -F "media=@video.mp4"`
+  },
+  {
     language: 'Node.js',
     icon: SiNodedotjs,
     color: 'text-green-600',
-    code: `const mediaShare = require('@media-share/sdk');
+    code: `const FormData = require('form-data');
+const fs = require('fs');
 
-const client = new mediaShare.Client({ 
-  apiKey: 'your_key' 
+const form = new FormData();
+form.append('platforms', 'instagram,facebook,threads');
+form.append('text', 'Hello from Node.js! 👋');
+form.append('media', fs.createReadStream('photo.jpg'));
+
+const response = await fetch('https://api.kabonshare.com/api/posts', {
+  method: 'POST',
+  headers: { 
+    'X-API-Key': 'sk_your_api_key',
+    ...form.getHeaders()
+  },
+  body: form
 });
 
-await client.posts.create({
-  platforms: ['instagram', 'tiktok'],
-  content: {
-    text: 'Hello world!',
-    media: ['photo.jpg']
-  }
-});`
+const data = await response.json();
+console.log(data);`
   },
   {
     language: 'Python',
     icon: SiPython,
     color: 'text-blue-600',
-    code: `from media_share import Client
+    code: `import requests
 
-client = Client(api_key='your_key')
+files = {'media': open('photo.jpg', 'rb')}
+data = {
+    'platforms': 'instagram,facebook',
+    'text': 'Hello from Python! 🐍',
+    'hashtags': 'python,api,automation'
+}
 
-client.posts.create(
-  platforms=['instagram', 'tiktok'],
-  content={
-    'text': 'Hello world!',
-    'media': ['photo.jpg']
-  }
-)`
-  },
-  {
-    language: 'cURL',
-    icon: SiCurl,
-    color: 'text-gray-600',
-    code: `curl -X POST https://api.media-share.io/v1/posts \\
-  -H "Authorization: Bearer YOUR_API_KEY" \\
-  -H "Content-Type: application/json" \\
-  -d '{
-    "platforms": ["instagram"],
-    "content": {
-      "text": "Hello!"
-    }
-  }'`
+response = requests.post(
+    'https://api.kabonshare.com/api/posts',
+    headers={'X-API-Key': 'sk_your_api_key'},
+    data=data,
+    files=files
+)
+
+print(response.json())`
   }
 ]
 
