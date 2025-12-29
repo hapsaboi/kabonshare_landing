@@ -99,42 +99,12 @@ export default function ContactSupport() {
           ))}
         </div>
 
-        {/* Quick Resources */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.3 }}
-          className="bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-lg border border-gray-200 dark:border-gray-700 mb-12"
-        >
-          <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-6 text-center">
-            Quick Resources
-          </h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {resources.map((resource, index) => (
-              <motion.a
-                key={index}
-                href={resource.link}
-                initial={{ opacity: 0, y: 10 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: 0.4 + (index * 0.05) }}
-                whileHover={{ x: 4 }}
-                className="group flex items-center justify-between p-4 rounded-lg bg-gray-50 dark:bg-gray-900 hover:bg-primary/5 dark:hover:bg-primary/10 transition-all border border-gray-200 dark:border-gray-700"
-              >
-                <span className="font-semibold text-gray-900 dark:text-white group-hover:text-primary transition-colors">{resource.title}</span>
-                <span className="text-xs px-2 py-1 bg-primary/10 text-primary rounded-full font-medium">{resource.badge}</span>
-              </motion.a>
-            ))}
-          </div>
-        </motion.div>
-
         {/* Bottom CTA - Simplified */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.5 }}
+          transition={{ duration: 0.6, delay: 0.3 }}
           className="bg-gradient-to-r from-primary to-secondary rounded-2xl p-8 md:p-12 text-center text-white shadow-xl"
         >
           <div className="flex items-center justify-center gap-3 mb-4">
@@ -147,7 +117,7 @@ export default function ContactSupport() {
             Talk to our team about custom implementations and enterprise solutions
           </p>
           <motion.a
-            href="mailto:sales@media-share.io"
+            href="mailto:info@kabonshare.com"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             className="inline-flex items-center gap-2 bg-white text-primary px-8 py-4 rounded-xl font-semibold text-lg hover:bg-gray-100 transition-all shadow-lg"

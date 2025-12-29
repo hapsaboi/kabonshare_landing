@@ -19,38 +19,34 @@ export default function Navbar() {
     { label: 'Features', href: '/#features' },
     { label: 'Platforms', href: '/#platforms' },
     { label: 'Pricing', href: '/pricing' },
-    { label: 'Docs', href: '/#developer-experience' },
+    { label: 'Use Cases', href: '/case-studies' },
   ]
 
   return (
-    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+    <nav className={`fixed top-0 left-0 right-0 z-50 ${
       isScrolled 
-        ? 'bg-white/95 backdrop-blur-md shadow-lg py-4' 
-        : 'bg-transparent py-6'
+        ? 'bg-white shadow-sm' 
+        : 'bg-white'
     }`}>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between">
+      <div className="max-w-6xl mx-auto px-6">
+        <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-3 group">
-            <div className="w-10 h-10 bg-gradient-primary rounded-lg flex items-center justify-center shadow-lg group-hover:shadow-xl transition-shadow">
-              <span className="text-white font-bold text-xl">K</span>
+          <Link href="/" className="flex items-center gap-2 group">
+            <div className="w-8 h-8 bg-primary rounded-md flex items-center justify-center">
+              <span className="text-white font-bold text-lg">K</span>
             </div>
-            <span className={`font-bold text-xl transition-colors ${
-              isScrolled ? 'text-gray-900' : 'text-white'
-            }`}>
-              KabonShare
+            <span className="font-semibold text-gray-900">
+              Kabon Share
             </span>
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center gap-8">
+          <div className="hidden md:flex items-center gap-1">
             {navLinks.map((link, index) => (
               <a
                 key={index}
                 href={link.href}
-                className={`font-medium transition-colors hover:text-primary ${
-                  isScrolled ? 'text-gray-700' : 'text-white/90'
-                }`}
+                className="px-3 py-2 text-sm text-gray-600 hover:text-gray-900 font-medium"
               >
                 {link.label}
               </a>
@@ -58,59 +54,57 @@ export default function Navbar() {
           </div>
 
           {/* CTA Buttons */}
-          <div className="hidden md:flex items-center gap-4">
+          <div className="hidden md:flex items-center gap-2">
             <a
               href="https://dashboard.kabonshare.com"
-              className={`font-medium transition-colors ${
-                isScrolled ? 'text-gray-700 hover:text-primary' : 'text-white/90 hover:text-white'
-              }`}
+              className="px-4 py-2 text-sm text-gray-600 hover:text-gray-900 font-medium"
             >
               Sign In
             </a>
             <a
               href="https://dashboard.kabonshare.com"
-              className="bg-gradient-primary text-white px-6 py-2.5 rounded-lg font-semibold hover:shadow-xl transition-all duration-300 hover:scale-105"
+              className="px-4 py-2 bg-primary text-white text-sm font-medium rounded-md hover:bg-primary/90"
             >
-              Start Free Trial
+              Get Started
             </a>
           </div>
 
           {/* Mobile Menu Button */}
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className={`md:hidden text-2xl ${
-              isScrolled ? 'text-gray-900' : 'text-white'
-            }`}
+            className="md:hidden text-gray-900"
           >
-            {isMobileMenuOpen ? <FaTimes /> : <FaBars />}
+            {isMobileMenuOpen ? <FaTimes size={20} /> : <FaBars size={20} />}
           </button>
         </div>
 
         {/* Mobile Menu */}
         {isMobileMenuOpen && (
-          <div className="md:hidden mt-4 py-4 bg-white rounded-lg shadow-xl">
-            {navLinks.map((link, index) => (
-              <a
-                key={index}
-                href={link.href}
-                onClick={() => setIsMobileMenuOpen(false)}
-                className="block px-4 py-3 text-gray-700 hover:bg-gray-50 hover:text-primary transition-colors"
-              >
-                {link.label}
-              </a>
-            ))}
-            <div className="px-4 py-3 space-y-2">
+          <div className="md:hidden pb-4 border-t">
+            <div className="py-2 space-y-1">
+              {navLinks.map((link, index) => (
+                <a
+                  key={index}
+                  href={link.href}
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="block px-3 py-2 text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-50"
+                >
+                  {link.label}
+                </a>
+              ))}
+            </div>
+            <div className="pt-2 px-3 space-y-2">
               <a
                 href="https://dashboard.kabonshare.com"
-                className="block text-center text-gray-700 hover:text-primary py-2"
+                className="block text-center px-4 py-2 text-sm text-gray-600 hover:text-gray-900"
               >
                 Sign In
               </a>
               <a
                 href="https://dashboard.kabonshare.com"
-                className="block text-center bg-gradient-primary text-white py-2.5 rounded-lg font-semibold"
+                className="block text-center px-4 py-2 bg-primary text-white text-sm font-medium rounded-md"
               >
-                Start Free Trial
+                Get Started
               </a>
             </div>
           </div>
