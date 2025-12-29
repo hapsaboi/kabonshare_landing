@@ -115,9 +115,9 @@ export default function Pricing() {
       }
     }
 
-    features.push('Real-time webhooks')
     features.push('Analytics dashboard')
     features.push('Priority support')
+    features.push('API documentation')
 
     return features
   }
@@ -136,7 +136,7 @@ export default function Pricing() {
   return (
     <>
       <Head>
-        <title>Pricing - Media Share</title>
+        <title>Pricing - Kabon Share</title>
         <meta name="description" content="Choose the perfect plan for your social media publishing needs" />
       </Head>
 

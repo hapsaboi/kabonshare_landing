@@ -214,7 +214,7 @@ const response = await mediaShare.posts.create({
             We&apos;re constantly adding new integrations. Request a platform and we&apos;ll prioritize it for our roadmap.
           </p>
           <a
-            href="mailto:support@media-share.io?subject=Platform Request"
+            href="mailto:info@kabonshare.com?subject=Platform Request"
             className="inline-flex items-center gap-2 bg-white text-primary px-8 py-4 rounded-xl font-semibold text-lg hover:bg-gray-100 hover:scale-105 transition-all duration-300 shadow-lg"
           >
             <span>Request Platform Integration</span>

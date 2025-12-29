@@ -14,7 +14,7 @@ export default function Terms() {
       title: '1. Acceptance of Terms',
       content: [
         {
-          text: 'By accessing and using the Media Share service ("Service"), you accept and agree to be bound by the terms and provisions of this agreement. If you do not agree to abide by these terms, please do not use this Service.'
+          text: 'By accessing and using the Kabon Share service ("Service"), you accept and agree to be bound by the terms and provisions of this agreement. If you do not agree to abide by these terms, please do not use this Service.'
         }
       ]
     },
@@ -23,7 +23,7 @@ export default function Terms() {
       title: '2. Description of Service',
       content: [
         {
-          text: 'Media Share provides a unified API and application for publishing content to multiple social media platforms including Instagram, TikTok, YouTube, Facebook, Twitter/X, LinkedIn, and Threads. The Service includes:',
+          text: 'Kabon Share provides a unified API and application for publishing content to multiple social media platforms including Instagram, TikTok, YouTube, Facebook, Twitter/X, LinkedIn, and Threads. The Service includes:',
           items: [
             'API access for content publishing',
             'OAuth management and authentication',
@@ -139,8 +139,8 @@ export default function Terms() {
   return (
     <>
       <Head>
-        <title>Terms of Service - Media Share</title>
-        <meta name="description" content="Terms of Service for Media Share - Rules and guidelines for using our service" />
+        <title>Terms of Service - Kabon Share</title>
+        <meta name="description" content="Terms of Service for Kabon Share - Rules and guidelines for using our service" />
       </Head>
 
       <Navbar />

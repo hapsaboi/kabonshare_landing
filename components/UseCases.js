@@ -80,7 +80,7 @@ export default function UseCases() {
 
           <h2 className="text-4xl md:text-6xl font-bold text-gray-900 dark:text-white mb-6">
             <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary to-secondary">
-              Who Uses Media Share?
+              Who Uses Kabon Share?
             </span>
           </h2>
           <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto leading-relaxed">

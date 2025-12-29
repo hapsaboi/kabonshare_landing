@@ -27,14 +27,14 @@ const features = [
     icon: FaImage,
     title: 'Asset Library & Storage',
     description: 'Upload media once to your asset library, reuse across multiple posts. Includes smart storage quota management with 5GB to 100GB based on plan',
-    specs: 'Up to 4GB video files, organized folders',
+    specs: 'Up to 100GB video files, organized folders',
     color: '#10B981' // Emerald
   },
   {
     icon: FaClock,
     title: 'Smart Scheduling & Queue',
     description: 'Schedule posts with Redis-backed job queue. Automatic retries with exponential backoff ensure guaranteed delivery even if platforms are temporarily unavailable',
-    features: ['Bull/Redis queue system', 'Future scheduling', 'Automatic retries', 'Webhook notifications'],
+    features: ['Bull/Redis queue system', 'Future scheduling', 'Automatic retries', 'Status tracking'],
     color: '#F59E0B' // Amber
   },
   {

@@ -4,7 +4,7 @@ import { FaQuoteLeft } from 'react-icons/fa'
 
 const testimonials = [
   {
-    quote: "Media Share API saved us 3 months of development time. We launched social publishing in our SaaS product in just 2 days.",
+    quote: "Kabon Share API saved us 3 months of development time. We launched social publishing in our SaaS product in just 2 days.",
     author: "Sarah Johnson",
     role: "CTO at SocialHub",
     avatar: "👩‍💼",

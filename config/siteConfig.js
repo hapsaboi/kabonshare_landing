@@ -1,5 +1,5 @@
 export const siteConfig = {
-  name: 'Media Share',
+  name: 'Kabon Share',
   description: 'Publish Once, Reach Everyone',
   url: 'https://kabonshare.com',
   
@@ -14,7 +14,6 @@ export const siteConfig = {
     twitter: 'https://twitter.com/kabonshare',
     linkedin: 'https://linkedin.com/company/kabonshare',
     github: 'https://github.com/kabonshare',
-    discord: 'https://discord.gg/kabonshare',
   },
   
   address: {

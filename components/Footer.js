@@ -1,5 +1,5 @@
 'use client'
-import { FaTwitter, FaLinkedin, FaGithub, FaDiscord, FaHeart } from 'react-icons/fa'
+import { FaTwitter, FaLinkedin, FaGithub, FaHeart } from 'react-icons/fa'
 import { siteConfig } from '../config/siteConfig'
 
 const footerLinks = {
@@ -14,7 +14,7 @@ const footerLinks = {
     { label: 'Case Studies', href: '/case-studies' },
     { label: 'API Guides', href: siteConfig.api.docs + '/guides' },
     { label: 'Video Tutorials', href: '/tutorials' },
-    { label: 'Community Forum', href: 'https://community.media-share.io' }
+    { label: 'Community Forum', href: 'https://community.kabonshare.com' }
   ],
   legal: [
     { label: 'Terms of Service', href: '/terms' },
@@ -25,8 +25,7 @@ const footerLinks = {
 const socialLinks = [
   { icon: FaTwitter, href: siteConfig.social.twitter, label: '@kabonshare', color: 'hover:text-blue-400' },
   { icon: FaLinkedin, href: siteConfig.social.linkedin, label: 'LinkedIn', color: 'hover:text-blue-600' },
-  { icon: FaGithub, href: siteConfig.social.github, label: 'GitHub', color: 'hover:text-gray-600' },
-  { icon: FaDiscord, href: siteConfig.social.discord, label: 'Discord', color: 'hover:text-indigo-500' }
+  { icon: FaGithub, href: siteConfig.social.github, label: 'GitHub', color: 'hover:text-gray-600' }
 ]
 
 export default function Footer() {
@@ -37,7 +36,7 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 mb-12">
           {/* Brand Column */}
           <div className="lg:col-span-2">
-            <h3 className="text-2xl font-bold text-white mb-4">Media Share API</h3>
+            <h3 className="text-2xl font-bold text-white mb-4">Kabon Share API</h3>
             <p className="text-gray-400 mb-6 leading-relaxed">
               One API to rule them all social networks. Publish to 7+ platforms with a single call.
             </p>

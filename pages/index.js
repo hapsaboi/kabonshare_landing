@@ -12,7 +12,7 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>Media Share - Publish Once, Reach Everyone</title>
+        <title>Kabon Share - Publish Once, Reach Everyone</title>
         <meta name="description" content="Multi-platform social media publishing API and app. Publish to Instagram, Facebook, Threads, TikTok, and YouTube with one API. Includes OAuth, scheduling, asset library, and workspaces." />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="keywords" content="social media API, multi-platform posting, Instagram API, TikTok API, YouTube API, Facebook API, Threads API, social media automation, content management API, developer tools" />

@@ -29,10 +29,10 @@ const pricingPlans = [
       '1,000 posts/month',
       '10 connected accounts',
       'Analytics dashboard',
-      'Webhook support',
       'Email support',
       'Scheduling features',
-      'Multi-platform posting'
+      'Multi-platform posting',
+      'Priority queue'
     ],
     cta: 'Start Trial',
     popular: false,
@@ -48,10 +48,10 @@ const pricingPlans = [
       '50 connected accounts',
       'Advanced analytics',
       'Priority support',
-      'Custom webhooks',
       'Team collaboration',
       'Bulk scheduling',
-      'White-label option'
+      'White-label option',
+      'Dedicated support'
     ],
     cta: 'Start Trial',
     popular: true,

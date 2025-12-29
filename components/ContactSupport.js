@@ -1,29 +1,21 @@
 'use client'
 import { motion } from 'framer-motion'
-import { FaBook, FaDiscord, FaEnvelope, FaPhone, FaRocket, FaCode } from 'react-icons/fa'
+import { FaBook, FaEnvelope, FaPhone, FaRocket, FaCode } from 'react-icons/fa'
 
 const supportChannels = [
   {
     icon: FaBook,
     title: 'Documentation',
     description: 'Complete API reference & guides',
-    link: 'https://docs.media-share.io',
+    link: 'https://docs.kabonshare.com',
     linkText: 'Browse Docs',
     gradient: 'from-blue-500 to-cyan-500'
-  },
-  {
-    icon: FaDiscord,
-    title: 'Discord Community',
-    description: '5,000+ active developers',
-    link: 'https://discord.gg/kabonshare',
-    linkText: 'Join Discord',
-    gradient: 'from-indigo-500 to-purple-500'
   },
   {
     icon: FaEnvelope,
     title: 'Email Support',
     description: '24-hour response time',
-    link: 'mailto:support@media-share.io',
+    link: 'mailto:info@kabonshare.com',
     linkText: 'Email Us',
     gradient: 'from-green-500 to-emerald-500'
   },
@@ -31,19 +23,19 @@ const supportChannels = [
     icon: FaPhone,
     title: 'Enterprise Support',
     description: 'Priority phone support',
-    link: 'mailto:sales@media-share.io',
+    link: 'mailto:info@kabonshare.com',
     linkText: 'Contact Sales',
     gradient: 'from-orange-500 to-red-500'
   }
 ]
 
 const resources = [
-  { title: 'API Reference', link: 'https://docs.media-share.io/api', badge: 'Docs' },
-  { title: 'Quick Start Guide', link: 'https://docs.media-share.io/quickstart', badge: 'Guide' },
-  { title: 'Code Examples', link: 'https://github.com/media-share', badge: 'GitHub' },
-  { title: 'Video Tutorials', link: 'https://docs.media-share.io/guides', badge: 'Learn' },
-  { title: 'Changelog', link: 'https://docs.media-share.io/changelog', badge: 'Updates' },
-  { title: 'API Status', link: 'https://status.media-share.io', badge: 'Live' }
+  { title: 'API Reference', link: 'https://docs.kabonshare.com/api', badge: 'Docs' },
+  { title: 'Quick Start Guide', link: 'https://docs.kabonshare.com/quickstart', badge: 'Guide' },
+  { title: 'Code Examples', link: 'https://github.com/kabonshare', badge: 'GitHub' },
+  { title: 'Video Tutorials', link: 'https://docs.kabonshare.com/guides', badge: 'Learn' },
+  { title: 'Changelog', link: 'https://docs.kabonshare.com/changelog', badge: 'Updates' },
+  { title: 'API Status', link: 'https://status.kabonshare.com', badge: 'Live' }
 ]
 
 export default function ContactSupport() {

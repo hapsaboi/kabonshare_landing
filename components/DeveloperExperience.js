@@ -172,7 +172,7 @@ export default function DeveloperExperience() {
               </h4>
               <div className="space-y-2 text-sm text-gray-700 dark:text-gray-300">
                 <p>1. Sign up for a free API key</p>
-                <p>2. Install the SDK: <code className="bg-white dark:bg-gray-900 px-2 py-1 rounded">npm install @media-share/sdk</code></p>
+                <p>2. Make your first API call</p>
                 <p>3. Start publishing in minutes!</p>
               </div>
             </motion.div>
@@ -204,11 +204,6 @@ export default function DeveloperExperience() {
                   description: 'Clear guides, API references, and examples for every use case'
                 },
                 {
-                  icon: '🎯',
-                  title: 'Type-Safe SDKs',
-                  description: 'Official SDKs for JavaScript, Python, Ruby, Go, and PHP'
-                },
-                {
                   icon: '⚡',
                   title: 'Fast Response Times',
                   description: 'Average API response time under 200ms globally'
@@ -219,14 +214,19 @@ export default function DeveloperExperience() {
                   description: 'Clear error codes and messages to debug quickly'
                 },
                 {
-                  icon: '🧪',
-                  title: 'Sandbox Environment',
-                  description: 'Test your integration without affecting production'
+                  icon: '🔄',
+                  title: 'RESTful API',
+                  description: 'Simple and intuitive REST API that works with any programming language'
                 },
                 {
-                  icon: '📡',
-                  title: 'Real-time Webhooks',
-                  description: 'Get notified instantly about post status changes'
+                  icon: '🎯',
+                  title: 'Reliable Delivery',
+                  description: 'Automatic retries and queue system ensure your posts are published'
+                },
+                {
+                  icon: '💳',
+                  title: 'Flexible Billing',
+                  description: 'Credit-based system with clear pricing and real-time usage tracking'
                 }
               ].map((feature, index) => (
                 <motion.div
@@ -259,7 +259,7 @@ export default function DeveloperExperience() {
               className="pt-6"
             >
               <a
-                href="https://docs.media-share.io"
+                href="https://docs.kabonshare.com"
                 className="inline-flex items-center gap-2 bg-gradient-primary text-white px-8 py-4 rounded-lg font-semibold text-lg hover:shadow-xl hover:scale-105 transition-all duration-300"
               >
                 <FaCode />
