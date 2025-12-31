@@ -16,6 +16,9 @@ const footerLinks = {
     { label: 'Video Tutorials', href: '/tutorials' },
     { label: 'Community Forum', href: 'https://community.kabonshare.com' }
   ],
+  company: [
+    { label: 'Contact Us', href: '/contact' }
+  ],
   legal: [
     { label: 'Terms of Service', href: '/terms' },
     { label: 'Privacy Policy', href: '/privacy' }
@@ -33,13 +36,30 @@ export default function Footer() {
     <footer className="bg-gray-900 text-gray-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         {/* Top Section */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 mb-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-8 mb-12">
           {/* Brand Column */}
           <div className="lg:col-span-2">
             <h3 className="text-2xl font-bold text-white mb-4">Kabon Share API</h3>
             <p className="text-gray-400 mb-6 leading-relaxed">
               One API to rule them all social networks. Publish to 7+ platforms with a single call.
             </p>
+            
+            {/* Contact Info */}
+            <div className="mb-6 space-y-2">
+              <p className="text-sm text-gray-400">
+                <span className="font-semibold text-white">Email:</span>{' '}
+                <a href="mailto:info@kabonshare.com" className="hover:text-primary transition-colors">
+                  info@kabonshare.com
+                </a>
+              </p>
+              <p className="text-sm text-gray-400">
+                <span className="font-semibold text-white">Support:</span>{' '}
+                <a href="mailto:support@kabonshare.com" className="hover:text-primary transition-colors">
+                  support@kabonshare.com
+                </a>
+              </p>
+            </div>
+            
             {/* Social Links */}
             <div className="flex gap-4">
               {socialLinks.map((social, index) => (
@@ -79,6 +99,23 @@ export default function Footer() {
             <h4 className="text-white font-bold mb-4">Resources</h4>
             <ul className="space-y-2">
               {footerLinks.resources.map((link, index) => (
+                <li key={index}>
+                  <a
+                    href={link.href}
+                    className="text-gray-400 hover:text-white transition-colors duration-200"
+                  >
+                    {link.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Company */}
+          <div>
+            <h4 className="text-white font-bold mb-4">Company</h4>
+            <ul className="space-y-2">
+              {footerLinks.company.map((link, index) => (
                 <li key={index}>
                   <a
                     href={link.href}
