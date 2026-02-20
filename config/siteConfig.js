@@ -1,29 +1,31 @@
 export const siteConfig = {
-  name: 'Kabon Share',
-  description: 'Publish Once, Reach Everyone',
+  name: 'KabonShare',
+  tagline: 'Publish Once, Reach Everyone',
+  description: 'Publish to Instagram, Facebook, Threads, TikTok, and YouTube from one platform. Mobile app, web dashboard, or developer API — schedule, manage, and grow your social presence effortlessly.',
   url: 'https://kabonshare.com',
   
   contact: {
-    support: 'info@kabonshare.com',
-    sales: 'info@kabonshare.com',
-    privacy: 'info@kabonshare.com',
-    legal: 'info@kabonshare.com',
+    support: 'support@kabonshare.com',
+    info: 'info@kabonshare.com',
+    enterprise: 'support@kabonshare.com',
   },
+  
+  phone: '+234 903 332 6993',
   
   social: {
     twitter: 'https://twitter.com/kabonshare',
-    linkedin: 'https://linkedin.com/company/kabonshare',
-    github: 'https://github.com/kabonshare',
+    instagram: 'https://instagram.com/kabonshare',
+    tiktok: 'https://tiktok.com/@kabonshare',
   },
   
   address: {
-    line1: '123 Tech Street',
-    line2: 'Suite 100',
-    city: 'San Francisco',
-    state: 'CA',
-    zip: '94102',
-    country: 'United States'
+    line1: 'No. 5 AGF Abdulrazak Street',
+    line2: 'Off 1st Avenue, Gwarinpa',
+    city: 'FCT Abuja',
+    country: 'Nigeria'
   },
+  
+  dashboard: 'https://dashboard.kabonshare.com',
   
   api: {
     baseUrl: process.env.NEXT_PUBLIC_API_URL || 'https://api.kabonshare.com',

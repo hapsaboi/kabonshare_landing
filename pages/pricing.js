@@ -136,7 +136,7 @@ export default function Pricing() {
   return (
     <>
       <Head>
-        <title>Pricing - Kabon Share</title>
+        <title>Pricing - KabonShare</title>
         <meta name="description" content="Choose the perfect plan for your social media publishing needs" />
       </Head>
 
@@ -315,8 +315,8 @@ export default function Pricing() {
                     </ul>
 
                     {/* CTA Button */}
-                    <Link
-                      href={price && price.amount > 0 ? '/signup' : '/signup'}
+                    <a
+                      href="https://dashboard.kabonshare.com/signup"
                       className={`block w-full text-center py-3 px-6 rounded-xl font-semibold transition-all text-sm ${
                         isPopular
                           ? 'bg-gradient-to-r from-indigo-500 to-cyan-500 text-white hover:shadow-lg hover:shadow-indigo-500/50'
@@ -324,7 +324,7 @@ export default function Pricing() {
                       }`}
                     >
                       {price && price.amount > 0 ? 'Get Started' : 'Start Free'}
-                    </Link>
+                    </a>
                   </motion.div>
                 )
               })}

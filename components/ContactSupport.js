@@ -1,47 +1,42 @@
 'use client'
 import { motion } from 'framer-motion'
-import { FaBook, FaEnvelope, FaPhone, FaRocket, FaCode } from 'react-icons/fa'
+import { HiOutlineBookOpen, HiOutlineMail, HiOutlinePhone } from 'react-icons/hi'
+import { siteConfig } from '../config/siteConfig'
 
 const supportChannels = [
   {
-    icon: FaBook,
+    icon: HiOutlineBookOpen,
     title: 'Documentation',
     description: 'Complete API reference & guides',
-    link: 'https://docs.kabonshare.com',
+    link: siteConfig.api.docs,
     linkText: 'Browse Docs',
     gradient: 'from-blue-500 to-cyan-500'
   },
   {
-    icon: FaEnvelope,
+    icon: HiOutlineMail,
     title: 'Email Support',
     description: '24-hour response time',
-    link: 'mailto:info@kabonshare.com',
+    link: `mailto:${siteConfig.contact.support}`,
     linkText: 'Email Us',
     gradient: 'from-green-500 to-emerald-500'
   },
   {
-    icon: FaPhone,
-    title: 'Enterprise Support',
-    description: 'Priority phone support',
-    link: 'mailto:info@kabonshare.com',
-    linkText: 'Contact Sales',
+    icon: HiOutlinePhone,
+    title: 'Phone Support',
+    description: 'Direct line for urgent issues',
+    link: `tel:${siteConfig.phone.replace(/\s/g, '')}`,
+    linkText: 'Call Us',
     gradient: 'from-orange-500 to-red-500'
   }
 ]
 
-const resources = [
-  { title: 'API Reference', link: 'https://docs.kabonshare.com/api', badge: 'Docs' },
-  { title: 'Quick Start Guide', link: 'https://docs.kabonshare.com/quickstart', badge: 'Guide' },
-  { title: 'Code Examples', link: 'https://github.com/kabonshare', badge: 'GitHub' },
-  { title: 'Video Tutorials', link: 'https://docs.kabonshare.com/guides', badge: 'Learn' },
-  { title: 'Changelog', link: 'https://docs.kabonshare.com/changelog', badge: 'Updates' },
-  { title: 'API Status', link: 'https://status.kabonshare.com', badge: 'Live' }
-]
-
 export default function ContactSupport() {
   return (
-    <section id="contact-support" className="py-20 bg-gray-50 dark:bg-gray-900">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="contact-support" className="py-24 bg-white relative overflow-hidden">
+      {/* Subtle background */}
+      <div className="absolute inset-0 opacity-[0.02]" style={{ backgroundImage: 'radial-gradient(circle at 1px 1px, #667eea 1px, transparent 0)', backgroundSize: '40px 40px' }} />
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -55,23 +50,25 @@ export default function ContactSupport() {
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
-            className="inline-block mb-4"
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-indigo-50 border border-indigo-100 mb-6"
           >
-            <span className="px-4 py-2 bg-gradient-to-r from-blue-500/10 to-purple-500/10 dark:from-blue-500/20 dark:to-purple-500/20 text-primary dark:text-blue-400 rounded-full text-sm font-semibold border border-blue-500/20">
-              Support
-            </span>
+            <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
+            <span className="text-sm font-medium text-indigo-700">Support</span>
           </motion.div>
 
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4">
-            We&apos;re Here to Help
+          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6 tracking-tight">
+            We&apos;re Here to{' '}
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary">
+              Help
+            </span>
           </h2>
-          <p className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+          <p className="text-lg text-gray-500 max-w-2xl mx-auto">
             Choose how you want to connect with us
           </p>
         </motion.div>
 
-        {/* Main Support Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 mb-12">
+        {/* Support Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-5 mb-16">
           {supportChannels.map((channel, index) => (
             <motion.a
               key={index}
@@ -80,50 +77,42 @@ export default function ContactSupport() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: index * 0.08 }}
-              whileHover={{ y: -5 }}
-              className="group relative bg-white dark:bg-gray-800 rounded-xl p-5 shadow-md hover:shadow-xl transition-all border border-gray-200 dark:border-gray-700"
+              whileHover={{ y: -4 }}
+              className="group bg-white rounded-2xl p-6 border border-gray-100 hover:border-indigo-100 hover:shadow-xl hover:shadow-indigo-500/5 transition-all duration-300"
             >
-              <div className={`w-12 h-12 bg-gradient-to-br ${channel.gradient} rounded-lg flex items-center justify-center mb-4 group-hover:scale-110 transition-transform`}>
+              <div className={`w-12 h-12 bg-gradient-to-br ${channel.gradient} rounded-xl flex items-center justify-center mb-4 shadow-lg group-hover:scale-110 transition-transform`}>
                 <channel.icon className="text-xl text-white" />
               </div>
-              <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-1">
-                {channel.title}
-              </h3>
-              <p className="text-sm text-gray-600 dark:text-gray-400 mb-3">
-                {channel.description}
-              </p>
-              <span className="inline-flex items-center gap-1 text-sm text-primary group-hover:text-secondary font-semibold transition-colors">
-                {channel.linkText} →
+              <h3 className="text-lg font-bold text-gray-900 mb-1">{channel.title}</h3>
+              <p className="text-sm text-gray-500 mb-3">{channel.description}</p>
+              <span className="inline-flex items-center gap-1 text-sm text-indigo-600 font-semibold group-hover:gap-2 transition-all">
+                {channel.linkText} <span>→</span>
               </span>
             </motion.a>
           ))}
         </div>
 
-        {/* Bottom CTA - Simplified */}
+        {/* CTA */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.3 }}
-          className="bg-gradient-to-r from-primary to-secondary rounded-2xl p-8 md:p-12 text-center text-white shadow-xl"
+          className="bg-gradient-to-r from-primary to-secondary rounded-2xl p-8 md:p-10 text-center text-white"
         >
-          <div className="flex items-center justify-center gap-3 mb-4">
-            <FaRocket className="text-3xl" />
-            <h3 className="text-3xl md:text-4xl font-bold">
-              Need Custom Integration?
-            </h3>
-          </div>
-          <p className="text-lg mb-6 opacity-90 max-w-2xl mx-auto">
-            Talk to our team about custom implementations and enterprise solutions
+          <h3 className="text-2xl md:text-3xl font-bold mb-3">
+            Need a Custom Solution?
+          </h3>
+          <p className="text-lg mb-6 text-white/80 max-w-xl mx-auto">
+            Talk to our team about custom integrations and enterprise implementations.
           </p>
-          <motion.a
-            href="mailto:info@kabonshare.com"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className="inline-flex items-center gap-2 bg-white text-primary px-8 py-4 rounded-xl font-semibold text-lg hover:bg-gray-100 transition-all shadow-lg"
+          <a
+            href={`mailto:${siteConfig.contact.info}`}
+            className="inline-flex items-center gap-2 bg-white text-indigo-600 px-7 py-3.5 rounded-xl font-semibold hover:bg-gray-50 hover:-translate-y-0.5 transition-all duration-300 shadow-lg"
           >
-            Contact Sales Team
-          </motion.a>
+            Contact Us
+            <span className="text-lg">→</span>
+          </a>
         </motion.div>
       </div>
     </section>

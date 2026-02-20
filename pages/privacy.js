@@ -123,8 +123,8 @@ export default function Privacy() {
   return (
     <>
       <Head>
-        <title>Privacy Policy - Kabon Share</title>
-        <meta name="description" content="Privacy Policy for Kabon Share - How we collect, use, and protect your data" />
+        <title>Privacy Policy - KabonShare</title>
+        <meta name="description" content="Privacy Policy for KabonShare - How we collect, use, and protect your data" />
       </Head>
 
       <Navbar />
@@ -178,7 +178,7 @@ export default function Privacy() {
             className="bg-slate-900/50 backdrop-blur-sm rounded-3xl p-8 border border-white/5 mb-8"
           >
             <p className="text-slate-300 leading-relaxed">
-              At Kabon Share (&quot;we&quot;, &quot;our&quot;, or &quot;us&quot;), we take your privacy seriously. This Privacy Policy explains how we 
+              At KabonShare (&quot;we&quot;, &quot;our&quot;, or &quot;us&quot;), we take your privacy seriously. This Privacy Policy explains how we 
               collect, use, disclose, and safeguard your information when you use our Service.
             </p>
           </motion.div>

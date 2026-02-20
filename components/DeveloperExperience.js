@@ -1,14 +1,16 @@
 'use client'
 import { motion } from 'framer-motion'
 import { useState } from 'react'
-import { FaCode, FaCopy, FaCheck } from 'react-icons/fa'
+import { FaCopy, FaCheck } from 'react-icons/fa'
+import { HiOutlineBookOpen, HiOutlineLightningBolt, HiOutlineSearch, HiOutlineRefresh, HiOutlineShieldCheck, HiOutlineCreditCard } from 'react-icons/hi'
 import { SiNodedotjs, SiPython, SiCurl } from 'react-icons/si'
+import { siteConfig } from '../config/siteConfig'
 
 const codeExamples = [
   {
     language: 'cURL',
     icon: SiCurl,
-    color: 'text-gray-600',
+    color: 'text-gray-400',
     code: `curl -X POST https://api.kabonshare.com/api/posts \\
   -H "X-API-Key: sk_your_api_key" \\
   -F "platforms=instagram,tiktok,youtube" \\
@@ -20,7 +22,7 @@ const codeExamples = [
   {
     language: 'Node.js',
     icon: SiNodedotjs,
-    color: 'text-green-600',
+    color: 'text-green-500',
     code: `const FormData = require('form-data');
 const fs = require('fs');
 
@@ -44,7 +46,7 @@ console.log(data);`
   {
     language: 'Python',
     icon: SiPython,
-    color: 'text-blue-600',
+    color: 'text-blue-500',
     code: `import requests
 
 files = {'media': open('photo.jpg', 'rb')}
@@ -65,6 +67,45 @@ print(response.json())`
   }
 ]
 
+const devFeatures = [
+  {
+    icon: HiOutlineBookOpen,
+    title: 'Comprehensive Docs',
+    description: 'Clear guides, API reference, and examples for every use case',
+    color: 'text-blue-400'
+  },
+  {
+    icon: HiOutlineLightningBolt,
+    title: 'Fast Response Times',
+    description: 'Average API response time under 200ms globally',
+    color: 'text-amber-400'
+  },
+  {
+    icon: HiOutlineSearch,
+    title: 'Detailed Error Messages',
+    description: 'Clear error codes and messages so you can debug quickly',
+    color: 'text-rose-400'
+  },
+  {
+    icon: HiOutlineRefresh,
+    title: 'RESTful API',
+    description: 'Simple REST API that works with any programming language',
+    color: 'text-emerald-400'
+  },
+  {
+    icon: HiOutlineShieldCheck,
+    title: 'Reliable Delivery',
+    description: 'Automatic retries and queue system ensure posts are published',
+    color: 'text-violet-400'
+  },
+  {
+    icon: HiOutlineCreditCard,
+    title: 'Flexible Billing',
+    description: 'Credit-based system with clear pricing, real-time tracking',
+    color: 'text-cyan-400'
+  }
+]
+
 export default function DeveloperExperience() {
   const [activeTab, setActiveTab] = useState(0)
   const [copied, setCopied] = useState(false)
@@ -76,32 +117,40 @@ export default function DeveloperExperience() {
   }
 
   return (
-    <section id="developer-experience" className="py-20 bg-gray-50 dark:bg-gray-900">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="developer-experience" className="py-24 bg-slate-950 relative overflow-hidden">
+      {/* Background */}
+      <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
+        <div className="absolute top-1/3 left-0 w-96 h-96 bg-emerald-500/5 rounded-full blur-3xl" />
+        <div className="absolute bottom-1/3 right-0 w-96 h-96 bg-cyan-500/5 rounded-full blur-3xl" />
+      </div>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-12"
+          className="text-center mb-16"
         >
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
-            className="inline-block mb-4"
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 backdrop-blur-sm mb-6"
           >
-            <span className="px-4 py-2 bg-gradient-to-r from-green-500/10 to-emerald-500/10 dark:from-green-500/20 dark:to-emerald-500/20 text-green-600 dark:text-green-400 rounded-full text-sm font-semibold border border-green-500/20">
-              Developer Experience
-            </span>
+            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+            <span className="text-sm font-medium text-emerald-300">Developer Experience</span>
           </motion.div>
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4">
-            Built for Developers
+          <h2 className="text-4xl md:text-5xl font-bold text-white mb-6 tracking-tight">
+            Built for{' '}
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-cyan-400">
+              Developers
+            </span>
           </h2>
-          <p className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
-            Clean, intuitive API that feels natural in any language
+          <p className="text-lg text-slate-400 max-w-2xl mx-auto">
+            Clean, intuitive API that feels natural in any language. Ship social publishing in hours, not months.
           </p>
         </motion.div>
 
@@ -113,17 +162,17 @@ export default function DeveloperExperience() {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl overflow-hidden">
+            <div className="bg-slate-900/80 backdrop-blur-sm rounded-2xl overflow-hidden border border-white/5">
               {/* Language Tabs */}
-              <div className="flex border-b border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-750">
+              <div className="flex border-b border-white/5 bg-slate-900/50">
                 {codeExamples.map((example, index) => (
                   <button
                     key={index}
                     onClick={() => setActiveTab(index)}
-                    className={`flex items-center gap-2 px-6 py-4 font-semibold transition-all ${
+                    className={`flex items-center gap-2 px-5 py-3.5 text-sm font-medium transition-all ${
                       activeTab === index
-                        ? 'bg-white dark:bg-gray-800 text-primary border-b-2 border-primary'
-                        : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white'
+                        ? 'bg-white/5 text-white border-b-2 border-indigo-500'
+                        : 'text-slate-500 hover:text-slate-300'
                     }`}
                   >
                     <example.icon className={activeTab === index ? example.color : ''} />
@@ -134,121 +183,76 @@ export default function DeveloperExperience() {
 
               {/* Code Display */}
               <div className="relative">
-                <pre className="bg-gray-900 text-gray-100 p-4 overflow-x-auto h-80 text-sm leading-relaxed">
+                <pre className="bg-slate-950 text-slate-300 p-5 overflow-x-auto h-80 text-sm leading-relaxed font-mono">
                   <code>{codeExamples[activeTab].code}</code>
                 </pre>
 
-                {/* Copy Button */}
                 <button
                   onClick={copyToClipboard}
-                  className="absolute top-4 right-4 bg-gray-700 hover:bg-gray-600 text-white p-2 rounded-lg transition-all duration-300 flex items-center gap-2"
+                  className="absolute top-3 right-3 bg-white/5 hover:bg-white/10 text-slate-400 hover:text-white p-2 rounded-lg transition-all duration-200 flex items-center gap-2 border border-white/5"
                 >
                   {copied ? (
                     <>
-                      <FaCheck className="text-green-400" />
-                      <span className="text-sm">Copied!</span>
+                      <FaCheck className="text-emerald-400 text-xs" />
+                      <span className="text-xs">Copied</span>
                     </>
                   ) : (
                     <>
-                      <FaCopy />
-                      <span className="text-sm">Copy</span>
+                      <FaCopy className="text-xs" />
+                      <span className="text-xs">Copy</span>
                     </>
                   )}
                 </button>
               </div>
             </div>
 
-            {/* Quick Start Info */}
+            {/* Quick Start */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.3 }}
-              className="mt-6 bg-gradient-to-r from-blue-50 to-purple-50 dark:from-gray-800 dark:to-gray-700 rounded-lg p-4"
+              className="mt-6 bg-slate-900/50 backdrop-blur-sm rounded-xl p-5 border border-white/5"
             >
-              <h4 className="font-bold text-gray-900 dark:text-white mb-3 flex items-center gap-2">
-                <FaCode className="text-primary" />
-                Quick Start
+              <h4 className="font-bold text-white mb-3 flex items-center gap-2 text-sm">
+                <HiOutlineLightningBolt className="text-amber-400" />
+                Quick Start — 3 Steps
               </h4>
-              <div className="space-y-2 text-sm text-gray-700 dark:text-gray-300">
-                <p>1. Sign up for a free API key</p>
-                <p>2. Make your first API call</p>
-                <p>3. Start publishing in minutes!</p>
+              <div className="space-y-2 text-sm text-slate-400">
+                <p className="flex items-center gap-2"><span className="w-5 h-5 rounded-full bg-indigo-500/20 text-indigo-400 text-xs flex items-center justify-center font-bold">1</span> Sign up and get your API key</p>
+                <p className="flex items-center gap-2"><span className="w-5 h-5 rounded-full bg-indigo-500/20 text-indigo-400 text-xs flex items-center justify-center font-bold">2</span> Connect your social accounts</p>
+                <p className="flex items-center gap-2"><span className="w-5 h-5 rounded-full bg-indigo-500/20 text-indigo-400 text-xs flex items-center justify-center font-bold">3</span> Start publishing in minutes</p>
               </div>
             </motion.div>
           </motion.div>
 
-          {/* Right: Benefits & Features */}
+          {/* Right: Benefits */}
           <motion.div
             initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="space-y-6"
+            className="space-y-4"
           >
-            <div>
-              <h3 className="text-3xl font-bold text-gray-900 dark:text-white mb-6">
-                Built for Developers
-              </h3>
-              <p className="text-lg text-gray-600 dark:text-gray-300 mb-8">
-                We obsess over developer experience so you can focus on building great products.
-              </p>
-            </div>
-
-            {/* Feature List */}
-            <div className="space-y-4">
-              {[
-                {
-                  icon: '📚',
-                  title: 'Comprehensive Documentation',
-                  description: 'Clear guides, API references, and examples for every use case'
-                },
-                {
-                  icon: '⚡',
-                  title: 'Fast Response Times',
-                  description: 'Average API response time under 200ms globally'
-                },
-                {
-                  icon: '🔍',
-                  title: 'Detailed Error Messages',
-                  description: 'Clear error codes and messages to debug quickly'
-                },
-                {
-                  icon: '🔄',
-                  title: 'RESTful API',
-                  description: 'Simple and intuitive REST API that works with any programming language'
-                },
-                {
-                  icon: '🎯',
-                  title: 'Reliable Delivery',
-                  description: 'Automatic retries and queue system ensure your posts are published'
-                },
-                {
-                  icon: '💳',
-                  title: 'Flexible Billing',
-                  description: 'Credit-based system with clear pricing and real-time usage tracking'
-                }
-              ].map((feature, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, x: 20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.4, delay: index * 0.1 }}
-                  className="flex gap-4 bg-white dark:bg-gray-800 p-4 rounded-lg shadow-md hover:shadow-lg transition-shadow"
-                >
-                  <div className="text-3xl flex-shrink-0">{feature.icon}</div>
-                  <div>
-                    <h4 className="font-bold text-gray-900 dark:text-white mb-1">
-                      {feature.title}
-                    </h4>
-                    <p className="text-sm text-gray-600 dark:text-gray-300">
-                      {feature.description}
-                    </p>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
+            {devFeatures.map((feature, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, x: 20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.4, delay: index * 0.08 }}
+                whileHover={{ x: 4 }}
+                className="flex gap-4 bg-slate-900/50 backdrop-blur-sm p-4 rounded-xl border border-white/5 hover:border-white/10 transition-all"
+              >
+                <div className="w-10 h-10 rounded-lg bg-white/5 flex items-center justify-center flex-shrink-0">
+                  <feature.icon className={`text-xl ${feature.color}`} />
+                </div>
+                <div>
+                  <h4 className="font-bold text-white mb-0.5 text-sm">{feature.title}</h4>
+                  <p className="text-sm text-slate-400">{feature.description}</p>
+                </div>
+              </motion.div>
+            ))}
 
             {/* CTA */}
             <motion.div
@@ -256,13 +260,13 @@ export default function DeveloperExperience() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.5 }}
-              className="pt-6"
+              className="pt-4"
             >
               <a
-                href="https://docs.kabonshare.com"
-                className="inline-flex items-center gap-2 bg-gradient-primary text-white px-8 py-4 rounded-lg font-semibold text-lg hover:shadow-xl hover:scale-105 transition-all duration-300"
+                href={siteConfig.api.docs}
+                className="inline-flex items-center gap-2 bg-gradient-to-r from-emerald-500 to-cyan-500 text-white px-7 py-3.5 rounded-xl font-semibold hover:shadow-xl hover:shadow-emerald-500/20 hover:-translate-y-0.5 transition-all duration-300"
               >
-                <FaCode />
+                <HiOutlineBookOpen className="text-lg" />
                 Explore API Docs
               </a>
             </motion.div>

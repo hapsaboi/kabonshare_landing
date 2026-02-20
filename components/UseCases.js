@@ -1,36 +1,36 @@
 'use client'
 import { motion } from 'framer-motion'
-import { FaBuilding, FaLaptopCode, FaShoppingCart, FaVideo } from 'react-icons/fa'
+import { HiOutlineOfficeBuilding, HiOutlineCode, HiOutlineShoppingCart, HiOutlineVideoCamera, HiOutlineCheck } from 'react-icons/hi'
 
 const useCases = [
   {
-    icon: FaBuilding,
+    icon: HiOutlineOfficeBuilding,
     title: 'For Agencies',
-    description: 'Manage 50+ client accounts across all platforms from one dashboard',
+    description: 'Manage dozens of client accounts across all platforms from one dashboard.',
     gradient: 'from-blue-600 to-indigo-600',
     benefits: [
       'Multi-client management',
-      'White-label capabilities',
-      'Team collaboration tools',
-      'Client reporting'
+      'Team collaboration',
+      'Client reporting',
+      'Bulk scheduling'
     ]
   },
   {
-    icon: FaLaptopCode,
+    icon: HiOutlineCode,
     title: 'For SaaS Products',
-    description: 'Add social publishing to your app in days, not months',
+    description: 'Add social publishing to your app in days, not months.',
     gradient: 'from-purple-600 to-pink-600',
     benefits: [
-      'Quick integration',
-      'Scalable infrastructure',
-      'Developer-friendly API',
-      'Comprehensive documentation'
+      'Simple REST API',
+      'Scalable infra',
+      'Comprehensive docs',
+      'Quick integration'
     ]
   },
   {
-    icon: FaShoppingCart,
+    icon: HiOutlineShoppingCart,
     title: 'For E-commerce',
-    description: 'Auto-publish products to Instagram Shop, TikTok Shop, and Facebook Marketplace',
+    description: 'Auto-publish products to Instagram, TikTok, and Facebook.',
     gradient: 'from-green-600 to-emerald-600',
     benefits: [
       'Product catalog sync',
@@ -40,25 +40,30 @@ const useCases = [
     ]
   },
   {
-    icon: FaVideo,
-    title: 'For Content Creators',
-    description: 'Schedule a week of content in 10 minutes',
+    icon: HiOutlineVideoCamera,
+    title: 'For Creators',
+    description: 'Schedule a week of content across every platform in minutes.',
     gradient: 'from-orange-600 to-red-600',
     benefits: [
-      'Bulk scheduling',
+      'Cross-posting',
       'Content calendar',
       'Analytics insights',
-      'Cross-platform posting'
+      'Reels & Shorts'
     ]
   }
 ]
 
 export default function UseCases() {
   return (
-    <section id="use-cases" className="py-20 bg-white dark:bg-gray-900">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
-        {/* Header with badge (like Platforms) */}
+    <section id="use-cases" className="py-24 bg-slate-950 relative overflow-hidden">
+      {/* Background */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute top-0 right-0 w-96 h-96 bg-violet-500/5 rounded-full blur-3xl" />
+        <div className="absolute bottom-0 left-0 w-96 h-96 bg-blue-500/5 rounded-full blur-3xl" />
+      </div>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -71,25 +76,24 @@ export default function UseCases() {
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
-            className="inline-flex items-center gap-2 bg-gradient-to-r from-indigo-50 to-purple-50 dark:from-indigo-900/20 dark:to-purple-900/20 px-6 py-3 rounded-full mb-6 border border-indigo-200 dark:border-indigo-800"
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 backdrop-blur-sm mb-6"
           >
-            <span className="text-indigo-600 dark:text-indigo-400 font-semibold text-sm uppercase tracking-wide">
-              4 Use Cases • Built for Scale
-            </span>
+            <span className="w-2 h-2 rounded-full bg-violet-500 animate-pulse" />
+            <span className="text-sm font-medium text-violet-300">Use Cases</span>
           </motion.div>
 
-          <h2 className="text-4xl md:text-6xl font-bold text-gray-900 dark:text-white mb-6">
-            <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary to-secondary">
-              Who Uses Kabon Share?
+          <h2 className="text-4xl md:text-5xl font-bold text-white mb-6 tracking-tight">
+            Who Uses{' '}
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-violet-400 to-indigo-400">
+              KabonShare?
             </span>
           </h2>
-          <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto leading-relaxed">
-            From solo creators to enterprise agencies, we built features that scale with your needs.
-            <span className="block mt-2 font-semibold text-primary">One API. Unlimited possibilities.</span>
+          <p className="text-lg text-slate-400 max-w-2xl mx-auto">
+            From solo creators to enterprise agencies — built for anyone who publishes to social media.
           </p>
         </motion.div>
 
-        {/* Grid matching Platforms style */}
+        {/* Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
           {useCases.map((useCase, index) => (
             <motion.div
@@ -97,54 +101,28 @@ export default function UseCases() {
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              whileHover={{ y: -8, scale: 1.02 }}
-              className="group relative bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-100 dark:border-gray-700"
+              transition={{ duration: 0.5, delay: index * 0.08 }}
+              whileHover={{ y: -4 }}
+              className="group relative bg-slate-900/50 backdrop-blur-sm rounded-2xl p-6 border border-white/5 hover:border-white/10 transition-all duration-300"
             >
-              {/* Icon & Title (like Platforms layout) */}
-              <div className="flex items-center gap-3 mb-4">
-                <motion.div
-                  whileHover={{ rotate: [0, -12, 12, -8, 0], scale: 1.1 }}
-                  transition={{ duration: 0.6, type: "spring" }}
-                  className={`w-14 h-14 bg-gradient-to-br ${useCase.gradient} rounded-2xl flex items-center justify-center shadow-lg group-hover:shadow-2xl transition-all`}
-                >
-                  <useCase.icon className="text-2xl text-white" />
-                </motion.div>
-                <div className="flex-1">
-                  <h3 className="text-lg font-bold text-gray-900 dark:text-white">
-                    {useCase.title}
-                  </h3>
-                  <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">
-                    Use Case
-                  </p>
-                </div>
+              {/* Icon */}
+              <div className={`w-12 h-12 bg-gradient-to-br ${useCase.gradient} rounded-xl flex items-center justify-center mb-4 shadow-lg`}>
+                <useCase.icon className="text-xl text-white" />
               </div>
 
-              {/* Description */}
-              <p className="text-sm text-gray-600 dark:text-gray-400 mb-4 leading-relaxed">
-                {useCase.description}
-              </p>
+              {/* Title & Description */}
+              <h3 className="text-lg font-bold text-white mb-2">{useCase.title}</h3>
+              <p className="text-sm text-slate-400 mb-4 leading-relaxed">{useCase.description}</p>
 
-              {/* Features section (like Platforms) */}
-              <div className="space-y-1.5">
-                <p className="text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1.5">
-                  Key Benefits:
-                </p>
-                <div className="flex flex-wrap gap-1.5">
-                  {useCase.benefits.map((benefit, idx) => (
-                    <span
-                      key={idx}
-                      className="inline-flex items-center gap-1 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 px-2 py-0.5 rounded text-xs font-medium"
-                    >
-                      <span className="text-primary">•</span>
-                      {benefit}
-                    </span>
-                  ))}
-                </div>
+              {/* Benefits */}
+              <div className="space-y-2">
+                {useCase.benefits.map((benefit, idx) => (
+                  <div key={idx} className="flex items-center gap-2 text-sm text-slate-300">
+                    <HiOutlineCheck className="text-green-400 text-xs flex-shrink-0" />
+                    {benefit}
+                  </div>
+                ))}
               </div>
-
-              {/* Hover border effect (like Platforms) */}
-              <div className="absolute inset-0 rounded-2xl border-2 border-transparent group-hover:border-primary/30 transition-all duration-300 pointer-events-none"></div>
             </motion.div>
           ))}
         </div>
