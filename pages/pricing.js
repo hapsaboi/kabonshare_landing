@@ -13,6 +13,7 @@ export default function Pricing() {
   const [billingCycle, setBillingCycle] = useState('month')
   const [currency, setCurrency] = useState('USD')
   const [availableCurrencies, setAvailableCurrencies] = useState(['USD'])
+  const [yearlyDiscount, setYearlyDiscount] = useState({ percent: 20, minMonths: 12 })
 
   useEffect(() => {
     fetchPlans()
@@ -30,6 +31,11 @@ export default function Pricing() {
       const data = await response.json()
       const fetchedPlans = data.plans || []
       setPlans(fetchedPlans)
+
+      // Store yearly discount config from backend
+      if (data.yearlyDiscount) {
+        setYearlyDiscount(data.yearlyDiscount)
+      }
       
       // Extract unique currencies from all plans
       const currencies = new Set()
@@ -61,17 +67,44 @@ export default function Pricing() {
 
   const getPlanPrice = (plan) => {
     if (!plan.prices || plan.prices.length === 0) return null
-    
-    // Find price matching current currency and billing cycle
-    let price = plan.prices.find(
-      p => p.currency === currency && p.interval === billingCycle
-    )
-    
-    // Fallback to USD if currency not found
-    if (!price) {
-      price = plan.prices.find(p => p.interval === billingCycle && p.currency === 'USD')
+
+    if (billingCycle === 'year') {
+      // Look for an explicit yearly price first
+      let yearlyPrice = plan.prices.find(
+        p => p.currency === currency && p.interval === 'year'
+      )
+      if (!yearlyPrice) {
+        yearlyPrice = plan.prices.find(p => p.interval === 'year' && p.currency === 'USD')
+      }
+      if (yearlyPrice) return yearlyPrice
+
+      // Calculate yearly from monthly price with discount
+      let monthlyPrice = plan.prices.find(
+        p => p.currency === currency && p.interval === 'month'
+      )
+      if (!monthlyPrice) {
+        monthlyPrice = plan.prices.find(p => p.interval === 'month' && p.currency === 'USD')
+      }
+      if (monthlyPrice) {
+        const discountMultiplier = 1 - (yearlyDiscount.percent / 100)
+        return {
+          ...monthlyPrice,
+          interval: 'year',
+          amount: Math.round(monthlyPrice.amount * 12 * discountMultiplier * 100) / 100,
+          _monthlyEquivalent: Math.round(monthlyPrice.amount * discountMultiplier * 100) / 100,
+          _isCalculated: true,
+        }
+      }
+      return null
     }
-    
+
+    // Monthly: find direct match
+    let price = plan.prices.find(
+      p => p.currency === currency && p.interval === 'month'
+    )
+    if (!price) {
+      price = plan.prices.find(p => p.interval === 'month' && p.currency === 'USD')
+    }
     return price
   }
 
@@ -103,6 +136,14 @@ export default function Pricing() {
           ? `${(storageMB / 1000).toFixed(1)}GB storage`
           : `${storageMB}MB storage`
         features.push(storageDisplay)
+      }
+      if (plan.limits.maxTeamMembers) {
+        const tm = plan.limits.maxTeamMembers
+        if (tm === -1) {
+          features.push('Unlimited team members')
+        } else if (tm > 1) {
+          features.push(`Up to ${tm} team members per workspace`)
+        }
       }
     }
 
@@ -196,15 +237,19 @@ export default function Pricing() {
               </button>
               <button
                 onClick={() => setBillingCycle('year')}
-                className={`px-8 py-3 rounded-xl font-medium transition-all ${
+                className={`px-8 py-3 rounded-xl font-medium transition-all flex items-center gap-2 ${
                   billingCycle === 'year'
                     ? 'bg-gradient-to-r from-indigo-500 to-cyan-500 text-white shadow-lg'
                     : 'text-slate-400 hover:text-white'
                 }`}
               >
                 Yearly
-                <span className="ml-2 text-xs bg-emerald-500/20 text-emerald-400 px-2 py-1 rounded-full">
-                  Save 20%
+                <span className={`text-xs px-2 py-1 rounded-full font-semibold ${
+                  billingCycle === 'year'
+                    ? 'bg-white/20 text-white'
+                    : 'bg-emerald-500/20 text-emerald-400'
+                }`}>
+                  Save {yearlyDiscount.percent}%
                 </span>
               </button>
             </div>
@@ -283,16 +328,32 @@ export default function Pricing() {
 
                     {/* Price */}
                     <div className="mb-6">
-                      {price ? (
+                      {price && price.amount > 0 ? (
                         <>
-                          <div className="flex items-baseline gap-1.5">
-                            <span className="text-3xl font-bold text-white break-all">
-                              {formatPrice(price.amount, price.currency)}
-                            </span>
-                            <span className="text-slate-400 text-sm">
-                              /{billingCycle}
-                            </span>
-                          </div>
+                          {billingCycle === 'year' ? (
+                            <>
+                              <div className="flex items-baseline gap-1.5">
+                                <span className="text-3xl font-bold text-white break-all">
+                                  {formatPrice(price._monthlyEquivalent || (price.amount / 12), price.currency)}
+                                </span>
+                                <span className="text-slate-400 text-sm">
+                                  /month
+                                </span>
+                              </div>
+                              <p className="text-xs text-slate-500 mt-1.5">
+                                {formatPrice(price.amount, price.currency)} billed yearly
+                              </p>
+                            </>
+                          ) : (
+                            <div className="flex items-baseline gap-1.5">
+                              <span className="text-3xl font-bold text-white break-all">
+                                {formatPrice(price.amount, price.currency)}
+                              </span>
+                              <span className="text-slate-400 text-sm">
+                                /month
+                              </span>
+                            </div>
+                          )}
                           {price.pricePerCredit && (
                             <p className="text-xs text-slate-500 mt-1.5">
                               {formatPrice(price.pricePerCredit, price.currency)} per additional credit
