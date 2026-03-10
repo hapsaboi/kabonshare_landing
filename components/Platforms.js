@@ -203,7 +203,7 @@ console.log(response.json());
             We&apos;re constantly adding new platforms. Let us know which one you need most.
           </p>
           <a
-            href={`mailto:${siteConfig.contact.email}?subject=Platform Request`}
+            href={`mailto:${siteConfig.contact.info}?subject=Platform Request`}
             className="inline-flex items-center gap-2 bg-white text-indigo-600 px-7 py-3.5 rounded-xl font-semibold hover:bg-gray-50 hover:-translate-y-0.5 transition-all duration-300 shadow-lg"
           >
             Request Platform Integration

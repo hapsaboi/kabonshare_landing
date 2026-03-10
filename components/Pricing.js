@@ -1,5 +1,6 @@
 'use client'
 import { motion } from 'framer-motion'
+import Link from 'next/link'
 import { HiOutlineCheck, HiOutlineSparkles, HiOutlineLightningBolt } from 'react-icons/hi'
 import { siteConfig } from '../config/siteConfig'
 
@@ -87,13 +88,13 @@ export default function Pricing() {
           className="text-center"
         >
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <a
+            <Link
               href="/pricing"
               className="inline-flex items-center justify-center gap-2 bg-gradient-to-r from-indigo-500 to-purple-500 text-white px-8 py-4 rounded-xl font-semibold text-lg hover:shadow-xl hover:shadow-indigo-500/20 hover:-translate-y-0.5 transition-all duration-300"
             >
               <HiOutlineLightningBolt className="text-xl" />
               View Plans & Pricing
-            </a>
+            </Link>
             <a
               href={siteConfig.dashboard + '/signup'}
               className="inline-flex items-center justify-center gap-2 bg-white/5 backdrop-blur-sm text-white px-8 py-4 rounded-xl font-semibold text-lg border border-white/10 hover:bg-white/10 transition-all duration-300"

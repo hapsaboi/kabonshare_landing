@@ -90,8 +90,8 @@ export default function Pricing() {
         return {
           ...monthlyPrice,
           interval: 'year',
-          amount: Math.round(monthlyPrice.amount * 12 * discountMultiplier * 100) / 100,
-          _monthlyEquivalent: Math.round(monthlyPrice.amount * discountMultiplier * 100) / 100,
+          amount: Math.round(monthlyPrice.amount * 12 * discountMultiplier / 10) * 10,
+          _monthlyEquivalent: Math.round(monthlyPrice.amount * discountMultiplier / 10) * 10,
           _isCalculated: true,
         }
       }
@@ -113,7 +113,7 @@ export default function Pricing() {
       style: 'currency',
       currency: curr || 'USD',
       minimumFractionDigits: 0,
-      maximumFractionDigits: 2,
+      maximumFractionDigits: 0,
     }).format(amount)
   }
 
@@ -178,7 +178,11 @@ export default function Pricing() {
     <>
       <Head>
         <title>Pricing - KabonShare</title>
-        <meta name="description" content="Choose the perfect plan for your social media publishing needs" />
+        <meta name="description" content="Start free — no credit card needed. Flexible plans for creators, agencies, and developers. Credit-based billing with monthly and yearly options. Cancel anytime." />
+        <link rel="canonical" href="https://kabonshare.com/pricing/" />
+        <meta property="og:title" content="Pricing - KabonShare" />
+        <meta property="og:description" content="Start free — no credit card needed. Flexible plans for creators, agencies, and developers. Credit-based billing with monthly and yearly options. Cancel anytime." />
+        <meta property="og:url" content="https://kabonshare.com/pricing/" />
       </Head>
 
       <Navbar />

@@ -52,11 +52,7 @@ export default function Footer() {
                   {siteConfig.contact.info}
                 </a>
               </p>
-              <p>
-                <a href={`tel:${siteConfig.phone.replace(/\s/g, '')}`} className="hover:text-white transition-colors">
-                  {siteConfig.phone}
-                </a>
-              </p>
+
             </div>
 
             {/* Social Links */}

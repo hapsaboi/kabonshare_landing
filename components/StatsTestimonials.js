@@ -120,7 +120,7 @@ export default function StatsTestimonials() {
               Get Started Free
             </a>
             <a
-              href="#developer-experience"
+              href={siteConfig.api.docs}
               className="inline-flex items-center justify-center bg-white/10 backdrop-blur-sm text-white px-7 py-3.5 rounded-xl font-semibold border border-white/20 hover:bg-white/20 transition-all duration-300"
             >
               View API Docs

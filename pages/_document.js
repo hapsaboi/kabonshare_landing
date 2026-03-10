@@ -7,6 +7,10 @@ export default function Document() {
         {/* Preconnect to external resources */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+
+        {/* Analytics — Plausible (privacy-friendly, no cookies) */}
+        <script defer data-domain="kabonshare.com" src="https://plausible.io/js/script.js"></script>
 
         {/* Favicon & App Icons */}
         <link rel="icon" href="/favicon.ico" />

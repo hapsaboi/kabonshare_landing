@@ -1,228 +1,431 @@
 'use client'
-import { motion } from 'framer-motion'
+import { useState } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
 import Head from 'next/head'
-import { HiOutlineArrowRight } from 'react-icons/hi'
+import Link from 'next/link'
+import {
+  HiOutlineArrowRight, HiOutlineVideoCamera, HiOutlineOfficeBuilding,
+  HiOutlineShoppingCart, HiOutlineCode, HiOutlineCheck, HiOutlineClock,
+  HiOutlineGlobeAlt, HiOutlineUserGroup, HiOutlineChartBar,
+  HiOutlineLightningBolt, HiOutlinePhotograph, HiOutlineRefresh,
+  HiOutlineTemplate, HiOutlineSparkles
+} from 'react-icons/hi'
+import { FiInstagram, FiFacebook, FiYoutube } from 'react-icons/fi'
+import { SiTiktok, SiThreads } from 'react-icons/si'
 import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
+import { siteConfig } from '../config/siteConfig'
 
 const caseStudies = [
   {
-    id: 1,
-    company: 'Content Creators & Influencers',
-    industry: 'Media & Entertainment',
-    logo: '🎬',
-    gradient: 'from-violet-500 via-purple-500 to-fuchsia-500',
-    challenge: 'Managing content across multiple platforms is overwhelming. Each platform has different requirements, formats, and optimal posting times. Manually posting the same content everywhere wastes valuable creative time that should be spent creating.',
-    solution: 'Create your content once and publish everywhere with KabonShare. Our platform handles the technical details - formats, aspect ratios, and platform requirements - so you can schedule your posts to go live simultaneously across Instagram, TikTok, YouTube, Facebook, and more with just a few clicks.',
-    results: [
-      { metric: '5+', label: 'Platforms in One Click' },
-      { metric: '80%', label: 'More Time Creating' },
-      { metric: '3x', label: 'More Reach' },
-      { metric: '90%', label: 'Time Saved' }
+    id: 'creators',
+    icon: HiOutlineVideoCamera,
+    label: 'Creators',
+    title: 'Post once, reach every platform',
+    subtitle: 'For content creators, influencers, and media networks',
+    gradient: 'from-violet-500 to-purple-600',
+    bgAccent: 'violet',
+    before: [
+      'Manually uploading the same video to 5 platforms',
+      'Formatting captions differently for each one',
+      'Missing optimal posting times across time zones',
+      'Spending 3+ hours a day just on distribution',
     ],
-    quote: 'Perfect for creators, influencers, and content networks who want to maximize their reach across all platforms without spending hours on manual posting and platform-specific formatting.',
-    tags: ['Content Creation', 'Multi-Platform', 'Time Savings']
+    after: [
+      'Upload once, publish to all platforms simultaneously',
+      'Auto-format captions, hashtags, and media per platform',
+      'Smart scheduling hits peak engagement times',
+      'Distribution takes minutes, not hours',
+    ],
+    stats: [
+      { value: '5+', label: 'Platforms at once' },
+      { value: '80%', label: 'Less time uploading' },
+      { value: '3x', label: 'More reach' },
+    ],
+    workflow: [
+      { step: '1', text: 'Upload your Reel, Short, or TikTok', icon: HiOutlinePhotograph },
+      { step: '2', text: 'Select platforms and schedule time', icon: HiOutlineClock },
+      { step: '3', text: 'KabonShare publishes everywhere', icon: HiOutlineGlobeAlt },
+    ],
+    testimonial: {
+      text: 'I used to spend half my day re-uploading content. Now I batch a week of posts in 30 minutes.',
+      name: 'Daniella K.',
+      role: 'Lifestyle Creator, 120K followers',
+    },
   },
   {
-    id: 2,
-    company: 'Digital Marketing Agencies',
-    industry: 'Marketing & Advertising',
-    logo: '🎯',
-    gradient: 'from-blue-500 via-cyan-500 to-teal-500',
-    challenge: 'Managing social media for dozens of clients is time-consuming and error-prone. Each platform requires separate logins, different posting formats, and manual scheduling across hundreds of accounts. Team collaboration is difficult without proper tools.',
-    solution: 'Centralize all social media publishing with KabonShare. Create custom workspaces for each client, automate posting workflows, and manage unlimited accounts from a single interface. Your team can collaborate seamlessly with role-based access and approval workflows.',
-    results: [
-      { metric: '85%', label: 'Time Saved' },
-      { metric: 'Unlimited', label: 'Client Accounts' },
-      { metric: '10x', label: 'Faster Campaigns' },
-      { metric: '$50K+', label: 'Annual Savings' }
+    id: 'agencies',
+    icon: HiOutlineOfficeBuilding,
+    label: 'Agencies',
+    title: 'Every client, one dashboard',
+    subtitle: 'For digital marketing and social media agencies',
+    gradient: 'from-blue-500 to-indigo-600',
+    bgAccent: 'blue',
+    before: [
+      'Dozens of separate platform logins per client',
+      'No centralized view of what went live and when',
+      'Team members stepping on each other with no roles',
+      'Billing hours lost to manual publishing busywork',
     ],
-    quote: 'Built for agencies managing multiple clients who need centralized control, automated workflows, team collaboration features, and white-label capabilities.',
-    tags: ['Multi-Client', 'Team Collaboration', 'Automation']
+    after: [
+      'Isolated workspaces per client, one login',
+      'Unified content calendar across all accounts',
+      'Role-based access with approval workflows',
+      'Automated publishing frees up billable hours',
+    ],
+    stats: [
+      { value: '85%', label: 'Time saved' },
+      { value: '50+', label: 'Accounts managed' },
+      { value: '10x', label: 'Faster campaigns' },
+    ],
+    workflow: [
+      { step: '1', text: 'Create a workspace for each client', icon: HiOutlineUserGroup },
+      { step: '2', text: 'Connect their social accounts', icon: HiOutlineGlobeAlt },
+      { step: '3', text: 'Schedule and approve from one place', icon: HiOutlineCheck },
+    ],
+    testimonial: {
+      text: 'We manage 40+ client accounts through KabonShare. The workspace isolation is a game-changer for agencies.',
+      name: 'Lisa M.',
+      role: 'Agency Owner, CreativeEdge Media',
+    },
   },
   {
-    id: 3,
-    company: 'E-commerce Brands',
-    industry: 'Retail & E-commerce',
-    logo: '🛍️',
-    gradient: 'from-pink-500 via-rose-500 to-red-500',
-    challenge: 'Product launches require perfectly coordinated posts across multiple platforms simultaneously. Manual posting leads to inconsistent timing, missed opportunities, and difficulty tracking which products were promoted where. Visual consistency is crucial for brand identity.',
-    solution: 'Integrate KabonShare with your product catalog or e-commerce platform. Automatically create stunning posts with product images and descriptions. Schedule launches across all platforms for peak engagement times, ensuring every product gets maximum visibility.',
-    results: [
-      { metric: '300%', label: 'More Engagement' },
-      { metric: '3x', label: 'Product Launches' },
-      { metric: '100%', label: 'Brand Consistency' },
-      { metric: '45%', label: 'Higher Conversions' }
+    id: 'ecommerce',
+    icon: HiOutlineShoppingCart,
+    label: 'E-commerce',
+    title: 'Turn products into posts automatically',
+    subtitle: 'For online stores, DTC brands, and marketplaces',
+    gradient: 'from-emerald-500 to-green-600',
+    bgAccent: 'emerald',
+    before: [
+      'Manually creating posts for every product launch',
+      'Inconsistent timing across platforms for drops',
+      'No way to track which products were promoted where',
+      'Brand visuals look different on every channel',
     ],
-    quote: 'Ideal for e-commerce businesses that need to promote products across multiple platforms, coordinate launches perfectly, and maintain consistent brand messaging.',
-    tags: ['E-commerce', 'Product Launches', 'Brand Consistency']
+    after: [
+      'Auto-generate posts from product data',
+      'Coordinated launches across all channels at once',
+      'Track performance per product per platform',
+      'Consistent brand assets with the media library',
+    ],
+    stats: [
+      { value: '3x', label: 'Product launches' },
+      { value: '100%', label: 'Brand consistency' },
+      { value: '45%', label: 'Higher conversions' },
+    ],
+    workflow: [
+      { step: '1', text: 'Connect your product catalog via API', icon: HiOutlineRefresh },
+      { step: '2', text: 'Auto-create posts with product media', icon: HiOutlinePhotograph },
+      { step: '3', text: 'Schedule launches for peak times', icon: HiOutlineClock },
+    ],
+    testimonial: {
+      text: 'Every new product drop now reaches all 5 platforms within seconds. Our engagement tripled in the first month.',
+      name: 'James O.',
+      role: 'Head of Marketing, FreshGoods',
+    },
   },
   {
-    id: 4,
-    company: 'SaaS Products & Apps',
-    industry: 'Software & Technology',
-    logo: '⚡',
-    gradient: 'from-orange-500 via-amber-500 to-yellow-500',
-    challenge: 'Building and maintaining social media integrations diverts valuable engineering resources from core product development. Custom implementations are costly, time-consuming, and require ongoing maintenance as platforms change their APIs.',
-    solution: 'Replace months of development with KabonShare API. Implement social sharing features for your users in days instead of months. We handle the complexity, platform updates, and maintenance - letting your engineers focus on building your core product.',
-    results: [
-      { metric: '3+ Months', label: 'Dev Time Saved' },
-      { metric: '10x', label: 'Faster Launch' },
-      { metric: '70%', label: 'User Adoption' },
-      { metric: '$150K+', label: 'Cost Savings' }
+    id: 'saas',
+    icon: HiOutlineCode,
+    label: 'SaaS & Apps',
+    title: 'Ship social features in days, not months',
+    subtitle: 'For software products and developer teams',
+    gradient: 'from-amber-500 to-orange-600',
+    bgAccent: 'amber',
+    before: [
+      'Months of engineering time building platform integrations',
+      'Constant maintenance as APIs change',
+      'OAuth token refresh bugs causing silent failures',
+      'Core product roadmap delayed by social features',
     ],
-    quote: 'Perfect for SaaS companies and app developers who want to add powerful social media publishing features without diverting engineering resources from their core product.',
-    tags: ['API Integration', 'Developer Tools', 'Fast Deployment']
-  }
+    after: [
+      'One REST API for all platforms',
+      'We handle API changes and maintenance',
+      'Automatic token refresh and retry logic',
+      'Your engineers stay focused on core product',
+    ],
+    stats: [
+      { value: '< 1hr', label: 'To first post' },
+      { value: '3+ mo', label: 'Dev time saved' },
+      { value: '99.9%', label: 'Uptime SLA' },
+    ],
+    workflow: [
+      { step: '1', text: 'Get your API key from the dashboard', icon: HiOutlineLightningBolt },
+      { step: '2', text: 'Make a POST request with media', icon: HiOutlineCode },
+      { step: '3', text: 'We publish and send a webhook', icon: HiOutlineRefresh },
+    ],
+    testimonial: {
+      text: 'We launched social publishing in our app in 2 days. Would have taken our team 3+ months to build from scratch.',
+      name: 'Sarah J.',
+      role: 'CTO, SaaS Company',
+    },
+  },
+]
+
+const platformIcons = [
+  { icon: FiInstagram, name: 'Instagram', color: 'text-pink-400' },
+  { icon: FiFacebook, name: 'Facebook', color: 'text-blue-400' },
+  { icon: SiTiktok, name: 'TikTok', color: 'text-white' },
+  { icon: FiYoutube, name: 'YouTube', color: 'text-red-400' },
+  { icon: SiThreads, name: 'Threads', color: 'text-white' },
 ]
 
 export default function CaseStudies() {
+  const [expanded, setExpanded] = useState(null)
+
   return (
     <>
       <Head>
         <title>Use Cases - KabonShare</title>
-        <meta name="description" content="Explore how KabonShare can transform your social media workflow across different industries and use cases" />
+        <meta name="description" content="Explore how KabonShare transforms social media workflows for creators, agencies, e-commerce brands, and SaaS products." />
+        <link rel="canonical" href="https://kabonshare.com/case-studies/" />
+        <meta property="og:title" content="Use Cases - KabonShare" />
+        <meta property="og:description" content="Explore how KabonShare transforms social media workflows for creators, agencies, e-commerce brands, and SaaS products." />
+        <meta property="og:url" content="https://kabonshare.com/case-studies/" />
       </Head>
 
       <div className="min-h-screen bg-slate-950">
         <Navbar />
 
-        {/* Hero Section */}
-        <section className="pt-32 pb-16 px-4 sm:px-6 lg:px-8">
-          <div className="max-w-6xl mx-auto text-center">
+        {/* Hero */}
+        <section className="pt-32 pb-20 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
+          <div className="absolute inset-0 pointer-events-none">
+            <div className="absolute top-1/3 left-1/4 w-[500px] h-[500px] bg-violet-500/[0.04] rounded-full blur-3xl" />
+            <div className="absolute bottom-0 right-1/4 w-[400px] h-[400px] bg-blue-500/[0.04] rounded-full blur-3xl" />
+          </div>
+
+          <div className="max-w-4xl mx-auto text-center relative z-10">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
+              className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/5 border border-white/10 mb-8"
             >
-              <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 backdrop-blur-sm text-sm font-medium text-indigo-300 mb-6">
-                <span className="w-2 h-2 rounded-full bg-indigo-500 animate-pulse" />
-                Use Cases
-              </span>
+              <span className="w-1.5 h-1.5 rounded-full bg-violet-500 animate-pulse" />
+              <span className="text-xs font-medium text-violet-300 uppercase tracking-wide">Use Cases</span>
             </motion.div>
 
             <motion.h1
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.1 }}
-              className="text-4xl md:text-5xl font-bold text-white mb-4 tracking-tight"
+              className="text-4xl md:text-6xl font-bold text-white mb-5 tracking-tight"
             >
-              Built for Every Industry
+              One platform,{' '}
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-violet-400 to-indigo-400">
+                every workflow
+              </span>
             </motion.h1>
 
             <motion.p
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.2 }}
-              className="text-lg text-slate-400 max-w-2xl mx-auto"
+              className="text-lg text-slate-400 max-w-2xl mx-auto mb-10"
             >
-              See how KabonShare transforms social media management across different business models
+              See how creators, agencies, e-commerce brands, and SaaS products use KabonShare to publish smarter.
             </motion.p>
+
+            {/* Platform icons row */}
+            <motion.div
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.3 }}
+              className="flex justify-center gap-4"
+            >
+              {platformIcons.map((p, i) => (
+                <motion.div
+                  key={p.name}
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ delay: 0.4 + i * 0.06 }}
+                  className="w-10 h-10 rounded-xl bg-white/5 border border-white/5 flex items-center justify-center"
+                  title={p.name}
+                >
+                  <p.icon className={`text-base ${p.color}`} />
+                </motion.div>
+              ))}
+            </motion.div>
           </div>
         </section>
 
-        {/* Case Studies */}
-        <section className="pb-20 px-4 sm:px-6 lg:px-8">
-          <div className="max-w-5xl mx-auto space-y-6">
+        {/* Case Studies - Full sections */}
+        <section className="pb-8 px-4 sm:px-6 lg:px-8">
+          <div className="max-w-5xl mx-auto space-y-20">
             {caseStudies.map((study, index) => (
               <motion.article
                 key={study.id}
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.4 }}
-                className="bg-slate-900/50 backdrop-blur-sm rounded-2xl overflow-hidden border border-white/5 hover:border-white/10 transition-all"
+                viewport={{ once: true, margin: '-50px' }}
+                transition={{ duration: 0.5 }}
               >
-                <div className="p-6 md:p-8">
-                    {/* Company Header */}
-                    <div className="flex items-start gap-3 mb-5">
-                      <div className="w-12 h-12 bg-white/5 rounded-xl flex items-center justify-center text-2xl flex-shrink-0">
-                        {study.logo}
+                {/* Section header */}
+                <div className="flex items-center gap-3 mb-8">
+                  <div className={`w-10 h-10 bg-gradient-to-br ${study.gradient} rounded-xl flex items-center justify-center`}>
+                    <study.icon className="text-lg text-white" />
+                  </div>
+                  <div>
+                    <h2 className="text-2xl md:text-3xl font-bold text-white tracking-tight">
+                      {study.title}
+                    </h2>
+                    <p className="text-sm text-slate-500">{study.subtitle}</p>
+                  </div>
+                </div>
+
+                {/* Before / After */}
+                <div className="grid md:grid-cols-2 gap-4 mb-8">
+                  {/* Before */}
+                  <div className="bg-slate-900/60 rounded-2xl border border-white/5 p-6">
+                    <div className="flex items-center gap-2 mb-4">
+                      <div className="w-5 h-5 rounded-full bg-red-500/15 flex items-center justify-center">
+                        <span className="text-red-400 text-xs font-bold">&times;</span>
                       </div>
-                      <div className="flex-1">
-                        <h2 className="text-xl font-bold text-white mb-1">
-                          {study.company}
-                        </h2>
-                        <p className="text-sm text-slate-400">{study.industry}</p>
+                      <span className="text-xs font-semibold text-red-400/80 uppercase tracking-wider">Without KabonShare</span>
+                    </div>
+                    <div className="space-y-3">
+                      {study.before.map((item, i) => (
+                        <motion.div
+                          key={i}
+                          initial={{ opacity: 0, x: -10 }}
+                          whileInView={{ opacity: 1, x: 0 }}
+                          viewport={{ once: true }}
+                          transition={{ delay: i * 0.05, duration: 0.3 }}
+                          className="flex items-start gap-2.5 text-sm text-slate-400"
+                        >
+                          <span className="text-slate-600 mt-0.5">&mdash;</span>
+                          {item}
+                        </motion.div>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* After */}
+                  <div className="bg-slate-900/60 rounded-2xl border border-white/5 p-6 relative overflow-hidden">
+                    <div className={`absolute inset-0 bg-gradient-to-br ${study.gradient} opacity-[0.03]`} />
+                    <div className="relative z-10">
+                      <div className="flex items-center gap-2 mb-4">
+                        <div className="w-5 h-5 rounded-full bg-green-500/15 flex items-center justify-center">
+                          <HiOutlineCheck className="text-green-400 text-[10px]" />
+                        </div>
+                        <span className="text-xs font-semibold text-green-400/80 uppercase tracking-wider">With KabonShare</span>
+                      </div>
+                      <div className="space-y-3">
+                        {study.after.map((item, i) => (
+                          <motion.div
+                            key={i}
+                            initial={{ opacity: 0, x: -10 }}
+                            whileInView={{ opacity: 1, x: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ delay: i * 0.05 + 0.1, duration: 0.3 }}
+                            className="flex items-start gap-2.5 text-sm text-slate-300"
+                          >
+                            <HiOutlineCheck className="text-green-400 text-xs mt-1 flex-shrink-0" />
+                            {item}
+                          </motion.div>
+                        ))}
                       </div>
                     </div>
+                  </div>
+                </div>
 
-                    {/* Content Grid */}
-                    <div className="grid md:grid-cols-2 gap-5 mb-5">
-                      <div>
-                        <h3 className="text-xs font-semibold text-slate-500 uppercase tracking-wide mb-2">
-                          Challenge
-                        </h3>
-                        <p className="text-sm text-slate-300 leading-relaxed">
-                          {study.challenge}
-                        </p>
+                {/* Stats + Workflow row */}
+                <div className="grid md:grid-cols-5 gap-4 mb-8">
+                  {/* Stats */}
+                  <div className="md:col-span-2 flex gap-3">
+                    {study.stats.map((stat, i) => (
+                      <div
+                        key={i}
+                        className="flex-1 bg-slate-900/60 rounded-xl border border-white/5 p-4 text-center"
+                      >
+                        <div className={`text-xl font-bold bg-gradient-to-r ${study.gradient} bg-clip-text text-transparent`}>
+                          {stat.value}
+                        </div>
+                        <div className="text-[11px] text-slate-500 mt-1">{stat.label}</div>
                       </div>
-                      <div>
-                        <h3 className="text-xs font-semibold text-indigo-400 uppercase tracking-wide mb-2">
-                          Solution
-                        </h3>
-                        <p className="text-sm text-slate-300 leading-relaxed">
-                          {study.solution}
-                        </p>
-                      </div>
-                    </div>
+                    ))}
+                  </div>
 
-                    {/* Results */}
-                    <div className="grid grid-cols-4 gap-3 mb-5 p-4 bg-white/5 rounded-xl">
-                      {study.results.map((result, i) => (
-                        <div key={i} className="text-center">
-                          <div className="text-lg font-bold text-indigo-400 mb-0.5">
-                            {result.metric}
+                  {/* Workflow */}
+                  <div className="md:col-span-3 bg-slate-900/60 rounded-xl border border-white/5 p-4">
+                    <div className="text-[10px] font-semibold text-slate-500 uppercase tracking-wider mb-3">How it works</div>
+                    <div className="flex items-center gap-2">
+                      {study.workflow.map((w, i) => (
+                        <div key={i} className="flex items-center gap-2 flex-1">
+                          <div className="flex items-center gap-2 flex-1">
+                            <div className="w-7 h-7 rounded-lg bg-white/5 flex items-center justify-center flex-shrink-0">
+                              <w.icon className="text-xs text-slate-300" />
+                            </div>
+                            <span className="text-xs text-slate-400 leading-tight">{w.text}</span>
                           </div>
-                          <div className="text-xs text-slate-400">
-                            {result.label}
-                          </div>
+                          {i < study.workflow.length - 1 && (
+                            <HiOutlineArrowRight className="text-slate-700 text-xs flex-shrink-0 mx-1" />
+                          )}
                         </div>
                       ))}
                     </div>
-
-                    {/* Perfect For */}
-                    <div className="bg-indigo-500/10 p-3 rounded-xl border-l-3 border-indigo-500">
-                      <p className="text-sm text-slate-300">
-                        <span className="font-semibold text-white">Perfect for:</span> {study.quote}
-                      </p>
-                    </div>
+                  </div>
                 </div>
+
+                {/* Testimonial */}
+                <div className="bg-slate-900/40 rounded-xl border border-white/5 px-6 py-5">
+                  <p className="text-sm text-slate-300 italic leading-relaxed mb-3">
+                    {`"${study.testimonial.text}"`}
+                  </p>
+                  <div className="flex items-center gap-2.5">
+                    <div className={`w-8 h-8 rounded-full bg-gradient-to-br ${study.gradient} flex items-center justify-center text-white text-xs font-bold`}>
+                      {study.testimonial.name[0]}
+                    </div>
+                    <div>
+                      <div className="text-xs font-semibold text-white">{study.testimonial.name}</div>
+                      <div className="text-[11px] text-slate-500">{study.testimonial.role}</div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Divider between sections (except last) */}
+                {index < caseStudies.length - 1 && (
+                  <div className="mt-20 border-t border-white/[0.04]" />
+                )}
               </motion.article>
             ))}
           </div>
         </section>
 
-        {/* CTA Section */}
+        {/* CTA */}
         <section className="py-20 px-4 sm:px-6 lg:px-8">
-          <div className="max-w-4xl mx-auto">
+          <div className="max-w-3xl mx-auto">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-              className="bg-gradient-to-r from-primary to-secondary rounded-3xl p-12 text-center text-white shadow-2xl"
+              transition={{ duration: 0.5 }}
+              className="bg-gradient-to-br from-indigo-600 to-violet-600 rounded-2xl p-10 md:p-14 text-center relative overflow-hidden"
             >
-              <h2 className="text-4xl font-bold mb-4">
-                Ready to Transform Your Social Media Workflow?
-              </h2>
-              <p className="text-xl mb-8 opacity-90">
-                Start publishing to multiple platforms with a single API call
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <a
-                  href="https://dashboard.kabonshare.com"
-                  className="inline-flex items-center justify-center gap-2 bg-white text-primary px-8 py-4 rounded-xl font-bold text-lg hover:bg-gray-100 transition-all shadow-lg"
-                >
-                  Start Free Trial
-                  <HiOutlineArrowRight className="w-5 h-5" />
-                </a>
-                <a
-                  href="mailto:info@kabonshare.com"
-                  className="inline-flex items-center justify-center gap-2 bg-white/10 backdrop-blur-sm text-white px-8 py-4 rounded-xl font-bold text-lg border-2 border-white/30 hover:bg-white/20 transition-all"
-                >
-                  Contact Sales
-                </a>
+              <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_50%,rgba(255,255,255,0.08),transparent_60%)]" />
+              <div className="relative z-10">
+                <h2 className="text-3xl md:text-4xl font-bold text-white mb-4 tracking-tight">
+                  Ready to simplify your workflow?
+                </h2>
+                <p className="text-lg text-white/70 mb-8 max-w-lg mx-auto">
+                  Start publishing to every platform from one place. Free tier available.
+                </p>
+                <div className="flex flex-col sm:flex-row gap-3 justify-center">
+                  <a
+                    href={siteConfig.dashboard + '/signup'}
+                    className="inline-flex items-center justify-center gap-2 bg-white text-indigo-700 px-7 py-3.5 rounded-xl font-semibold hover:bg-gray-50 transition-all"
+                  >
+                    Get Started Free
+                    <HiOutlineArrowRight className="text-lg" />
+                  </a>
+                  <Link
+                    href="/pricing"
+                    className="inline-flex items-center justify-center gap-2 bg-white/10 backdrop-blur-sm text-white px-7 py-3.5 rounded-xl font-semibold border border-white/20 hover:bg-white/15 transition-all"
+                  >
+                    View Pricing
+                  </Link>
+                </div>
               </div>
             </motion.div>
           </div>

@@ -1,6 +1,6 @@
 'use client'
 import { motion } from 'framer-motion'
-import { HiOutlineBookOpen, HiOutlineMail, HiOutlinePhone } from 'react-icons/hi'
+import { HiOutlineBookOpen, HiOutlineMail, HiOutlineChatAlt2 } from 'react-icons/hi'
 import { siteConfig } from '../config/siteConfig'
 
 const supportChannels = [
@@ -21,11 +21,11 @@ const supportChannels = [
     gradient: 'from-green-500 to-emerald-500'
   },
   {
-    icon: HiOutlinePhone,
-    title: 'Phone Support',
-    description: 'Direct line for urgent issues',
-    link: `tel:${siteConfig.phone.replace(/\s/g, '')}`,
-    linkText: 'Call Us',
+    icon: HiOutlineChatAlt2,
+    title: 'Community',
+    description: 'Join the conversation',
+    link: `mailto:${siteConfig.contact.info}`,
+    linkText: 'Get in Touch',
     gradient: 'from-orange-500 to-red-500'
   }
 ]

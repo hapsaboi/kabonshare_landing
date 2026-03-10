@@ -1,10 +1,12 @@
 # Netlify redirects file
 # For Next.js static export
 
-# Serve existing files
-/*    /index.html   200
-
-# SPA fallback
+# SPA fallback for all pages
 /pricing    /pricing.html    200
 /privacy    /privacy.html    200
 /terms      /terms.html      200
+/contact    /contact.html    200
+/case-studies  /case-studies.html  200
+
+# Serve existing files
+/*    /index.html   200

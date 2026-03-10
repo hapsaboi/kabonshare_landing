@@ -125,6 +125,10 @@ export default function Privacy() {
       <Head>
         <title>Privacy Policy - KabonShare</title>
         <meta name="description" content="Privacy Policy for KabonShare - How we collect, use, and protect your data" />
+        <link rel="canonical" href="https://kabonshare.com/privacy/" />
+        <meta property="og:title" content="Privacy Policy - KabonShare" />
+        <meta property="og:description" content="Privacy Policy for KabonShare - How we collect, use, and protect your data" />
+        <meta property="og:url" content="https://kabonshare.com/privacy/" />
       </Head>
 
       <Navbar />

@@ -141,6 +141,10 @@ export default function Terms() {
       <Head>
         <title>Terms of Service - KabonShare</title>
         <meta name="description" content="Terms of Service for KabonShare - Rules and guidelines for using our service" />
+        <link rel="canonical" href="https://kabonshare.com/terms/" />
+        <meta property="og:title" content="Terms of Service - KabonShare" />
+        <meta property="og:description" content="Terms of Service for KabonShare - Rules and guidelines for using our service" />
+        <meta property="og:url" content="https://kabonshare.com/terms/" />
       </Head>
 
       <Navbar />

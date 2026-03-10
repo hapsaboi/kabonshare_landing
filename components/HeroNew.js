@@ -4,6 +4,7 @@ import { FaArrowRight, FaCheck } from 'react-icons/fa'
 import { FiInstagram, FiFacebook, FiYoutube } from 'react-icons/fi'
 import { SiTiktok, SiThreads } from 'react-icons/si'
 import { BsTwitterX } from 'react-icons/bs'
+import Link from 'next/link'
 import Navbar from './Navbar'
 import { siteConfig } from '../config/siteConfig'
 
@@ -104,12 +105,12 @@ export default function Hero() {
                   Get Started Free
                   <FaArrowRight className="text-sm group-hover:translate-x-0.5 transition-transform" />
                 </a>
-                <a
+                <Link
                   href="/pricing"
                   className="inline-flex items-center gap-2 px-7 py-3.5 bg-white/5 backdrop-blur-sm text-white font-semibold rounded-xl border border-white/10 hover:bg-white/10 transition-all duration-300"
                 >
                   View Pricing
-                </a>
+                </Link>
               </motion.div>
 
               {/* Feature pills */}

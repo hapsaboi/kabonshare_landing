@@ -1,5 +1,5 @@
 import Head from 'next/head'
-import { HiOutlineMail, HiOutlinePhone, HiOutlineLocationMarker, HiOutlineClock } from 'react-icons/hi'
+import { HiOutlineMail, HiOutlineLocationMarker, HiOutlineClock, HiOutlineBookOpen } from 'react-icons/hi'
 import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
 import { siteConfig } from '../config/siteConfig'
@@ -10,6 +10,10 @@ export default function Contact() {
       <Head>
         <title>Contact Us - {siteConfig.name}</title>
         <meta name="description" content={`Get in touch with ${siteConfig.name}. We're here to help with any questions about our social media publishing platform.`} />
+        <link rel="canonical" href="https://kabonshare.com/contact/" />
+        <meta property="og:title" content={`Contact Us - ${siteConfig.name}`} />
+        <meta property="og:description" content={`Get in touch with ${siteConfig.name}. We're here to help with any questions about our social media publishing platform.`} />
+        <meta property="og:url" content="https://kabonshare.com/contact/" />
       </Head>
 
       <div className="min-h-screen bg-slate-950">
@@ -50,17 +54,17 @@ export default function Contact() {
                 </div>
               </div>
 
-              {/* Phone */}
+              {/* Documentation */}
               <div className="bg-slate-900/50 backdrop-blur-sm rounded-2xl p-6 border border-white/5">
                 <div className="flex items-start gap-4">
                   <div className="w-11 h-11 bg-indigo-500/10 rounded-xl flex items-center justify-center flex-shrink-0">
-                    <HiOutlinePhone className="text-indigo-400 text-xl" />
+                    <HiOutlineBookOpen className="text-indigo-400 text-xl" />
                   </div>
                   <div>
-                    <h3 className="text-lg font-semibold text-white mb-3">Phone</h3>
-                    <p className="text-slate-400 text-sm mb-1">Customer Support:</p>
-                    <a href={`tel:${siteConfig.phone.replace(/\s/g, '')}`} className="text-indigo-400 hover:text-indigo-300 font-medium text-lg transition-colors">
-                      {siteConfig.phone}
+                    <h3 className="text-lg font-semibold text-white mb-3">Documentation</h3>
+                    <p className="text-slate-400 text-sm mb-1">API Reference & Guides:</p>
+                    <a href={siteConfig.api.docs} className="text-indigo-400 hover:text-indigo-300 font-medium text-sm transition-colors">
+                      docs.kabonshare.com
                     </a>
                   </div>
                 </div>

@@ -21,56 +21,46 @@ export default function Navbar() {
   const close = useCallback(() => setMobileOpen(false), [])
 
   const links = [
-    { label: 'Features',  href: '/#features'   },
-    { label: 'Platforms', href: '/#platforms'  },
-    { label: 'Pricing',   href: '/pricing'      },
+    { label: 'Features',  href: '/#features' },
+    { label: 'Platforms', href: '/#platforms' },
+    { label: 'Pricing',   href: '/pricing' },
     { label: 'Use Cases', href: '/case-studies' },
-    { label: 'Contact',   href: '/contact'      },
+    { label: 'Contact',   href: '/contact' },
   ]
 
   return (
     <>
       <nav
-        className="fixed top-0 inset-x-0 z-50"
-        style={{
-          background: scrolled ? 'rgba(255,255,255,0.92)' : 'transparent',
-          backdropFilter: scrolled ? 'blur(16px) saturate(1.8)' : 'none',
-          WebkitBackdropFilter: scrolled ? 'blur(16px) saturate(1.8)' : 'none',
-          borderBottom: scrolled ? '1px solid rgba(0,0,0,0.06)' : '1px solid transparent',
-          boxShadow: scrolled ? '0 1px 24px rgba(0,0,0,0.05)' : 'none',
-          transition: 'background .3s ease, border-color .3s ease, box-shadow .3s ease',
-        }}
+        className={`fixed top-0 inset-x-0 z-50 transition-all duration-300 ${
+          scrolled
+            ? 'bg-white border-b border-gray-200 shadow-sm'
+            : 'bg-transparent border-b border-transparent'
+        }`}
       >
-        <div className="max-w-6xl mx-auto px-5 sm:px-8">
-          <div className="flex items-center justify-between h-[68px]">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between h-16">
 
             {/* Logo */}
             <Link href="/" className="flex items-center gap-2.5 shrink-0">
-              <img src="/logo.png" alt={siteConfig.name} className="w-8 h-8 rounded-xl object-contain" />
-              <span
-                className="font-bold text-[1.05rem] tracking-tight transition-colors duration-300"
-                style={{ color: scrolled ? '#0f172a' : '#ffffff' }}
-              >
+              <img src="/logo.png" alt={siteConfig.name} className="w-8 h-8 rounded-lg object-contain" />
+              <span className={`font-bold text-lg tracking-tight transition-colors duration-300 ${
+                scrolled ? 'text-gray-900' : 'text-white'
+              }`}>
                 {siteConfig.name}
               </span>
             </Link>
 
-            {/* Desktop nav */}
-            <div className="hidden md:flex items-center gap-0.5">
-              {links.map((l, i) => (
+            {/* Desktop nav links */}
+            <div className="hidden md:flex items-center gap-1">
+              {links.map((l) => (
                 <a
-                  key={i}
+                  key={l.href}
                   href={l.href}
-                  className="px-4 py-2 text-sm font-medium rounded-lg transition-colors duration-200"
-                  style={{ color: scrolled ? '#374151' : 'rgba(255,255,255,0.75)' }}
-                  onMouseEnter={e => {
-                    e.currentTarget.style.color = scrolled ? '#111827' : '#ffffff'
-                    e.currentTarget.style.background = scrolled ? '#f3f4f6' : 'rgba(255,255,255,0.08)'
-                  }}
-                  onMouseLeave={e => {
-                    e.currentTarget.style.color = scrolled ? '#374151' : 'rgba(255,255,255,0.75)'
-                    e.currentTarget.style.background = 'transparent'
-                  }}
+                  className={`px-4 py-2 text-sm font-medium rounded-lg transition-colors duration-200 ${
+                    scrolled
+                      ? 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'
+                      : 'text-white/70 hover:text-white'
+                  }`}
                 >
                   {l.label}
                 </a>
@@ -78,49 +68,43 @@ export default function Navbar() {
             </div>
 
             {/* Desktop CTA */}
-            <div className="hidden md:flex items-center gap-3">
+            <div className="hidden md:flex items-center gap-4">
               <a
                 href={siteConfig.dashboard}
-                className="text-sm font-medium transition-colors duration-200"
-                style={{ color: scrolled ? '#374151' : 'rgba(255,255,255,0.8)' }}
-                onMouseEnter={e => { e.currentTarget.style.color = scrolled ? '#111827' : '#ffffff' }}
-                onMouseLeave={e => { e.currentTarget.style.color = scrolled ? '#374151' : 'rgba(255,255,255,0.8)' }}
+                className={`text-sm font-medium transition-colors duration-200 ${
+                  scrolled
+                    ? 'text-gray-600 hover:text-gray-900'
+                    : 'text-white/70 hover:text-white'
+                }`}
               >
-                Sign In
+                Log in
               </a>
               <a
                 href={siteConfig.dashboard}
-                className="px-5 py-2.5 text-sm font-semibold text-white rounded-lg transition-all duration-200"
-                style={{
-                  background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-                  boxShadow: '0 1px 6px rgba(102,126,234,0.35)',
-                }}
-                onMouseEnter={e => {
-                  e.currentTarget.style.boxShadow = '0 4px 16px rgba(102,126,234,0.45)'
-                  e.currentTarget.style.transform = 'translateY(-1px)'
-                }}
-                onMouseLeave={e => {
-                  e.currentTarget.style.boxShadow = '0 1px 6px rgba(102,126,234,0.35)'
-                  e.currentTarget.style.transform = 'translateY(0)'
-                }}
+                className={`px-5 py-2 text-sm font-semibold rounded-lg transition-all duration-200 ${
+                  scrolled
+                    ? 'bg-gray-900 text-white hover:bg-gray-800'
+                    : 'bg-white text-gray-900 hover:bg-gray-100'
+                }`}
               >
-                Get Started Free
+                Get started for free
               </a>
             </div>
 
             {/* Mobile burger */}
             <button
               onClick={() => setMobileOpen(v => !v)}
-              className="md:hidden p-2 -mr-1 rounded-lg transition-colors duration-200"
-              style={{ color: scrolled ? '#111827' : '#ffffff' }}
-              aria-label="Menu"
+              className={`md:hidden p-2 -mr-2 rounded-lg transition-colors ${
+                scrolled ? 'text-gray-700' : 'text-white'
+              }`}
+              aria-label="Toggle menu"
             >
               {mobileOpen ? (
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
                   <line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" />
                 </svg>
               ) : (
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
                   <line x1="4" y1="7" x2="20" y2="7" /><line x1="4" y1="12" x2="20" y2="12" /><line x1="4" y1="17" x2="20" y2="17" />
                 </svg>
               )}
@@ -131,40 +115,33 @@ export default function Navbar() {
 
         {/* Mobile dropdown */}
         <div
-          className="md:hidden overflow-hidden"
-          style={{
-            maxHeight: mobileOpen ? '480px' : '0',
-            transition: 'max-height .35s cubic-bezier(.4,0,.2,1)',
-            background: 'rgba(255,255,255,0.97)',
-            backdropFilter: 'blur(16px)',
-            WebkitBackdropFilter: 'blur(16px)',
-            borderTop: mobileOpen ? '1px solid rgba(0,0,0,0.06)' : '1px solid transparent',
-          }}
+          className={`md:hidden bg-white border-t border-gray-100 overflow-hidden transition-all duration-300 ${
+            mobileOpen ? 'max-h-[400px] opacity-100' : 'max-h-0 opacity-0'
+          }`}
         >
-          <div className="max-w-6xl mx-auto px-5 sm:px-8 py-4 space-y-0.5">
+          <div className="px-4 py-3 space-y-1">
             {links.map((l) => (
               <a
                 key={l.href}
                 href={l.href}
                 onClick={close}
-                className="flex items-center px-3 py-3 text-[15px] font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50 rounded-xl transition-colors"
+                className="block px-3 py-2.5 text-[15px] font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50 rounded-lg transition-colors"
               >
                 {l.label}
               </a>
             ))}
-            <div className="pt-3 pb-1 flex flex-col gap-2.5 border-t border-gray-100 mt-2">
+            <div className="pt-3 mt-2 border-t border-gray-100 space-y-2">
               <a
                 href={siteConfig.dashboard}
-                className="block text-center py-2.5 text-sm font-medium text-gray-600 hover:text-gray-900 border border-gray-200 hover:border-gray-300 rounded-xl transition-colors"
+                className="block text-center py-2.5 text-sm font-medium text-gray-700 hover:text-gray-900 rounded-lg transition-colors"
               >
-                Sign In
+                Log in
               </a>
               <a
                 href={siteConfig.dashboard}
-                className="block text-center py-3 text-sm font-semibold text-white rounded-xl"
-                style={{ background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)' }}
+                className="block text-center py-2.5 text-sm font-semibold text-white bg-gray-900 hover:bg-gray-800 rounded-lg transition-colors"
               >
-                Get Started Free
+                Get started for free
               </a>
             </div>
           </div>
@@ -173,10 +150,7 @@ export default function Navbar() {
 
       {/* Mobile backdrop */}
       {mobileOpen && (
-        <div
-          className="fixed inset-0 z-40 md:hidden"
-          onClick={close}
-        />
+        <div className="fixed inset-0 z-40 md:hidden" onClick={close} />
       )}
     </>
   )
