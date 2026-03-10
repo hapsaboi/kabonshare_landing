@@ -1,4 +1,5 @@
 'use client'
+import Image from 'next/image'
 import { FiInstagram } from 'react-icons/fi'
 import { SiTiktok } from 'react-icons/si'
 import { BsTwitterX } from 'react-icons/bs'
@@ -38,7 +39,7 @@ export default function Footer() {
           {/* Brand Column */}
           <div className="lg:col-span-2">
             <div className="flex items-center gap-3 mb-4">
-              <img src="/logo.png" alt={siteConfig.name} className="h-9 w-auto" />
+              <Image src="/logo.png" alt={siteConfig.name} width={36} height={36} className="w-auto" />
               <span className="text-xl font-bold text-white">{siteConfig.name}</span>
             </div>
             <p className="text-slate-400 mb-6 leading-relaxed text-sm max-w-sm">

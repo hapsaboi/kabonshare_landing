@@ -1,6 +1,7 @@
 ﻿'use client'
 import { useState, useEffect, useCallback } from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 import { siteConfig } from '../config/siteConfig'
 
 export default function Navbar() {
@@ -42,7 +43,7 @@ export default function Navbar() {
 
             {/* Logo */}
             <Link href="/" className="flex items-center gap-2.5 shrink-0">
-              <img src="/logo.png" alt={siteConfig.name} className="w-8 h-8 rounded-lg object-contain" />
+              <Image src="/logo.png" alt={siteConfig.name} width={32} height={32} className="rounded-lg object-contain" />
               <span className={`font-bold text-lg tracking-tight transition-colors duration-300 ${
                 scrolled ? 'text-gray-900' : 'text-white'
               }`}>
