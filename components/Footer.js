@@ -39,7 +39,7 @@ export default function Footer() {
           {/* Brand Column */}
           <div className="lg:col-span-2">
             <div className="flex items-center gap-3 mb-4">
-              <Image src="/logo.png" alt={siteConfig.name} width={36} height={36} className="w-auto" />
+              <Image src="/logo.png" alt={siteConfig.name} width={36} height={36} className="w-9 h-9" />
               <span className="text-xl font-bold text-white">{siteConfig.name}</span>
             </div>
             <p className="text-slate-400 mb-6 leading-relaxed text-sm max-w-sm">
