@@ -108,12 +108,13 @@ export default function Pricing() {
     return price
   }
 
-  const formatPrice = (amount, curr) => {
+  const formatPrice = (amount, curr, forceDecimals = false) => {
+    const hasDecimals = forceDecimals || amount % 1 !== 0
     return new Intl.NumberFormat('en-US', {
       style: 'currency',
       currency: curr || 'USD',
-      minimumFractionDigits: 0,
-      maximumFractionDigits: 0,
+      minimumFractionDigits: hasDecimals ? 2 : 0,
+      maximumFractionDigits: hasDecimals ? 2 : 0,
     }).format(amount)
   }
 
@@ -122,19 +123,21 @@ export default function Pricing() {
     
     if (plan.limits) {
       if (plan.limits.maxAccounts) {
-        features.push(`Up to ${plan.limits.maxAccounts} connected accounts`)
+        features.push(plan.limits.maxAccounts === -1 ? 'Unlimited connected accounts' : `Up to ${plan.limits.maxAccounts} connected accounts`)
       }
       if (plan.limits.maxWorkspaces) {
-        features.push(`${plan.limits.maxWorkspaces} workspace${plan.limits.maxWorkspaces > 1 ? 's' : ''}`)
+        features.push(plan.limits.maxWorkspaces === -1 ? 'Unlimited workspaces' : `${plan.limits.maxWorkspaces} workspace${plan.limits.maxWorkspaces > 1 ? 's' : ''}`)
       }
       if (plan.limits.creditsPerMonth) {
-        features.push(`${plan.limits.creditsPerMonth} monthly credits`)
+        features.push(plan.limits.creditsPerMonth === -1 ? 'Unlimited monthly credits' : `${plan.limits.creditsPerMonth} monthly credits`)
       }
       if (plan.limits.storageQuotaMB) {
         const storageMB = plan.limits.storageQuotaMB
-        const storageDisplay = storageMB >= 1000 
-          ? `${(storageMB / 1000).toFixed(1)}GB storage`
-          : `${storageMB}MB storage`
+        const storageDisplay = storageMB === -1
+          ? 'Unlimited storage'
+          : storageMB >= 1000 
+            ? `${(storageMB / 1000).toFixed(1)}GB storage`
+            : `${storageMB}MB storage`
         features.push(storageDisplay)
       }
       if (plan.limits.maxTeamMembers) {
@@ -292,7 +295,7 @@ export default function Pricing() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.3 }}
-              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto"
+              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto"
             >
               {plans.map((plan, index) => {
                 const price = getPlanPrice(plan)
@@ -358,9 +361,9 @@ export default function Pricing() {
                               </span>
                             </div>
                           )}
-                          {price.pricePerCredit && (
+                          {price.pricePerCredit && plan.limits?.creditsPerMonth !== -1 && (
                             <p className="text-xs text-slate-500 mt-1.5">
-                              {formatPrice(price.pricePerCredit, price.currency)} per additional credit
+                              {formatPrice(price.pricePerCredit, price.currency, true)} per additional credit
                             </p>
                           )}
                         </>
