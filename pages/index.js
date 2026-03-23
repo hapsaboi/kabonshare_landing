@@ -1,6 +1,7 @@
 import Head from 'next/head'
 import HeroNew from '../components/HeroNew'
 import Features from '../components/Features'
+import AIFeatures from '../components/AIFeatures'
 import UseCases from '../components/UseCases'
 import Platforms from '../components/Platforms'
 import DeveloperExperience from '../components/DeveloperExperience'
@@ -31,6 +32,7 @@ export default function Home() {
       <main className="min-h-screen bg-white">
         <HeroNew />
         <Features />
+        <AIFeatures />
         <Platforms />
         <UseCases />
         <DeveloperExperience />

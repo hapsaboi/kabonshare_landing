@@ -131,6 +131,9 @@ export default function Pricing() {
       if (plan.limits.creditsPerMonth) {
         features.push(plan.limits.creditsPerMonth === -1 ? 'Unlimited monthly credits' : `${plan.limits.creditsPerMonth} monthly credits`)
       }
+      if (plan.limits.aiCreditsPerMonth !== undefined && plan.limits.aiCreditsPerMonth !== null) {
+        features.push(plan.limits.aiCreditsPerMonth === -1 ? 'Unlimited AI credits' : plan.limits.aiCreditsPerMonth > 0 ? `${plan.limits.aiCreditsPerMonth} AI credits/month` : 'No AI credits')
+      }
       if (plan.limits.storageQuotaMB) {
         const storageMB = plan.limits.storageQuotaMB
         const storageDisplay = storageMB === -1
@@ -151,6 +154,9 @@ export default function Pricing() {
     }
 
     if (plan.features) {
+      if (plan.features.allowAI) {
+        features.push('AI caption generation (images, video & audio)')
+      }
       if (plan.features.allowVideo) {
         features.push('Video publishing')
       }
@@ -411,6 +417,10 @@ export default function Pricing() {
             </h2>
             <div className="space-y-4">
               {[
+                {
+                  q: 'What are AI credits?',
+                  a: 'AI credits power our AI caption generator. Upload an image, video, or audio file and get a title, captions, and hashtags generated for you. Each generation costs 1 credit. Pro and Business plans include monthly AI credits, and you can purchase more anytime.'
+                },
                 {
                   q: 'What are credits?',
                   a: 'Credits are used to publish posts. Each post costs 1 credit regardless of media type (text, image, or video) and regardless of how many platforms you publish to simultaneously.'
