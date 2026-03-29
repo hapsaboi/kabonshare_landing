@@ -11,7 +11,7 @@ const footerLinks = {
     { label: 'Platforms', href: '/#platforms' },
     { label: 'Use Cases', href: '/#use-cases' },
     { label: 'Pricing', href: '/pricing' },
-    { label: 'Get Our Apps', href: '/#get-our-apps' }
+    { label: 'Get Our Apps', href: '/get-our-apps' }
   ],
   resources: [
     { label: 'API Documentation', href: siteConfig.api.docs },

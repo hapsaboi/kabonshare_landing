@@ -8,7 +8,7 @@ import { siteConfig } from '../config/siteConfig'
 const PLATFORM_META = {
   android: { label: 'Android', Icon: FiSmartphone, color: 'from-green-500 to-emerald-600' },
   ios: { label: 'iOS', Icon: FiSmartphone, color: 'from-blue-500 to-indigo-600' },
-  windows: { label: 'Windows', Icon: FiMonitor, color: 'from-cyan-500 to-blue-600' },
+  windows: { label: 'Windows', Icon: FiMonitor, color: 'from-sky-400 to-indigo-600' },
   macos: { label: 'macOS', Icon: FiMonitor, color: 'from-gray-500 to-slate-600' },
   linux: { label: 'Linux', Icon: FiMonitor, color: 'from-orange-500 to-red-600' },
   web: { label: 'Web', Icon: FiGlobe, color: 'from-purple-500 to-violet-600' },
@@ -101,7 +101,7 @@ export default function Downloads() {
               >
                 {/* Icon + platform */}
                 <div className="flex items-start gap-4 mb-4">
-                  <div className={`w-14 h-14 rounded-xl bg-gradient-to-br ${meta.color} flex items-center justify-center flex-shrink-0 shadow-lg`}>
+                  <div className={`w-14 h-14 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg ${app.iconUrl ? 'bg-white border border-gray-100' : `bg-gradient-to-br ${meta.color}`}`}>
                     {app.iconUrl ? (
                       <img src={app.iconUrl} alt="" className="w-10 h-10 rounded-lg object-cover" />
                     ) : (
@@ -138,8 +138,8 @@ export default function Downloads() {
                 {(downloadUrl || storeUrl) && (
                   <a
                     href={downloadUrl || storeUrl}
-                    target={storeUrl && !downloadUrl ? '_blank' : undefined}
-                    rel={storeUrl && !downloadUrl ? 'noopener noreferrer' : undefined}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className={`flex items-center justify-center gap-2 w-full py-3 rounded-xl text-sm font-semibold transition-all duration-300 bg-gradient-to-r ${meta.color} text-white shadow-md hover:shadow-lg hover:scale-[1.02] active:scale-[0.98]`}
                   >
                     {downloadUrl ? (
