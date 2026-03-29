@@ -26,6 +26,7 @@ export default function Navbar() {
     { label: 'Platforms', href: '/#platforms' },
     { label: 'Pricing',   href: '/pricing' },
     { label: 'Use Cases', href: '/case-studies' },
+    { label: 'Get Our Apps', href: '/#get-our-apps' },
     { label: 'Contact',   href: '/contact' },
   ]
 

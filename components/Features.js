@@ -3,7 +3,7 @@ import { motion } from 'framer-motion'
 import { HiCheckCircle, HiLightningBolt, HiServer } from 'react-icons/hi'
 import { 
   HiOutlineGlobeAlt, HiOutlineShieldCheck, HiOutlinePhotograph, 
-  HiOutlineClock, HiOutlineUserGroup, HiOutlineCreditCard 
+  HiOutlineClock, HiOutlineUserGroup, HiOutlineCreditCard, HiOutlineFilm
 } from 'react-icons/hi'
 
 const features = [
@@ -46,6 +46,13 @@ const features = [
     description: 'Organise social accounts into separate workspaces. Perfect for agencies managing multiple clients or users with multiple brands.',
     features: ['Unlimited workspaces on Pro+', 'Per-workspace account limits', 'Isolated environments'],
     color: '#EF4444'
+  },
+  {
+    icon: HiOutlineFilm,
+    title: 'Video Studio',
+    description: 'Create and edit videos right in your browser with our built-in visual editor. Add clips, text overlays, transitions, and captions — then export or publish directly.',
+    features: ['Timeline editor with drag & drop', 'Text overlays & animations', 'AI-powered auto-captions', 'Export & publish in one flow'],
+    color: '#EC4899'
   },
   {
     icon: HiOutlineCreditCard,

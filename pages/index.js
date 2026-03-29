@@ -8,6 +8,7 @@ import DeveloperExperience from '../components/DeveloperExperience'
 import Pricing from '../components/Pricing'
 import StatsTestimonials from '../components/StatsTestimonials'
 import ContactSupport from '../components/ContactSupport'
+import Downloads from '../components/Downloads'
 import Footer from '../components/Footer'
 
 export default function Home() {
@@ -38,6 +39,7 @@ export default function Home() {
         <DeveloperExperience />
         <Pricing />
         <StatsTestimonials />
+        <Downloads />
         <ContactSupport />
         <Footer />
       </main>
