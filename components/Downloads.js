@@ -39,7 +39,13 @@ export default function Downloads() {
     fetchApps()
   }, [])
 
-  if (loading) return null
+  if (loading) return (
+    <section className="py-24 bg-gray-50">
+      <div className="flex items-center justify-center py-20">
+        <div className="w-8 h-8 border-4 border-indigo-200 border-t-indigo-600 rounded-full animate-spin" />
+      </div>
+    </section>
+  )
   if (apps.length === 0) return null
 
   return (
