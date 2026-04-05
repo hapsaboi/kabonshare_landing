@@ -5,6 +5,7 @@
 
 export { default as Hero } from './HeroNew'
 export { default as Features } from './Features'
+export { default as Analytics } from './Analytics'
 export { default as UseCases } from './UseCases'
 export { default as Platforms } from './Platforms'
 export { default as Pricing } from './Pricing'

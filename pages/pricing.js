@@ -131,8 +131,8 @@ export default function Pricing() {
       if (plan.limits.creditsPerMonth) {
         features.push(plan.limits.creditsPerMonth === -1 ? 'Unlimited monthly credits' : `${plan.limits.creditsPerMonth} monthly credits`)
       }
-      if (plan.limits.aiCreditsPerMonth !== undefined && plan.limits.aiCreditsPerMonth !== null) {
-        features.push(plan.limits.aiCreditsPerMonth === -1 ? 'Unlimited AI credits' : plan.limits.aiCreditsPerMonth > 0 ? `${plan.limits.aiCreditsPerMonth} AI credits/month` : 'No AI credits')
+      if (plan.limits.aiGenerationsPerMonth !== undefined && plan.limits.aiGenerationsPerMonth !== null) {
+        features.push(plan.limits.aiGenerationsPerMonth === -1 ? 'Unlimited AI credits' : plan.limits.aiGenerationsPerMonth > 0 ? `${plan.limits.aiGenerationsPerMonth} AI credits/month` : 'No AI credits')
       }
       if (plan.limits.storageQuotaMB) {
         const storageMB = plan.limits.storageQuotaMB

@@ -66,6 +66,20 @@ export default function Document() {
             })
           }}
         />
+
+        {/* WebSite schema — tells Google to use "KabonShare" as the site name instead of the domain */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              '@context': 'https://schema.org',
+              '@type': 'WebSite',
+              name: 'Kabon Share',
+              alternateName: 'KabonShare',
+              url: 'https://kabonshare.com',
+            })
+          }}
+        />
       </Head>
       <body className="antialiased">
         <Main />

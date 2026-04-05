@@ -2,6 +2,7 @@ import Head from 'next/head'
 import HeroNew from '../components/HeroNew'
 import Features from '../components/Features'
 import AIFeatures from '../components/AIFeatures'
+import Analytics from '../components/Analytics'
 import UseCases from '../components/UseCases'
 import Platforms from '../components/Platforms'
 import DeveloperExperience from '../components/DeveloperExperience'
@@ -33,6 +34,7 @@ export default function Home() {
         <HeroNew />
         <Features />
         <AIFeatures />
+        <Analytics />
         <Platforms />
         <UseCases />
         <DeveloperExperience />
