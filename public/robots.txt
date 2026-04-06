@@ -2,7 +2,3 @@ User-agent: *
 Allow: /
 
 Sitemap: https://kabonshare.com/sitemap.xml
-
-# Disallow crawling of internal/api paths
-Disallow: /_next/
-Disallow: /api/
