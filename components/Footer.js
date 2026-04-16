@@ -124,6 +124,9 @@ export default function Footer() {
               &copy; {new Date().getFullYear()} {siteConfig.name}. All rights reserved.
             </p>
             <p className="text-slate-600 text-xs">
+              Kabon Share Limited &middot; RC 9478291
+            </p>
+            <p className="text-slate-600 text-xs">
               {siteConfig.name} is not affiliated with Instagram, TikTok, YouTube, Facebook, X, or Threads.
               All trademarks are property of their respective owners.
             </p>
