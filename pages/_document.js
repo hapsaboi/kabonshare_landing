@@ -52,8 +52,8 @@ export default function Document() {
                 url: 'https://kabonshare.com',
                 address: {
                   '@type': 'PostalAddress',
-                  streetAddress: 'No. 5 AGF Abdulrazak Street, Off 1st Avenue, Gwarinpa',
-                  addressLocality: 'Abuja',
+                  streetAddress: '13A Hospital Road, Yola North',
+                  addressLocality: 'Adamawa State',
                   addressCountry: 'NG'
                 },
                 contactPoint: {

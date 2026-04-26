@@ -19,9 +19,9 @@ export const siteConfig = {
   },
   
   address: {
-    line1: 'No. 5 AGF Abdulrazak Street',
-    line2: 'Off 1st Avenue, Gwarinpa',
-    city: 'FCT Abuja',
+    line1: '13A Hospital Road',
+    line2: 'Yola North',
+    city: 'Adamawa State',
     country: 'Nigeria'
   },
   
