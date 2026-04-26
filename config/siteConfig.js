@@ -10,7 +10,7 @@ export const siteConfig = {
     enterprise: 'support@kabonshare.com',
   },
   
-  phone: '+234 903 332 6993',
+  phone: '+234 812 435 4170',
   
   social: {
     twitter: 'https://twitter.com/kabonshare',
