@@ -1,326 +1,316 @@
 'use client'
 import { motion } from 'framer-motion'
-import {
-  HiOutlineChartBar, HiOutlineClock, HiOutlineTrendingUp,
-  HiOutlineUsers, HiOutlineEye, HiOutlineStar
-} from 'react-icons/hi'
+import { FiTrendingUp, FiClock, FiUsers, FiStar, FiEye, FiBarChart2, FiHeart, FiMessageCircle, FiRepeat, FiInstagram, FiYoutube, FiFacebook, FiCheckCircle } from 'react-icons/fi'
+import { SiTiktok, SiThreads } from 'react-icons/si'
 
-const analyticsFeatures = [
-  {
-    icon: HiOutlineChartBar,
-    title: 'Cross-Platform Analytics',
-    description: 'See likes, comments, shares, and views for every post across all platforms in one unified dashboard. No more switching between apps.',
-    color: '#3B82F6',
-  },
-  {
-    icon: HiOutlineClock,
-    title: 'Best Time to Post',
-    description: 'AI analyses your past performance to recommend the best days and times to publish — broken down per platform with engagement scoring.',
-    color: '#8B5CF6',
-  },
-  {
-    icon: HiOutlineTrendingUp,
-    title: 'Engagement Insights',
-    description: 'Visual breakdowns of your engagement: donut charts for Instagram, bar charts for reach, views, saves, and shares across every platform.',
-    color: '#10B981',
-  },
-  {
-    icon: HiOutlineUsers,
-    title: 'Audience Demographics',
-    description: 'Know exactly who your audience is — age, gender, location, and when they\'re most active — pulled directly from each platform.',
-    color: '#F59E0B',
-  },
-  {
-    icon: HiOutlineEye,
-    title: 'Live Follower Tracking',
-    description: 'Real-time animated follower counters for all your accounts. Beautiful fullscreen mode perfect for streams or office dashboards.',
-    color: '#EF4444',
-  },
-  {
-    icon: HiOutlineStar,
-    title: 'Top Performing Content',
-    description: 'Instantly see your top 5 posts ranked by engagement. Understand what works and replicate your success across platforms.',
-    color: '#EC4899',
-  },
-]
-
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: { opacity: 1, transition: { staggerChildren: 0.1 } },
+const fade = {
+  hidden: { opacity: 0, y: 18 },
+  visible: (i = 0) => ({ opacity: 1, y: 0, transition: { duration: 0.5, delay: i * 0.09, ease: [0.22, 1, 0.36, 1] } }),
 }
 
-const itemVariants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
-}
+/* ── chart math ── */
+const reachData = [38, 52, 44, 67, 55, 78, 62, 85, 70, 91, 80, 100]
+const months    = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']
+const W = 600, H = 110
+const minD = Math.min(...reachData), maxD = Math.max(...reachData)
+const px = i => (i / (reachData.length - 1)) * W
+const py = v => (1 - (v - minD) / (maxD - minD)) * (H - 20) + 10
+const linePath = reachData.map((v, i) => `${i === 0 ? 'M' : 'L'}${px(i)},${py(v)}`).join(' ')
+const areaPath = `${linePath} L${W},${H} L0,${H} Z`
 
-// Mini heatmap data for the demo (7 days x 6 time slots)
-const heatmapData = [
-  [0.2, 0.4, 0.8, 0.6, 0.3, 0.1],
-  [0.1, 0.3, 0.9, 0.7, 0.5, 0.2],
-  [0.3, 0.6, 0.7, 0.9, 0.4, 0.1],
-  [0.2, 0.5, 0.6, 0.8, 0.6, 0.3],
-  [0.4, 0.7, 0.9, 0.5, 0.3, 0.1],
-  [0.1, 0.3, 0.5, 0.4, 0.2, 0.1],
-  [0.2, 0.4, 0.6, 0.3, 0.2, 0.1],
+/* ── data ── */
+const stats = [
+  { icon: FiBarChart2,  label: 'Total Reach',  value: '284.5K', change: '+12.3%', color: 'text-cyan-400',    iconBg: 'bg-cyan-500/15 border-cyan-500/25'    },
+  { icon: FiHeart,      label: 'Engagement',   value: '18.7K',  change: '+8.1%',  color: 'text-violet-400',  iconBg: 'bg-violet-500/15 border-violet-500/25'},
+  { icon: FiUsers,      label: 'Followers',    value: '42.1K',  change: '+2.4%',  color: 'text-emerald-400', iconBg: 'bg-emerald-500/15 border-emerald-500/25'},
+  { icon: FiEye,        label: 'Avg. Views',   value: '12.3K',  change: '+15.7%', color: 'text-amber-400',   iconBg: 'bg-amber-500/15 border-amber-500/25'  },
 ]
-const dayLabels = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
-const timeLabels = ['6am', '9am', '12pm', '3pm', '6pm', '9pm']
+
+const features = [
+  { icon: FiClock,      color: 'text-violet-400', bg: 'bg-violet-500/10 border border-violet-500/20', title: 'Best time to post',     desc: 'AI-driven posting time recommendations per platform based on your audience.' },
+  { icon: FiUsers,      color: 'text-emerald-400',bg: 'bg-emerald-500/10 border border-emerald-500/20',title: 'Audience demographics', desc: 'Age, location, and interest breakdowns across every connected account.' },
+  { icon: FiStar,       color: 'text-amber-400',  bg: 'bg-amber-500/10 border border-amber-500/20',  title: 'Top performing content', desc: 'Spot your highest reach and engagement posts across all platforms at a glance.' },
+]
+
+const engagementData = [
+  { name: 'Instagram', icon: FiInstagram, pct: 85, color: 'from-pink-500 to-rose-500'  },
+  { name: 'TikTok',    icon: SiTiktok,    pct: 72, color: 'from-slate-400 to-slate-500'},
+  { name: 'YouTube',   icon: FiYoutube,   pct: 58, color: 'from-red-500 to-red-600'    },
+  { name: 'Facebook',  icon: FiFacebook,  pct: 45, color: 'from-blue-500 to-blue-600'  },
+  { name: 'Threads',   icon: SiThreads,   pct: 38, color: 'from-slate-500 to-slate-700'},
+]
+
+const liveFollowers = [
+  { name: 'Instagram', count: '24,871', change: '+12', icon: FiInstagram, bg: 'from-pink-500 to-rose-600'  },
+  { name: 'TikTok',    count: '11,204', change: '+34', icon: SiTiktok,    bg: 'from-slate-600 to-slate-900'},
+  { name: 'YouTube',   count: '6,340',  change: '+5',  icon: FiYoutube,   bg: 'from-red-500 to-red-700'   },
+]
 
 export default function Analytics() {
   return (
-    <section id="analytics" className="py-24 bg-slate-950 relative overflow-hidden">
-      {/* Background */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-1/4 right-0 w-[500px] h-[500px] bg-cyan-600/5 rounded-full blur-3xl" />
-        <div className="absolute bottom-1/4 left-0 w-96 h-96 bg-violet-500/5 rounded-full blur-3xl" />
+    <section id="analytics" className="py-16 bg-slate-950 relative overflow-hidden">
+      <div className="absolute inset-0 pointer-events-none overflow-hidden">
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[700px] h-[350px] bg-cyan-600/8 rounded-full blur-[120px]" />
+        <div className="absolute bottom-0 right-0 w-[400px] h-[300px] bg-blue-600/6 rounded-full blur-[100px]" />
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        {/* Section Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-16"
-        >
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-cyan-500/10 to-blue-500/10 border border-cyan-500/20 backdrop-blur-sm mb-6"
-          >
-            <HiOutlineChartBar className="text-cyan-400" />
-            <span className="text-sm font-medium text-cyan-300">Analytics & Insights</span>
-          </motion.div>
 
-          <h2 className="text-4xl md:text-5xl font-bold text-white mb-6 tracking-tight">
-            Know Exactly{' '}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-400">
-              What Works
-            </span>
+        {/* ── Header ── */}
+        <motion.div variants={fade} custom={0} initial="hidden" whileInView="visible" viewport={{ once: true }}
+          className="text-center mb-10">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-cyan-500/10 border border-cyan-500/20 mb-4">
+            <FiBarChart2 className="text-cyan-400" size={13} />
+            <span className="text-xs font-semibold text-cyan-300 tracking-wider uppercase">Analytics & Insights</span>
+          </div>
+          <h2 className="text-3xl md:text-4xl font-bold text-white tracking-tight mb-3">
+            Know exactly{' '}
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-400">what works</span>
           </h2>
-          <p className="text-lg text-slate-400 max-w-2xl mx-auto leading-relaxed">
+          <p className="text-slate-400 text-sm max-w-lg mx-auto">
             Deep analytics across every platform, smart scheduling suggestions, and audience insights — all in one place.
           </p>
         </motion.div>
 
-        {/* Best Times Demo + Features side by side */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-16">
-          {/* Best Times Heatmap Demo */}
-          <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="bg-slate-900/80 backdrop-blur-sm rounded-2xl border border-white/5 overflow-hidden"
-          >
-            <div className="px-5 py-3 border-b border-white/5 flex items-center gap-2">
-              <HiOutlineClock className="text-violet-400 text-sm" />
-              <span className="text-xs font-medium text-slate-400">Best Time to Post — Instagram</span>
-              <div className="ml-auto flex gap-1.5">
-                <div className="w-2 h-2 rounded-full bg-red-500/50" />
-                <div className="w-2 h-2 rounded-full bg-yellow-500/50" />
-                <div className="w-2 h-2 rounded-full bg-green-500/50" />
-              </div>
+        {/* ── Main 2-col ── */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start mb-4">
+
+          {/* Left — stats + features */}
+          <div>
+            {/* 2×2 stat grid */}
+            <div className="grid grid-cols-2 gap-3 mb-6">
+              {stats.map((s, i) => (
+                <motion.div key={s.label}
+                  variants={fade} custom={1 + i * 0.1} initial="hidden" whileInView="visible" viewport={{ once: true }}
+                  className="bg-slate-900 rounded-2xl p-4"
+                >
+                  <div className={`w-8 h-8 rounded-lg ${s.iconBg} border flex items-center justify-center mb-3`}>
+                    <s.icon className={s.color} size={14} />
+                  </div>
+                  <p className={`text-xl font-bold ${s.color}`}>{s.value}</p>
+                  <p className="text-xs text-slate-400 mt-0.5">{s.label}</p>
+                  <p className="text-[11px] text-emerald-400 mt-1">{s.change} this month</p>
+                </motion.div>
+              ))}
             </div>
-            <div className="p-5">
-              {/* Heatmap */}
-              <div className="space-y-1.5">
-                {/* Time labels */}
-                <div className="flex gap-1.5 ml-10">
-                  {timeLabels.map((t, i) => (
-                    <span key={i} className="flex-1 text-[10px] text-slate-500 text-center">{t}</span>
-                  ))}
+
+            {/* Feature list */}
+            <div className="space-y-1">
+              {features.map((f, i) => (
+                <motion.div key={f.title}
+                  variants={fade} custom={3 + i * 0.1} initial="hidden" whileInView="visible" viewport={{ once: true }}
+                  className="flex items-start gap-4 p-4 rounded-2xl hover:bg-slate-900 transition-colors"
+                >
+                  <div className={`w-9 h-9 rounded-xl ${f.bg} flex items-center justify-center flex-shrink-0 mt-0.5`}>
+                    <f.icon className={f.color} size={15} />
+                  </div>
+                  <div>
+                    <p className="text-sm font-semibold text-white mb-0.5">{f.title}</p>
+                    <p className="text-xs text-slate-500 leading-relaxed">{f.desc}</p>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+
+          {/* Right — dashboard mockup */}
+          <motion.div
+            variants={fade} custom={1} initial="hidden" whileInView="visible" viewport={{ once: true }}
+            className="relative"
+          >
+            <div className="absolute inset-0 bg-gradient-to-br from-cyan-600/15 to-blue-600/15 rounded-3xl blur-2xl scale-105" />
+
+            <div className="relative bg-slate-900 rounded-3xl overflow-hidden">
+
+              {/* Window bar */}
+              <div className="flex items-center justify-between px-4 py-2.5 border-b border-slate-800">
+                <div className="flex items-center gap-2">
+                  <div className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse" />
+                  <span className="text-xs font-semibold text-slate-400">Analytics Dashboard</span>
                 </div>
-                {/* Rows */}
-                {heatmapData.map((row, dayIdx) => (
-                  <div key={dayIdx} className="flex items-center gap-1.5">
-                    <span className="w-8 text-[10px] text-slate-500 text-right">{dayLabels[dayIdx]}</span>
-                    {row.map((val, hourIdx) => (
-                      <motion.div
-                        key={hourIdx}
-                        initial={{ opacity: 0, scale: 0 }}
-                        whileInView={{ opacity: 1, scale: 1 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.3, delay: dayIdx * 0.05 + hourIdx * 0.03 }}
-                        className="flex-1 h-7 rounded-md cursor-default transition-transform hover:scale-110"
-                        style={{
-                          backgroundColor: val > 0.7
-                            ? `rgba(139, 92, 246, ${0.5 + val * 0.5})`
-                            : val > 0.4
-                              ? `rgba(99, 102, 241, ${0.3 + val * 0.4})`
-                              : `rgba(100, 116, 139, ${0.1 + val * 0.2})`,
-                        }}
-                        title={`${dayLabels[dayIdx]} ${timeLabels[hourIdx]} — ${Math.round(val * 100)}% engagement`}
-                      />
-                    ))}
+                <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-slate-800 border border-slate-700">
+                  <FiClock size={10} className="text-slate-500" />
+                  <span className="text-[10px] text-slate-400">Last 30 days</span>
+                </div>
+              </div>
+
+              {/* Metric strip */}
+              <div className="grid grid-cols-4 divide-x divide-slate-800 border-b border-slate-800">
+                {stats.map(s => (
+                  <div key={s.label} className="px-3 py-2.5">
+                    <p className="text-[9px] text-slate-600 uppercase tracking-wide truncate">{s.label}</p>
+                    <p className={`text-sm font-bold ${s.color}`}>{s.value}</p>
+                    <p className="text-[9px] text-emerald-500">{s.change}</p>
                   </div>
                 ))}
               </div>
-              {/* Legend */}
-              <div className="flex items-center justify-center gap-4 mt-4">
-                <div className="flex items-center gap-1.5">
-                  <div className="w-3 h-3 rounded-sm" style={{ backgroundColor: 'rgba(100, 116, 139, 0.2)' }} />
-                  <span className="text-[10px] text-slate-500">Low</span>
-                </div>
-                <div className="flex items-center gap-1.5">
-                  <div className="w-3 h-3 rounded-sm" style={{ backgroundColor: 'rgba(99, 102, 241, 0.5)' }} />
-                  <span className="text-[10px] text-slate-500">Medium</span>
-                </div>
-                <div className="flex items-center gap-1.5">
-                  <div className="w-3 h-3 rounded-sm" style={{ backgroundColor: 'rgba(139, 92, 246, 0.9)' }} />
-                  <span className="text-[10px] text-slate-500">High</span>
-                </div>
-              </div>
-              {/* Suggested Times */}
-              <div className="mt-4 pt-4 border-t border-white/5">
-                <p className="text-[10px] uppercase tracking-wider text-violet-400 mb-2">Recommended Slots</p>
-                <div className="flex flex-wrap gap-1.5">
-                  {[
-                    { day: 'Wed', time: '12pm', score: 'high' },
-                    { day: 'Fri', time: '12pm', score: 'high' },
-                    { day: 'Tue', time: '12pm', score: 'high' },
-                    { day: 'Thu', time: '3pm', score: 'high' },
-                    { day: 'Mon', time: '12pm', score: 'medium' },
-                  ].map((slot, i) => (
-                    <div
-                      key={i}
-                      className="px-2.5 py-1.5 rounded-lg bg-white/5 border border-violet-500/20 text-xs text-slate-300"
+
+              {/* Chart */}
+              <div className="px-4 pt-3 pb-1">
+                <p className="text-[10px] font-semibold text-slate-600 uppercase tracking-widest mb-2">Reach over time</p>
+                <div className="relative h-28">
+                  <svg viewBox={`0 0 ${W} ${H}`} className="w-full h-full" preserveAspectRatio="none">
+                    <defs>
+                      <linearGradient id="areaGradAlt" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0%" stopColor="#06b6d4" stopOpacity="0.28" />
+                        <stop offset="100%" stopColor="#06b6d4" stopOpacity="0.02" />
+                      </linearGradient>
+                    </defs>
+                    {[30, 60, 90].map(y => (
+                      <line key={y} x1={0} x2={W} y1={y} y2={y} stroke="#1e293b" strokeWidth="1" />
+                    ))}
+                    <motion.path
+                      initial={{ opacity: 0 }}
+                      whileInView={{ opacity: 1 }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 0.8 }}
+                      d={areaPath} fill="url(#areaGradAlt)"
+                    />
+                    <motion.path
+                      initial={{ pathLength: 0 }}
+                      whileInView={{ pathLength: 1 }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 1.5, ease: 'easeOut' }}
+                      d={linePath}
+                      fill="none" stroke="#06b6d4" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"
+                    />
+                    <motion.circle
+                      initial={{ opacity: 0, r: 0 }}
+                      whileInView={{ opacity: 1, r: 6 }}
+                      viewport={{ once: true }}
+                      transition={{ delay: 1.3 }}
+                      cx={px(reachData.length - 1)} cy={py(reachData[reachData.length - 1])}
+                      fill="#06b6d4"
+                    />
+                    {/* Tooltip on last point */}
+                    <motion.g
+                      initial={{ opacity: 0 }}
+                      whileInView={{ opacity: 1 }}
+                      viewport={{ once: true }}
+                      transition={{ delay: 1.5 }}
                     >
-                      {slot.day} {slot.time}
-                      <span className={`ml-1 inline-block w-1.5 h-1.5 rounded-full ${
-                        slot.score === 'high' ? 'bg-green-500' : 'bg-amber-400'
-                      }`} />
-                    </div>
-                  ))}
+                      <rect x={W - 72} y={py(reachData[reachData.length - 1]) - 28} width={68} height={22} rx={6} fill="#0e7490" />
+                      <text x={W - 38} y={py(reachData[reachData.length - 1]) - 13} textAnchor="middle" fill="#fff" fontSize={10} fontWeight="700">284.5K</text>
+                    </motion.g>
+                  </svg>
+                  <div className="flex justify-between mt-1">
+                    {months.map(m => <span key={m} className="text-[8px] text-slate-700">{m}</span>)}
+                  </div>
                 </div>
               </div>
-            </div>
-          </motion.div>
 
-          {/* Engagement Stats Demo */}
-          <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="bg-slate-900/80 backdrop-blur-sm rounded-2xl border border-white/5 overflow-hidden"
-          >
-            <div className="px-5 py-3 border-b border-white/5 flex items-center gap-2">
-              <HiOutlineTrendingUp className="text-cyan-400 text-sm" />
-              <span className="text-xs font-medium text-slate-400">Performance Overview</span>
-              <div className="ml-auto flex gap-1.5">
-                <div className="w-2 h-2 rounded-full bg-red-500/50" />
-                <div className="w-2 h-2 rounded-full bg-yellow-500/50" />
-                <div className="w-2 h-2 rounded-full bg-green-500/50" />
-              </div>
-            </div>
-            <div className="p-5 space-y-5">
-              {/* Stats Row */}
-              <div className="grid grid-cols-2 gap-3">
-                {[
-                  { label: 'Total Reach', value: '284.5K', change: '+12.3%', color: 'text-cyan-400' },
-                  { label: 'Engagement', value: '18.7K', change: '+8.1%', color: 'text-violet-400' },
-                  { label: 'Followers', value: '42.1K', change: '+2.4%', color: 'text-emerald-400' },
-                  { label: 'Avg. Views', value: '12.3K', change: '+15.7%', color: 'text-amber-400' },
-                ].map((stat, i) => (
-                  <motion.div
-                    key={i}
-                    initial={{ opacity: 0, y: 10 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.4, delay: i * 0.1 }}
-                    className="p-3 rounded-xl bg-white/5 border border-white/5"
-                  >
-                    <p className="text-[10px] text-slate-500 uppercase tracking-wider">{stat.label}</p>
-                    <p className={`text-xl font-bold mt-1 ${stat.color}`}>{stat.value}</p>
-                    <p className="text-xs text-emerald-400 mt-0.5">↑ {stat.change}</p>
-                  </motion.div>
-                ))}
-              </div>
-
-              {/* Mini Bar Chart */}
-              <div>
-                <p className="text-[10px] uppercase tracking-wider text-slate-500 mb-3">Engagement by Platform</p>
-                <div className="space-y-2.5">
-                  {[
-                    { platform: 'Instagram', pct: 85, color: 'from-pink-500 to-violet-500' },
-                    { platform: 'TikTok', pct: 72, color: 'from-cyan-400 to-blue-500' },
-                    { platform: 'YouTube', pct: 58, color: 'from-red-500 to-red-600' },
-                    { platform: 'Facebook', pct: 45, color: 'from-blue-500 to-blue-600' },
-                    { platform: 'Threads', pct: 34, color: 'from-slate-400 to-slate-500' },
-                  ].map((p, i) => (
-                    <div key={i} className="flex items-center gap-3">
-                      <span className="text-xs text-slate-400 w-20 text-right">{p.platform}</span>
-                      <div className="flex-1 h-2.5 bg-white/5 rounded-full overflow-hidden">
+              {/* Engagement bars */}
+              <div className="px-4 pb-4 pt-1">
+                <p className="text-[10px] font-semibold text-slate-600 uppercase tracking-widest mb-2.5">Engagement by platform</p>
+                <div className="space-y-2">
+                  {engagementData.map((p, i) => (
+                    <div key={p.name} className="flex items-center gap-2.5">
+                      <p.icon size={11} className="text-slate-500 flex-shrink-0" />
+                      <span className="text-[10px] text-slate-500 w-14 flex-shrink-0">{p.name}</span>
+                      <div className="flex-1 h-1.5 bg-slate-800 rounded-full overflow-hidden">
                         <motion.div
                           initial={{ width: 0 }}
                           whileInView={{ width: `${p.pct}%` }}
                           viewport={{ once: true }}
-                          transition={{ duration: 0.8, delay: i * 0.1 }}
+                          transition={{ duration: 0.9, delay: 0.2 + i * 0.1, ease: 'easeOut' }}
                           className={`h-full rounded-full bg-gradient-to-r ${p.color}`}
                         />
                       </div>
-                      <span className="text-xs text-slate-500 w-8">{p.pct}%</span>
+                      <span className="text-[10px] font-semibold text-slate-500 w-6 flex-shrink-0 text-right">{p.pct}%</span>
                     </div>
                   ))}
                 </div>
               </div>
 
-              {/* Top Post */}
-              <div className="p-3 rounded-xl bg-gradient-to-r from-violet-500/10 to-cyan-500/10 border border-violet-500/20">
-                <div className="flex items-center gap-2 mb-1">
-                  <HiOutlineStar className="text-amber-400 text-sm" />
-                  <span className="text-[10px] uppercase tracking-wider text-amber-400">Top Performing Post</span>
-                </div>
-                <p className="text-sm text-white font-medium">&quot;Behind the scenes of our latest shoot 🎬&quot;</p>
-                <div className="flex gap-4 mt-2">
-                  <span className="text-xs text-slate-400">❤️ 4.2K</span>
-                  <span className="text-xs text-slate-400">💬 389</span>
-                  <span className="text-xs text-slate-400">🔄 1.1K</span>
-                  <span className="text-xs text-slate-400">👁 28.5K</span>
-                </div>
-              </div>
             </div>
           </motion.div>
         </div>
 
-        {/* Features Grid */}
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: '-50px' }}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
-        >
-          {analyticsFeatures.map((feature, index) => (
-            <motion.div
-              key={index}
-              variants={itemVariants}
-              whileHover={{ y: -5 }}
-              className="group relative bg-slate-900/50 backdrop-blur-sm rounded-2xl p-7 border border-white/5 hover:border-white/10 transition-all duration-300 overflow-hidden"
-            >
-              <div
-                className="absolute inset-0 opacity-0 group-hover:opacity-10 transition-opacity duration-500"
-                style={{ background: `radial-gradient(circle at top right, ${feature.color}, transparent 70%)` }}
-              />
-              <div className="relative z-10">
-                <div className="mb-5 inline-flex p-3 rounded-xl bg-white/5 border border-white/10 group-hover:scale-110 transition-transform duration-300">
-                  <feature.icon className="text-2xl" style={{ color: feature.color }} />
-                </div>
-                <h3 className="text-lg font-bold text-white mb-2.5 group-hover:text-cyan-300 transition-colors">
-                  {feature.title}
-                </h3>
-                <p className="text-slate-400 text-sm leading-relaxed">
-                  {feature.description}
-                </p>
+        {/* ── Bottom row: live followers + heatmap ── */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+
+          {/* Live followers */}
+          <motion.div variants={fade} custom={5} initial="hidden" whileInView="visible" viewport={{ once: true }}
+            className="bg-slate-900 rounded-3xl p-5">
+            <div className="flex items-center gap-2 mb-4">
+              <div className="w-2 h-2 rounded-full bg-rose-400 animate-pulse" />
+              <p className="text-xs font-semibold text-slate-400">Live Followers</p>
+            </div>
+            <div className="grid grid-cols-3 gap-3">
+              {liveFollowers.map((acc, i) => (
+                <motion.div key={acc.name}
+                  initial={{ opacity: 0, y: 8 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.2 + i * 0.1 }}
+                  className="flex flex-col items-center gap-2 p-3 rounded-2xl bg-slate-800 border border-slate-700 text-center"
+                >
+                  <div className={`w-9 h-9 rounded-xl bg-gradient-to-br ${acc.bg} flex items-center justify-center`}>
+                    <acc.icon size={15} color="#fff" />
+                  </div>
+                  <div>
+                    <p className="text-sm font-bold text-white">{acc.count}</p>
+                    <p className="text-[10px] text-slate-500">{acc.name}</p>
+                  </div>
+                  <span className="text-[10px] font-bold text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded-full">{acc.change} today</span>
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
+
+          {/* Best time heatmap */}
+          <motion.div variants={fade} custom={6} initial="hidden" whileInView="visible" viewport={{ once: true }}
+            className="bg-slate-900 rounded-3xl p-5">
+            <div className="flex items-center gap-2 mb-3">
+              <FiClock className="text-violet-400" size={14} />
+              <p className="text-xs font-semibold text-slate-400">Best Time to Post</p>
+              <div className="ml-auto flex items-center gap-1.5 px-2 py-1 rounded-lg bg-slate-800 border border-slate-700">
+                <FiCheckCircle className="text-emerald-400" size={10} />
+                <span className="text-[10px] text-slate-400">Wed 12pm optimal</span>
               </div>
-            </motion.div>
-          ))}
-        </motion.div>
+            </div>
+            <div className="space-y-1">
+              <div className="flex gap-1 ml-7 mb-1">
+                {['6am','9am','12pm','3pm','6pm','9pm'].map(t => (
+                  <span key={t} className="flex-1 text-[8px] text-slate-600 text-center">{t}</span>
+                ))}
+              </div>
+              {[
+                [0.2,0.4,0.8,0.6,0.3,0.1],
+                [0.1,0.3,0.9,0.7,0.5,0.2],
+                [0.3,0.6,0.7,0.9,0.4,0.1],
+                [0.2,0.5,0.6,0.8,0.6,0.3],
+                [0.4,0.7,0.9,0.5,0.3,0.1],
+                [0.1,0.3,0.5,0.4,0.2,0.1],
+                [0.2,0.4,0.6,0.3,0.2,0.1],
+              ].map((row, di) => (
+                <div key={di} className="flex items-center gap-1">
+                  <span className="w-6 text-[8px] text-slate-600 text-right flex-shrink-0">
+                    {['Mon','Tue','Wed','Thu','Fri','Sat','Sun'][di]}
+                  </span>
+                  {row.map((val, hi) => (
+                    <motion.div key={hi}
+                      initial={{ opacity: 0, scale: 0.5 }}
+                      whileInView={{ opacity: 1, scale: 1 }}
+                      viewport={{ once: true }}
+                      transition={{ delay: di * 0.04 + hi * 0.02 }}
+                      className="flex-1 h-5 rounded"
+                      style={{
+                        background: val > 0.7
+                          ? `rgba(139,92,246,${0.5 + val * 0.5})`
+                          : val > 0.4
+                          ? `rgba(99,102,241,${0.3 + val * 0.4})`
+                          : `rgba(71,85,105,${0.2 + val * 0.2})`,
+                      }}
+                    />
+                  ))}
+                </div>
+              ))}
+            </div>
+          </motion.div>
+
+        </div>
+
       </div>
     </section>
   )

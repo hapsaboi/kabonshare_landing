@@ -1,7 +1,7 @@
 'use client'
 import { motion } from 'framer-motion'
 import { FiInstagram, FiFacebook, FiYoutube } from 'react-icons/fi'
-import { SiTiktok, SiThreads } from 'react-icons/si'
+import { SiTiktok, SiThreads, SiLinkedin } from 'react-icons/si'
 import { BsTwitterX } from 'react-icons/bs'
 import { HiOutlineCheck } from 'react-icons/hi'
 import { siteConfig } from '../config/siteConfig'
@@ -45,9 +45,16 @@ const platforms = [
   {
     name: 'X (Twitter)',
     features: ['Posts', 'Threads', 'Media'],
-    status: 'coming',
+    status: 'live',
     icon: BsTwitterX,
-    gradient: 'from-gray-900 to-gray-800'
+    gradient: 'from-slate-700 to-slate-900'
+  },
+  {
+    name: 'LinkedIn',
+    features: ['Posts', 'Articles', 'Media'],
+    status: 'coming',
+    icon: SiLinkedin,
+    gradient: 'from-blue-700 to-blue-900'
   }
 ]
 
@@ -160,56 +167,6 @@ export default function Platforms() {
           ))}
         </div>
 
-        {/* Code Example */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.3 }}
-          className="bg-slate-950 rounded-2xl overflow-hidden border border-white/5 mb-16"
-        >
-          <div className="flex items-center gap-2 px-5 py-3 border-b border-white/5 bg-slate-900/50">
-            <div className="w-3 h-3 rounded-full bg-red-400/80" />
-            <div className="w-3 h-3 rounded-full bg-yellow-400/80" />
-            <div className="w-3 h-3 rounded-full bg-green-400/80" />
-            <span className="ml-3 text-slate-500 text-xs font-mono">publish.js</span>
-          </div>
-          <pre className="p-5 overflow-x-auto text-sm leading-relaxed font-mono">
-            <code className="text-slate-300">{`// Publish to multiple platforms with one request
-const response = await fetch('https://api.kabonshare.com/api/posts', {
-  method: 'POST',
-  headers: { 'X-API-Key': 'sk_your_api_key' },
-  body: formData  // platforms: "instagram,facebook,threads"
-});
-
-// ✅ Published to 3 platforms simultaneously
-console.log(response.json());
-// { success: true, results: [{ platform: "instagram", status: "published" }, ...] }`}</code>
-          </pre>
-        </motion.div>
-
-        {/* Bottom CTA */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.5 }}
-          className="bg-gradient-to-r from-primary to-secondary rounded-2xl p-8 md:p-10 text-center text-white"
-        >
-          <h3 className="text-2xl md:text-3xl font-bold mb-3">
-            Need a Different Platform?
-          </h3>
-          <p className="text-lg mb-6 text-white/80 max-w-xl mx-auto">
-            We&apos;re constantly adding new platforms. Let us know which one you need most.
-          </p>
-          <a
-            href={`mailto:${siteConfig.contact.info}?subject=Platform Request`}
-            className="inline-flex items-center gap-2 bg-white text-indigo-600 px-7 py-3.5 rounded-xl font-semibold hover:bg-gray-50 hover:-translate-y-0.5 transition-all duration-300 shadow-lg"
-          >
-            Request Platform Integration
-            <span className="text-lg">→</span>
-          </a>
-        </motion.div>
       </div>
     </section>
   )

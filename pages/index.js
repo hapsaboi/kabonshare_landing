@@ -6,8 +6,6 @@ import Analytics from '../components/Analytics'
 import UseCases from '../components/UseCases'
 import Platforms from '../components/Platforms'
 import DeveloperExperience from '../components/DeveloperExperience'
-import Pricing from '../components/Pricing'
-import StatsTestimonials from '../components/StatsTestimonials'
 import ContactSupport from '../components/ContactSupport'
 import Footer from '../components/Footer'
 
@@ -30,7 +28,7 @@ export default function Home() {
         <meta name="twitter:title" content="KabonShare — Publish Once, Reach Everyone" />
         <meta name="twitter:description" content="Multi-platform social media publishing. Post to Instagram, Facebook, Threads, TikTok, and YouTube from one place." />
       </Head>
-      <main className="min-h-screen bg-white">
+      <main className="min-h-screen bg-slate-950">
         <HeroNew />
         <Features />
         <AIFeatures />
@@ -38,8 +36,6 @@ export default function Home() {
         <Platforms />
         <UseCases />
         <DeveloperExperience />
-        <Pricing />
-        <StatsTestimonials />
         <ContactSupport />
         <Footer />
       </main>

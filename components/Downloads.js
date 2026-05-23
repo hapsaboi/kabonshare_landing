@@ -1,5 +1,6 @@
 'use client'
 import { useState, useEffect } from 'react'
+import Image from 'next/image'
 import { motion } from 'framer-motion'
 import { HiOutlineDownload, HiOutlineExternalLink } from 'react-icons/hi'
 import { FiSmartphone, FiMonitor, FiGlobe, FiDownload } from 'react-icons/fi'
@@ -109,7 +110,7 @@ export default function Downloads() {
                 <div className="flex items-start gap-4 mb-4">
                   <div className={`w-14 h-14 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg ${app.iconUrl ? 'bg-white border border-gray-100' : `bg-gradient-to-br ${meta.color}`}`}>
                     {app.iconUrl ? (
-                      <img src={app.iconUrl} alt="" className="w-10 h-10 rounded-lg object-cover" />
+                      <Image src={app.iconUrl} alt="" width={40} height={40} className="rounded-lg object-cover" />
                     ) : (
                       <PlatformIcon className="w-7 h-7 text-white" />
                     )}

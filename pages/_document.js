@@ -74,8 +74,8 @@ export default function Document() {
             __html: JSON.stringify({
               '@context': 'https://schema.org',
               '@type': 'WebSite',
-              name: 'Kabon Share',
-              alternateName: 'KabonShare',
+              name: 'KabonShare',
+              alternateName: 'Kabon Share',
               url: 'https://kabonshare.com',
             })
           }}
