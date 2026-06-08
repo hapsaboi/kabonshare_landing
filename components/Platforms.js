@@ -1,7 +1,7 @@
 'use client'
 import { motion } from 'framer-motion'
 import { FiInstagram, FiFacebook, FiYoutube } from 'react-icons/fi'
-import { SiTiktok, SiThreads, SiLinkedin } from 'react-icons/si'
+import { SiTiktok, SiThreads, SiLinkedin, SiPinterest, SiBluesky } from 'react-icons/si'
 import { BsTwitterX } from 'react-icons/bs'
 import { HiOutlineCheck } from 'react-icons/hi'
 import { siteConfig } from '../config/siteConfig'
@@ -51,10 +51,24 @@ const platforms = [
   },
   {
     name: 'LinkedIn',
-    features: ['Posts', 'Articles', 'Media'],
-    status: 'coming',
+    features: ['Posts', 'Articles', 'Media', 'Documents'],
+    status: 'live',
     icon: SiLinkedin,
     gradient: 'from-blue-700 to-blue-900'
+  },
+  {
+    name: 'Bluesky',
+    features: ['Posts', 'Images', 'Carousels', 'Threads'],
+    status: 'live',
+    icon: SiBluesky,
+    gradient: 'from-sky-400 to-blue-500'
+  },
+  {
+    name: 'Pinterest',
+    features: ['Pins', 'Carousels', 'Idea Pins', 'Video Pins'],
+    status: 'live',
+    icon: SiPinterest,
+    gradient: 'from-red-500 to-rose-600'
   }
 ]
 

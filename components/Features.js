@@ -1,7 +1,7 @@
 'use client'
 import { motion } from 'framer-motion'
-import { FiInstagram, FiFacebook, FiYoutube, FiClock, FiUsers, FiHardDrive, FiCpu, FiBarChart2, FiCheckCircle, FiCalendar, FiZap, FiFilm, FiImage, FiMusic, FiFileText } from 'react-icons/fi'
-import { SiTiktok, SiThreads, SiLinkedin } from 'react-icons/si'
+import { FiInstagram, FiFacebook, FiYoutube, FiClock, FiUsers, FiHardDrive, FiCpu, FiBarChart2, FiCheckCircle, FiCalendar, FiZap, FiFilm, FiImage, FiMusic, FiFileText, FiMessageSquare } from 'react-icons/fi'
+import { SiTiktok, SiThreads, SiLinkedin, SiPinterest, SiBluesky } from 'react-icons/si'
 import { BsTwitterX } from 'react-icons/bs'
 
 const fade = {
@@ -17,6 +17,8 @@ const platforms = [
   { name: 'Threads', icon: SiThreads, color: '#fff', bg: 'from-slate-600 to-slate-800' },
   { name: 'X', icon: BsTwitterX, color: '#fff', bg: 'from-slate-700 to-slate-900' },
   { name: 'LinkedIn', icon: SiLinkedin, color: '#fff', bg: 'from-blue-600 to-blue-800' },
+  { name: 'Bluesky', icon: SiBluesky, color: '#fff', bg: 'from-sky-400 to-blue-500' },
+  { name: 'Pinterest', icon: SiPinterest, color: '#fff', bg: 'from-red-500 to-rose-600' },
 ]
 
 const weekDays = ['M', 'T', 'W', 'T', 'F', 'S', 'S']
@@ -75,7 +77,7 @@ export default function Features() {
               </div>
               <h3 className="text-xl font-bold text-white mb-1.5">Publish Everywhere</h3>
               <p className="text-slate-400 text-sm leading-relaxed max-w-sm">
-                One post, seven platforms. Instagram, TikTok, YouTube, Facebook, Threads, X, and LinkedIn — all from a single workflow.
+                One post, nine platforms. Instagram, TikTok, YouTube, Facebook, Threads, X, LinkedIn, Bluesky, and Pinterest — all from a single workflow.
               </p>
             </div>
 
@@ -317,9 +319,138 @@ export default function Features() {
             </div>
           </motion.div>
 
-          {/* ── 6. Asset Library ── */}
+          {/* ── 6. Team Collaboration ── */}
           <motion.div
             variants={fade} custom={5} initial="hidden" whileInView="visible" viewport={{ once: true }}
+            className="relative rounded-3xl bg-slate-900 overflow-hidden p-7 flex flex-col"
+          >
+            <div className="absolute inset-0 bg-gradient-to-br from-violet-600/8 via-transparent to-transparent pointer-events-none" />
+
+            <div className="relative z-10">
+              <div className="inline-flex items-center justify-center w-10 h-10 rounded-xl bg-violet-500/15 border border-violet-500/25 mb-4">
+                <FiUsers className="text-violet-400" size={18} />
+              </div>
+              <h3 className="text-lg font-bold text-white mb-1">Team Collaboration</h3>
+              <p className="text-slate-400 text-xs leading-relaxed">
+                Approval workflows, activity feeds, and real-time team chat — built right into your workspace.
+              </p>
+            </div>
+
+            <div className="relative z-10 mt-4 flex-1 flex flex-col justify-between gap-2">
+              <div className="flex items-center gap-2 bg-slate-800 border border-slate-700 rounded-xl px-3 py-2.5">
+                <div className="w-6 h-6 rounded-full bg-amber-500/20 border border-amber-500/30 flex items-center justify-center flex-shrink-0">
+                  <FiClock size={11} className="text-amber-400" />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <p className="text-[10px] text-white font-medium">Post pending approval</p>
+                  <p className="text-[9px] text-slate-500">Submitted by Alex · 2m ago</p>
+                </div>
+                <div className="w-5 h-5 rounded-md bg-emerald-500/20 border border-emerald-500/30 flex items-center justify-center">
+                  <FiCheckCircle size={10} className="text-emerald-400" />
+                </div>
+              </div>
+              <div className="flex items-center gap-2 bg-slate-800 border border-slate-700 rounded-xl px-3 py-2.5">
+                <div className="w-6 h-6 rounded-full bg-blue-500/20 border border-blue-500/30 flex items-center justify-center flex-shrink-0">
+                  <FiBarChart2 size={11} className="text-blue-400" />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <p className="text-[10px] text-white font-medium">Activity feed</p>
+                  <p className="text-[9px] text-slate-500">Sara published 3 posts · 5m ago</p>
+                </div>
+              </div>
+              <div className="flex items-start gap-2">
+                <div className="w-6 h-6 rounded-full bg-gradient-to-br from-indigo-500 to-violet-600 flex items-center justify-center flex-shrink-0 text-[9px] font-bold text-white shrink-0">S</div>
+                <div className="bg-slate-800 border border-slate-700 rounded-xl rounded-tl-sm px-3 py-2 flex-1">
+                  <p className="text-[10px] text-slate-300">Looks great! Approve from me 👍</p>
+                </div>
+              </div>
+              <div className="flex items-center gap-2 bg-slate-800/50 border border-slate-700/50 rounded-xl px-3 py-2">
+                <div className="flex -space-x-1.5">
+                  {['from-indigo-500 to-violet-600', 'from-pink-500 to-rose-600', 'from-amber-500 to-orange-600'].map((g, i) => (
+                    <div key={i} className={`w-5 h-5 rounded-full bg-gradient-to-br ${g} border border-slate-900 flex items-center justify-center text-[7px] font-bold text-white`}>
+                      {['S','A','J'][i]}
+                    </div>
+                  ))}
+                </div>
+                <span className="text-[9px] text-slate-400 ml-1">3 members active now</span>
+              </div>
+            </div>
+          </motion.div>
+
+          {/* ── 7. Team Chat (2-col card) ── */}
+          <motion.div
+            variants={fade} custom={6} initial="hidden" whileInView="visible" viewport={{ once: true }}
+            className="md:col-span-2 relative rounded-3xl bg-slate-900 overflow-hidden p-7 flex flex-col min-h-[240px]"
+          >
+            <div className="absolute inset-0 bg-gradient-to-br from-teal-600/8 via-transparent to-transparent pointer-events-none" />
+
+            <div className="relative z-10">
+              <div className="inline-flex items-center justify-center w-10 h-10 rounded-xl bg-teal-500/15 border border-teal-500/25 mb-4">
+                <FiMessageSquare className="text-teal-400" size={18} />
+              </div>
+              <h3 className="text-lg font-bold text-white mb-1">Team Chat</h3>
+              <p className="text-slate-400 text-xs leading-relaxed">
+                Real-time channels per workspace. Discuss posts, share feedback, and keep your whole team in sync.
+              </p>
+            </div>
+
+            {/* Chat window */}
+            <div className="relative z-10 mt-4 flex-1 bg-slate-800 border border-slate-700 rounded-2xl flex flex-col overflow-hidden">
+              <div className="flex items-center gap-2.5 px-4 py-3 border-b border-slate-700">
+                <div className="w-2 h-2 rounded-full bg-teal-400 animate-pulse" />
+                <span className="text-[11px] font-semibold text-white"># brand-campaign</span>
+                <span className="ml-auto text-[9px] text-slate-500">4 members online</span>
+              </div>
+              <div className="flex-1 px-4 py-3 space-y-3 overflow-hidden">
+                <div className="flex items-center gap-2">
+                  <div className="flex-1 h-px bg-slate-700" />
+                  <div className="flex items-center gap-1.5 bg-amber-500/10 border border-amber-500/20 rounded-full px-2.5 py-1">
+                    <FiClock size={9} className="text-amber-400 flex-shrink-0" />
+                    <span className="text-[9px] text-amber-300">Post submitted for approval by Alex</span>
+                  </div>
+                  <div className="flex-1 h-px bg-slate-700" />
+                </div>
+                <div className="flex items-start gap-2">
+                  <div className="w-6 h-6 rounded-full bg-gradient-to-br from-indigo-500 to-violet-600 flex items-center justify-center flex-shrink-0 text-[9px] font-bold text-white mt-0.5">S</div>
+                  <div>
+                    <p className="text-[9px] text-slate-500 mb-0.5">Sara · just now</p>
+                    <div className="bg-slate-700 rounded-xl rounded-tl-sm px-3 py-2">
+                      <p className="text-[10px] text-slate-200">Looks great! Approve from me 👍</p>
+                    </div>
+                  </div>
+                </div>
+                <div className="flex items-start gap-2 justify-end">
+                  <div className="text-right">
+                    <p className="text-[9px] text-slate-500 mb-0.5">Alex · 1m ago</p>
+                    <div className="bg-teal-600/25 border border-teal-500/20 rounded-xl rounded-tr-sm px-3 py-2">
+                      <p className="text-[10px] text-teal-100">Caption needs a hashtag tweak 🏷️</p>
+                    </div>
+                  </div>
+                  <div className="w-6 h-6 rounded-full bg-gradient-to-br from-pink-500 to-rose-600 flex items-center justify-center flex-shrink-0 text-[9px] font-bold text-white mt-0.5">A</div>
+                </div>
+                <div className="flex items-center gap-2">
+                  <div className="flex-1 h-px bg-slate-700" />
+                  <div className="flex items-center gap-1.5 bg-emerald-500/10 border border-emerald-500/20 rounded-full px-2.5 py-1">
+                    <FiCheckCircle size={9} className="text-emerald-400 flex-shrink-0" />
+                    <span className="text-[9px] text-emerald-300">Post approved · goes live in 3 hours</span>
+                  </div>
+                  <div className="flex-1 h-px bg-slate-700" />
+                </div>
+              </div>
+              <div className="flex items-center gap-2 px-3 py-2.5 border-t border-slate-700">
+                <div className="flex-1 h-7 bg-slate-700 rounded-lg px-3 flex items-center">
+                  <span className="text-[10px] text-slate-500">Message #brand-campaign…</span>
+                </div>
+                <div className="w-7 h-7 rounded-lg bg-teal-500/20 border border-teal-500/30 flex items-center justify-center flex-shrink-0">
+                  <FiMessageSquare size={12} className="text-teal-400" />
+                </div>
+              </div>
+            </div>
+          </motion.div>
+
+          {/* ── 8. Asset Library ── */}
+          <motion.div
+            variants={fade} custom={7} initial="hidden" whileInView="visible" viewport={{ once: true }}
             className="relative rounded-3xl bg-slate-900 overflow-hidden p-7 flex flex-col min-h-[240px]"
           >
             <div className="absolute inset-0 bg-gradient-to-br from-cyan-600/8 via-transparent to-transparent pointer-events-none" />
@@ -334,7 +465,6 @@ export default function Features() {
                   Upload once, reuse everywhere. Up to 100GB with smart folder organisation.
                 </p>
               </div>
-              {/* Mini asset grid */}
               <div className="flex-shrink-0 grid grid-cols-2 gap-1.5 ml-4">
                 {[
                   { bg: 'from-pink-600 to-rose-700', icon: FiFilm },
@@ -342,10 +472,7 @@ export default function Features() {
                   { bg: 'from-amber-600 to-orange-700', icon: FiMusic },
                   { bg: 'from-emerald-600 to-green-700', icon: FiFileText },
                 ].map((item, i) => (
-                  <div
-                    key={i}
-                    className={`w-14 h-14 rounded-xl bg-gradient-to-br ${item.bg} flex items-center justify-center`}
-                  >
+                  <div key={i} className={`w-14 h-14 rounded-xl bg-gradient-to-br ${item.bg} flex items-center justify-center`}>
                     <item.icon size={22} color="#fff" />
                   </div>
                 ))}
@@ -360,9 +487,9 @@ export default function Features() {
             </div>
           </motion.div>
 
-          {/* ── 7. Workspaces & Teams (2-col) ── */}
+          {/* ── 9. Workspaces & Teams (original 2-col) ── */}
           <motion.div
-            variants={fade} custom={6} initial="hidden" whileInView="visible" viewport={{ once: true }}
+            variants={fade} custom={8} initial="hidden" whileInView="visible" viewport={{ once: true }}
             className="md:col-span-2 relative rounded-3xl bg-slate-900 overflow-hidden p-7 flex flex-col min-h-[240px]"
           >
             <div className="absolute inset-0 bg-gradient-to-br from-rose-600/8 via-transparent to-transparent pointer-events-none" />

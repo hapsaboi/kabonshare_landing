@@ -2,7 +2,7 @@
 import { motion } from 'framer-motion'
 import { FaArrowRight, FaCheck } from 'react-icons/fa'
 import { FiInstagram, FiFacebook, FiYoutube } from 'react-icons/fi'
-import { SiTiktok, SiThreads } from 'react-icons/si'
+import { SiTiktok, SiThreads, SiLinkedin, SiPinterest, SiBluesky } from 'react-icons/si'
 import { BsTwitterX } from 'react-icons/bs'
 import Link from 'next/link'
 import Navbar from './Navbar'
@@ -16,6 +16,9 @@ export default function Hero() {
     { name: 'Facebook', icon: FiFacebook, color: '#1877F2', bg: 'from-blue-500 to-blue-600' },
     { name: 'Threads', icon: SiThreads, color: '#ffffff', bg: 'from-slate-700 to-slate-800' },
     { name: 'X', icon: BsTwitterX, color: '#ffffff', bg: 'from-slate-800 to-slate-900' },
+    { name: 'LinkedIn', icon: SiLinkedin, color: '#0A66C2', bg: 'from-blue-600 to-blue-800' },
+    { name: 'Bluesky', icon: SiBluesky, color: '#ffffff', bg: 'from-sky-400 to-blue-500' },
+    { name: 'Pinterest', icon: SiPinterest, color: '#E60023', bg: 'from-red-500 to-rose-600' },
   ]
 
   return (
@@ -47,7 +50,7 @@ export default function Hero() {
       />
 
       <div className="relative z-10 flex-1 flex items-center">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 w-full">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 pb-10 w-full">
           
           <div className="grid lg:grid-cols-2 gap-16 items-center">
             
@@ -88,7 +91,7 @@ export default function Hero() {
                 transition={{ duration: 0.6, delay: 0.3 }}
                 className="text-lg sm:text-xl text-slate-400 mb-10 leading-relaxed max-w-xl"
               >
-                Publish to <span className="text-white font-semibold">Instagram, Facebook, Threads, TikTok, and YouTube</span> from one platform. Mobile app, web dashboard, or developer API.
+                Publish to <span className="text-white font-semibold">9 platforms</span> — Instagram, TikTok, YouTube, Facebook, X, Threads, LinkedIn, Bluesky & Pinterest — from one place.
               </motion.p>
 
               {/* CTA Buttons */}
@@ -120,7 +123,7 @@ export default function Hero() {
                 transition={{ duration: 0.6, delay: 0.4 }}
                 className="flex flex-wrap gap-3"
               >
-                {['5 Platforms Live', 'Posts, Stories & Reels', 'Asset Library', 'Workspaces'].map((feature, index) => (
+                {['9 Platforms Live', 'Posts, Stories & Reels', 'Team Collaboration', 'Asset Library'].map((feature, index) => (
                   <div key={index} className="flex items-center gap-2 bg-white/[0.04] backdrop-blur-sm px-4 py-2 rounded-lg border border-white/[0.06]">
                     <FaCheck className="text-emerald-400 text-xs" />
                     <span className="text-white/80 text-sm font-medium">{feature}</span>
@@ -194,11 +197,11 @@ export default function Hero() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.8, delay: 0.8 }}
-            className="mt-20 pt-12 border-t border-white/[0.06]"
+            className="mt-10 pt-8 border-t border-white/[0.06]"
           >
             <div className="flex flex-wrap justify-center lg:justify-start gap-12 text-center lg:text-left">
               {[
-                { value: '5+', label: 'Social Platforms' },
+                { value: '9+', label: 'Social Platforms' },
                 { value: '99.9%', label: 'Uptime' },
                 { value: '<200ms', label: 'API Response' },
                 { value: '24/7', label: 'Support' }
