@@ -1,125 +1,193 @@
 'use client'
 import Head from 'next/head'
-import Link from 'next/link'
-import { motion } from 'framer-motion'
-import { HiShieldCheck, HiLockClosed, HiEye, HiDatabase, HiUserGroup, HiGlobe } from 'react-icons/hi'
-import Navbar from '../components/Navbar'
-import Footer from '../components/Footer'
-import { siteConfig } from '../config/siteConfig'
+import LegalPage from '../components/LegalPage'
+
+const LAST_UPDATED = 'July 12, 2026'
+
+const sections = [
+  {
+    id: 'information-we-collect',
+    title: 'Information We Collect',
+    content: [
+      {
+        subtitle: 'Information You Provide',
+        items: [
+          '<strong>Account Information:</strong> Name, email address, company name',
+          '<strong>Payment Information:</strong> Handled by our payment processors (Paystack for cards, Heleket for cryptocurrency) — we store billing history and card metadata (last four digits, expiry), never full card numbers; for crypto refunds we process the wallet address you provide',
+          '<strong>Social Media Credentials:</strong> OAuth tokens for connected social media accounts',
+          '<strong>Content Data:</strong> Posts, images, videos, live streams, and other content you publish through our platform',
+          '<strong>Team Data:</strong> Workspace membership, roles, comments, and approval activity',
+          '<strong>Integration Files:</strong> Files you explicitly select from connected services such as Google Drive, Dropbox, or Canva',
+          '<strong>Communication Data:</strong> Messages you send to our support team'
+        ]
+      },
+      {
+        subtitle: 'Information From Connected Platforms',
+        items: [
+          '<strong>Analytics Data:</strong> Follower counts, engagement metrics, and post performance retrieved from platforms you connect, used to power your analytics and reports',
+          '<strong>Profile Data:</strong> Account names, usernames, and profile pictures of your connected accounts'
+        ]
+      },
+      {
+        subtitle: 'Automatically Collected Information',
+        items: [
+          '<strong>API Usage Data:</strong> API calls, endpoints accessed, request/response data, timestamps',
+          '<strong>Device Information:</strong> IP address, browser type, operating system',
+          '<strong>Cookies and Tracking:</strong> Session cookies, analytics cookies'
+        ]
+      }
+    ]
+  },
+  {
+    id: 'how-we-use',
+    title: 'How We Use Your Information',
+    content: [
+      {
+        items: [
+          'Provide, operate, and maintain our Service',
+          'Process and complete transactions',
+          'Authenticate social media accounts and publish content on your behalf',
+          'Retrieve analytics from your connected accounts to power your reports and insights',
+          'Power AI-assisted features such as caption generation when you use them',
+          'Send you technical notices, updates, security alerts',
+          'Respond to your comments, questions, and customer service requests',
+          'Analyze usage patterns to improve our Service',
+          'Detect, prevent, and address technical issues and fraudulent activity'
+        ]
+      }
+    ]
+  },
+  {
+    id: 'information-sharing',
+    title: 'Information Sharing',
+    content: [
+      {
+        subtitle: 'We may share your information with:',
+        items: [
+          '<strong>Social Media Platforms:</strong> We share content with platforms you\'ve connected (Instagram, TikTok, YouTube, Facebook, Twitter/X, LinkedIn, Threads, Bluesky, Pinterest)',
+          '<strong>Service Providers:</strong> Cloud hosting, payment processors (Paystack, Heleket), analytics providers',
+          '<strong>AI Providers:</strong> Content you submit to AI features may be processed by third-party AI service providers solely to deliver the feature — it is not used to train their models',
+          '<strong>Workspace Members:</strong> Content, comments, approvals, and activity in a workspace are visible to its members according to their roles',
+          '<strong>Legal Requirements:</strong> When required by law or to protect our rights',
+          '<strong>Business Transfers:</strong> In connection with a merger, acquisition, or sale of assets'
+        ]
+      },
+      {
+        subtitle: 'We do NOT:',
+        items: [
+          'Sell your personal information to third parties',
+          'Share your OAuth tokens with anyone',
+          'Use your content for our own marketing without permission',
+          'Use your content or data to train AI models'
+        ]
+      }
+    ]
+  },
+  {
+    id: 'third-party-apis',
+    title: 'Third-Party Platform & API Services',
+    content: [
+      {
+        items: [
+          '<strong>YouTube:</strong> KabonShare uses YouTube API Services. By connecting a YouTube account you agree to the <a href="https://www.youtube.com/t/terms" target="_blank" rel="noopener noreferrer">YouTube Terms of Service</a>, and Google\'s handling of your data is described in the <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">Google Privacy Policy</a>. You can revoke KabonShare\'s access to your YouTube data at any time via <a href="https://security.google.com/settings/security/permissions" target="_blank" rel="noopener noreferrer">Google security settings</a>',
+          '<strong>Google APIs:</strong> Our use and transfer of information received from Google APIs adheres to the <a href="https://developers.google.com/terms/api-services-user-data-policy" target="_blank" rel="noopener noreferrer">Google API Services User Data Policy</a>, including the Limited Use requirements',
+          '<strong>Other Platforms:</strong> Data from Meta (Instagram, Facebook, Threads), TikTok, Twitter/X, LinkedIn, Bluesky, and Pinterest is accessed only to provide the publishing and analytics features you use, in accordance with each platform\'s developer policies',
+          '<strong>Media Integrations:</strong> Google Drive, Dropbox, and Canva integrations only access the specific files you select — we never browse or scan your storage',
+          '<strong>Revoking Access:</strong> You can disconnect any platform from your account settings at any time, or revoke access from the platform\'s own security settings'
+        ]
+      }
+    ]
+  },
+  {
+    id: 'ai-features',
+    title: 'AI Features',
+    content: [
+      {
+        items: [
+          'When you use AI-assisted features (such as caption generation), the content you submit is processed to generate the result you asked for',
+          'This processing may involve third-party AI service providers acting on our behalf, bound by confidentiality and data-protection obligations',
+          'Your content and data are not used to train our or anyone else\'s AI models',
+          'AI features are optional — your content is only processed by them when you actively use them'
+        ]
+      }
+    ]
+  },
+  {
+    id: 'data-security',
+    title: 'Data Security',
+    content: [
+      {
+        items: [
+          '<strong>Encryption:</strong> All data in transit is encrypted using TLS',
+          '<strong>OAuth Security:</strong> Social media tokens are encrypted at rest and refreshed regularly',
+          '<strong>Payment Security:</strong> Card details are handled entirely by our PCI-DSS-compliant payment processors and never touch our servers',
+          '<strong>Access Controls:</strong> Strict access controls and authentication for our systems',
+          '<strong>Ongoing Review:</strong> We regularly review and improve our security practices'
+        ]
+      }
+    ]
+  },
+  {
+    id: 'your-rights',
+    title: 'Your Rights',
+    content: [
+      {
+        subtitle: 'You have the right to:',
+        items: [
+          '<strong>Access:</strong> Request a copy of your personal data',
+          '<strong>Correction:</strong> Update or correct inaccurate information',
+          '<strong>Deletion:</strong> Request deletion of your account and associated data',
+          '<strong>Export:</strong> Download your content and data in a portable format',
+          '<strong>Opt-out:</strong> Unsubscribe from marketing communications',
+          '<strong>Revoke Access:</strong> Disconnect social media accounts at any time'
+        ]
+      }
+    ]
+  },
+  {
+    id: 'data-retention',
+    title: 'Data Retention',
+    content: [
+      {
+        items: [
+          '<strong>Active Accounts:</strong> Data retained as long as your account is active',
+          '<strong>Deleted Accounts:</strong> Most data deleted within 30 days; some logs retained for 90 days for security',
+          '<strong>Backups:</strong> Backup data may persist for up to 180 days',
+          '<strong>Legal Obligations:</strong> Some data may be retained longer to comply with legal requirements'
+        ]
+      }
+    ]
+  },
+  {
+    id: 'international-transfers',
+    title: 'International Data Transfers',
+    content: [
+      {
+        text: 'KabonShare is operated from Nigeria, and our service providers (cloud hosting, payment processors, AI providers, and the social platforms you connect) may process data in other countries. Wherever your data is processed, we apply the protections described in this policy and require our providers to safeguard it under their own data-protection commitments.'
+      }
+    ]
+  },
+  {
+    id: 'children',
+    title: 'Children\'s Privacy',
+    content: [
+      {
+        text: 'The Service is not directed at children and requires users to be at least 18 years old. We do not knowingly collect personal information from anyone under 18. If we learn that we have collected personal information from a person under 18, we will delete it promptly. If you believe a minor has provided us with personal information, please contact us.'
+      }
+    ]
+  },
+  {
+    id: 'changes',
+    title: 'Changes to This Policy',
+    content: [
+      {
+        text: 'We may update this Privacy Policy from time to time. When we make material changes, we will notify you by email or through the Service before the changes take effect. The "Last updated" date at the top of this page reflects the current version.'
+      }
+    ]
+  }
+]
 
 export default function Privacy() {
-  const sections = [
-    {
-      icon: HiDatabase,
-      title: '1. Information We Collect',
-      content: [
-        {
-          subtitle: '1.1 Information You Provide',
-          items: [
-            '<strong>Account Information:</strong> Name, email address, company name, billing information',
-            '<strong>Social Media Credentials:</strong> OAuth tokens for connected social media accounts',
-            '<strong>Content Data:</strong> Posts, images, videos, and other content you publish through our platform',
-            '<strong>Communication Data:</strong> Messages you send to our support team'
-          ]
-        },
-        {
-          subtitle: '1.2 Automatically Collected Information',
-          items: [
-            '<strong>API Usage Data:</strong> API calls, endpoints accessed, request/response data, timestamps',
-            '<strong>Device Information:</strong> IP address, browser type, operating system',
-            '<strong>Cookies and Tracking:</strong> Session cookies, analytics cookies'
-          ]
-        }
-      ]
-    },
-    {
-      icon: HiEye,
-      title: '2. How We Use Your Information',
-      content: [
-        {
-          items: [
-            'Provide, operate, and maintain our Service',
-            'Process and complete transactions',
-            'Authenticate social media accounts and publish content on your behalf',
-            'Send you technical notices, updates, security alerts',
-            'Respond to your comments, questions, and customer service requests',
-            'Analyze usage patterns to improve our Service',
-            'Detect, prevent, and address technical issues and fraudulent activity'
-          ]
-        }
-      ]
-    },
-    {
-      icon: HiUserGroup,
-      title: '3. Information Sharing',
-      content: [
-        {
-          subtitle: 'We may share your information with:',
-          items: [
-            '<strong>Social Media Platforms:</strong> We share content with platforms you\'ve connected (Instagram, TikTok, YouTube, etc.)',
-            '<strong>Service Providers:</strong> Cloud hosting, payment processors, analytics providers',
-            '<strong>Legal Requirements:</strong> When required by law or to protect our rights',
-            '<strong>Business Transfers:</strong> In connection with a merger, acquisition, or sale of assets'
-          ]
-        },
-        {
-          subtitle: 'We do NOT:',
-          items: [
-            'Sell your personal information to third parties',
-            'Share your OAuth tokens with anyone',
-            'Use your content for our own marketing without permission'
-          ]
-        }
-      ]
-    },
-    {
-      icon: HiLockClosed,
-      title: '4. Data Security',
-      content: [
-        {
-          items: [
-            '<strong>Encryption:</strong> All data in transit is encrypted using TLS 1.3',
-            '<strong>OAuth Security:</strong> Social media tokens are encrypted at rest and rotated regularly',
-            '<strong>Access Controls:</strong> Strict access controls and authentication for our systems',
-            '<strong>Regular Audits:</strong> Security assessments and penetration testing',
-            '<strong>Compliance:</strong> SOC 2 Type II certified, GDPR compliant'
-          ]
-        }
-      ]
-    },
-    {
-      icon: HiShieldCheck,
-      title: '5. Your Rights',
-      content: [
-        {
-          subtitle: 'You have the right to:',
-          items: [
-            '<strong>Access:</strong> Request a copy of your personal data',
-            '<strong>Correction:</strong> Update or correct inaccurate information',
-            '<strong>Deletion:</strong> Request deletion of your account and associated data',
-            '<strong>Export:</strong> Download your content and data in a portable format',
-            '<strong>Opt-out:</strong> Unsubscribe from marketing communications',
-            '<strong>Revoke Access:</strong> Disconnect social media accounts at any time'
-          ]
-        }
-      ]
-    },
-    {
-      icon: HiGlobe,
-      title: '6. Data Retention',
-      content: [
-        {
-          items: [
-            '<strong>Active Accounts:</strong> Data retained as long as your account is active',
-            '<strong>Deleted Accounts:</strong> Most data deleted within 30 days; some logs retained for 90 days for security',
-            '<strong>Backups:</strong> Backup data may persist for up to 180 days',
-            '<strong>Legal Obligations:</strong> Some data may be retained longer to comply with legal requirements'
-          ]
-        }
-      ]
-    }
-  ]
-
   return (
     <>
       <Head>
@@ -131,127 +199,14 @@ export default function Privacy() {
         <meta property="og:url" content="https://kabonshare.com/privacy/" />
       </Head>
 
-      <Navbar />
-
-      <div className="min-h-screen bg-slate-950 relative overflow-hidden">
-        {/* Background Elements */}
-        <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
-          <div className="absolute top-0 left-1/4 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl"></div>
-          <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl"></div>
-        </div>
-
-        {/* Header */}
-        <div className="relative z-10 pt-24 pb-12 bg-gradient-to-b from-slate-900/50 to-transparent">
-          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              className="text-center"
-            >
-              <motion.div
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.5 }}
-                className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 backdrop-blur-sm mb-6"
-              >
-                <HiShieldCheck className="text-indigo-400" />
-                <span className="text-sm font-medium text-indigo-300">Your Privacy Matters</span>
-              </motion.div>
-
-              <h1 className="text-5xl md:text-6xl font-bold text-white mb-6 tracking-tight">
-                Privacy <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-cyan-400">Policy</span>
-              </h1>
-              <p className="text-xl text-slate-400 mb-6 leading-relaxed max-w-2xl mx-auto">
-                We take your privacy seriously. This policy explains how we collect, use, and protect your information.
-              </p>
-              <p className="text-sm text-slate-500">
-                Last Updated: November 24, 2025
-              </p>
-            </motion.div>
-          </div>
-        </div>
-
-        {/* Content */}
-        <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-          {/* Introduction */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="bg-slate-900/50 backdrop-blur-sm rounded-3xl p-8 border border-white/5 mb-8"
-          >
-            <p className="text-slate-300 leading-relaxed">
-              At KabonShare (&quot;we&quot;, &quot;our&quot;, or &quot;us&quot;), we take your privacy seriously. This Privacy Policy explains how we 
-              collect, use, disclose, and safeguard your information when you use our Service.
-            </p>
-          </motion.div>
-
-          {/* Sections */}
-          <div className="space-y-8">
-            {sections.map((section, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.1 * index }}
-                className="bg-slate-900/50 backdrop-blur-sm rounded-3xl p-8 border border-white/5 hover:border-white/10 transition-colors"
-              >
-                <div className="flex items-start gap-4 mb-6">
-                  <div className="p-3 bg-gradient-to-br from-indigo-500/20 to-cyan-500/20 rounded-2xl border border-indigo-500/20">
-                    <section.icon className="text-3xl text-indigo-400" />
-                  </div>
-                  <h2 className="text-2xl font-bold text-white pt-2">{section.title}</h2>
-                </div>
-
-                <div className="space-y-6">
-                  {section.content.map((block, blockIndex) => (
-                    <div key={blockIndex}>
-                      {block.subtitle && (
-                        <h3 className="text-lg font-semibold text-white mb-4">{block.subtitle}</h3>
-                      )}
-                      <ul className="space-y-3">
-                        {block.items.map((item, itemIndex) => (
-                          <li key={itemIndex} className="flex items-start gap-3 text-slate-300">
-                            <span className="flex-shrink-0 w-1.5 h-1.5 rounded-full bg-indigo-500 mt-2"></span>
-                            <span 
-                              className="text-sm leading-relaxed"
-                              dangerouslySetInnerHTML={{ __html: item }}
-                            />
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  ))}
-                </div>
-              </motion.div>
-            ))}
-          </div>
-
-          {/* Contact Section */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.8 }}
-            className="mt-12 bg-gradient-to-br from-indigo-500/10 to-cyan-500/10 backdrop-blur-sm rounded-3xl p-8 border border-indigo-500/20"
-          >
-            <h2 className="text-2xl font-bold text-white mb-4">Contact Us</h2>
-            <p className="text-slate-300 leading-relaxed mb-4">
-              If you have questions about this Privacy Policy or how we handle your data, please contact us:
-            </p>
-            <div className="space-y-2 text-sm">
-              <p className="text-slate-400">
-                <strong className="text-white">Email:</strong> {siteConfig.contact.privacy}
-              </p>
-              {/* <p className="text-slate-400">
-                <strong className="text-white">Address:</strong> {siteConfig.address.line1}, {siteConfig.address.line2}, {siteConfig.address.city}, {siteConfig.address.state} {siteConfig.address.zip}, {siteConfig.address.country}
-              </p> */}
-            </div>
-          </motion.div>
-        </div>
-      </div>
-
-      <Footer />
+      <LegalPage
+        title="Privacy Policy"
+        description="How KabonShare collects, uses, and protects your information — including your content and the social accounts you connect."
+        lastUpdated={LAST_UPDATED}
+        intro={<>At KabonShare (&quot;we&quot;, &quot;our&quot;, or &quot;us&quot;), we take your privacy seriously. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you use our Service.</>}
+        sections={sections}
+        contactPrompt="Questions about this policy or how we handle your data? Email us at"
+      />
     </>
   )
 }

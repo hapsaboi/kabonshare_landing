@@ -13,15 +13,15 @@ export const siteConfig = {
   phone: '+234 812 435 4170',
   
   social: {
-    twitter: 'https://twitter.com/kabonshare',
-    instagram: 'https://instagram.com/kabonshare',
-    tiktok: 'https://tiktok.com/@kabonshare',
+    twitter: 'https://x.com/kabonshare',
+    instagram: 'https://www.instagram.com/kabonshare/',
+    youtube: 'https://www.youtube.com/@kabonshare',
   },
-  
+
   address: {
-    line1: '13A Hospital Road',
-    line2: 'Yola North',
-    city: 'Adamawa State',
+    line1: 'No. 5 AGF Abdulrazak Street',
+    line2: 'Off 1st Avenue, Gwarinpa',
+    city: 'FCT Abuja',
     country: 'Nigeria'
   },
   

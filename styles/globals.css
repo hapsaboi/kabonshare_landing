@@ -12,7 +12,9 @@ html {
   scroll-behavior: smooth;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  overflow-x: hidden;
+  /* clip (not hidden): hidden turns html/body into a scroll container,
+     which silently kills every position:sticky descendant on the site */
+  overflow-x: clip;
 }
 
 body {
@@ -20,7 +22,7 @@ body {
   background: #ffffff;
   color: #1a1a1a;
   line-height: 1.6;
-  overflow-x: hidden;
+  overflow-x: clip;
 }
 
 /* Professional gradient text */

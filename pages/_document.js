@@ -16,6 +16,9 @@ export default function Document() {
         <link rel="icon" href="/favicon.ico" />
         <link rel="apple-touch-icon" href="/logo.png" />
 
+        {/* Blog RSS feed */}
+        <link rel="alternate" type="application/rss+xml" title="KabonShare Blog" href="/rss.xml" />
+
         {/* Default OG tags (pages can override) */}
         <meta property="og:site_name" content="KabonShare" />
         <meta property="og:type" content="website" />

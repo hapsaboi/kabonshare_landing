@@ -1,7 +1,6 @@
 'use client'
 import Image from 'next/image'
-import { FiInstagram } from 'react-icons/fi'
-import { SiTiktok } from 'react-icons/si'
+import { FiInstagram, FiYoutube } from 'react-icons/fi'
 import { BsTwitterX } from 'react-icons/bs'
 import { siteConfig } from '../config/siteConfig'
 
@@ -14,6 +13,7 @@ const footerLinks = {
     { label: 'Get Our Apps', href: '/get-our-apps' }
   ],
   resources: [
+    { label: 'Blog', href: '/blog' },
     { label: 'API Documentation', href: siteConfig.api.docs },
     { label: 'API Reference', href: siteConfig.api.docs + '/api' },
     { label: 'Quick Start Guide', href: siteConfig.api.docs + '/quickstart' }
@@ -26,9 +26,9 @@ const footerLinks = {
 }
 
 const socialLinks = [
-  { icon: BsTwitterX, href: siteConfig.social.twitter, label: 'X (Twitter)', color: 'hover:text-white' },
+  { icon: FiYoutube, href: siteConfig.social.youtube, label: 'YouTube', color: 'hover:text-red-400' },
   { icon: FiInstagram, href: siteConfig.social.instagram, label: 'Instagram', color: 'hover:text-pink-400' },
-  { icon: SiTiktok, href: siteConfig.social.tiktok, label: 'TikTok', color: 'hover:text-white' }
+  { icon: BsTwitterX, href: siteConfig.social.twitter, label: 'X (Twitter)', color: 'hover:text-white' }
 ]
 
 export default function Footer() {

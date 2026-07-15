@@ -5,9 +5,8 @@ import {
   HiOutlineBookOpen, HiOutlineLightningBolt, HiOutlinePhone,
 } from 'react-icons/hi'
 import { FaArrowRight } from 'react-icons/fa'
-import { FiInstagram } from 'react-icons/fi'
+import { FiInstagram, FiYoutube } from 'react-icons/fi'
 import { BsTwitterX } from 'react-icons/bs'
-import { SiTiktok } from 'react-icons/si'
 import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
 import { siteConfig } from '../config/siteConfig'
@@ -64,9 +63,9 @@ const details = [
 ]
 
 const socials = [
-  { icon: BsTwitterX, href: siteConfig.social.twitter, label: 'X (Twitter)' },
+  { icon: FiYoutube, href: siteConfig.social.youtube, label: 'YouTube' },
   { icon: FiInstagram, href: siteConfig.social.instagram, label: 'Instagram' },
-  { icon: SiTiktok, href: siteConfig.social.tiktok, label: 'TikTok' },
+  { icon: BsTwitterX, href: siteConfig.social.twitter, label: 'X (Twitter)' },
 ]
 
 const containerVariants = {
