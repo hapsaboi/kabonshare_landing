@@ -65,7 +65,7 @@ const sections = [
         subtitle: 'We may share your information with:',
         items: [
           '<strong>Social Media Platforms:</strong> We share content with platforms you\'ve connected (Instagram, TikTok, YouTube, Facebook, Twitter/X, LinkedIn, Threads, Bluesky, Pinterest)',
-          '<strong>Service Providers:</strong> Cloud hosting, payment processors (Paystack, Heleket), analytics providers',
+          '<strong>Service Providers:</strong> Cloud hosting, payment processors (Paystack, Heleket), and analytics (PostHog — to understand how visitors interact with our site, measured anonymously by default until you create an account)',
           '<strong>AI Providers:</strong> Content you submit to AI features may be processed by third-party AI service providers solely to deliver the feature — it is not used to train their models',
           '<strong>Workspace Members:</strong> Content, comments, approvals, and activity in a workspace are visible to its members according to their roles',
           '<strong>Legal Requirements:</strong> When required by law or to protect our rights',
