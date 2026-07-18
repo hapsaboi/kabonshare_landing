@@ -4,10 +4,19 @@ export default function Document() {
   return (
     <Html lang="en">
       <Head>
+        {/* Apply the saved theme before paint to avoid a light/dark flash.
+            No stored choice → leaves data-theme unset so the OS preference
+            (prefers-color-scheme media query) wins. */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){try{var t=localStorage.getItem('theme');if(t==='dark'||t==='light'){document.documentElement.setAttribute('data-theme',t);}}catch(e){}})();`,
+          }}
+        />
+
         {/* Preconnect to external resources */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+        <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300..800&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
 
         {/* Analytics — Plausible (privacy-friendly, no cookies) */}
         <script defer data-domain="kabonshare.com" src="https://plausible.io/js/script.js"></script>

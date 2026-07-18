@@ -15,7 +15,7 @@ const highlights = [
 
 export default function Pricing() {
   return (
-    <section id="pricing" className="py-24 bg-slate-950 relative overflow-hidden">
+    <section id="pricing" className="py-24 bg-page relative overflow-hidden">
       {/* Background */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-1/4 left-0 w-96 h-96 bg-indigo-500/5 rounded-full blur-3xl" />
@@ -36,19 +36,19 @@ export default function Pricing() {
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 backdrop-blur-sm mb-6"
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-card backdrop-blur-sm mb-6"
           >
             <HiOutlineSparkles className="text-amber-400" />
             <span className="text-sm font-medium text-amber-300">Pricing</span>
           </motion.div>
 
-          <h2 className="text-4xl md:text-5xl font-bold text-white mb-6 tracking-tight">
+          <h2 className="text-4xl md:text-5xl font-bold text-body mb-6 tracking-tight">
             Simple,{' '}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-purple-400">
               Transparent Pricing
             </span>
           </h2>
-          <p className="text-lg text-slate-400 max-w-2xl mx-auto mb-10">
+          <p className="text-lg text-muted max-w-2xl mx-auto mb-10">
             Start free, scale as you grow. Our pricing adapts to your needs — from solo creators to agencies managing hundreds of accounts.
           </p>
         </motion.div>
@@ -59,7 +59,7 @@ export default function Pricing() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className="bg-slate-900/80 backdrop-blur-sm rounded-2xl border border-white/5 p-8 mb-10"
+          className="glass-card/80 backdrop-blur-sm rounded-2xl p-8 mb-10"
         >
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {highlights.map((item, index) => (
@@ -74,7 +74,7 @@ export default function Pricing() {
                 <div className="w-5 h-5 rounded-full bg-indigo-500/20 flex items-center justify-center flex-shrink-0">
                   <HiOutlineCheck className="text-indigo-400 text-xs" />
                 </div>
-                <span className="text-slate-300 text-sm">{item}</span>
+                <span className="text-muted text-sm">{item}</span>
               </motion.div>
             ))}
           </div>
@@ -98,12 +98,12 @@ export default function Pricing() {
             </Link>
             <a
               href={siteConfig.dashboard + '/signup'}
-              className="inline-flex items-center justify-center gap-2 bg-white/5 backdrop-blur-sm text-white px-8 py-4 rounded-xl font-semibold text-lg border border-white/10 hover:bg-white/10 transition-all duration-300"
+              className="inline-flex items-center justify-center gap-2 glass-card backdrop-blur-sm text-body px-8 py-4 rounded-xl font-semibold text-lg hover:glass-card transition-all duration-300"
             >
               Start Free — No Card Required
             </a>
           </div>
-          <p className="text-slate-500 text-sm mt-4">
+          <p className="text-subtle text-sm mt-4">
             Plans start from free. See full pricing details with feature comparison.
           </p>
         </motion.div>

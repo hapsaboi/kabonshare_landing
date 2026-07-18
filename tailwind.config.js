@@ -9,6 +9,7 @@ module.exports = {
     extend: {
       fontFamily: {
         sans: ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+        display: ['"Bricolage Grotesque"', 'Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],
       },
       colors: {
         primary: '#667eea',
@@ -17,6 +18,17 @@ module.exports = {
         warning: '#f59e0b',
         error: '#ef4444',
         dark: '#0f172a',
+        // Theme tokens (light/dark via CSS variables in globals.css).
+        // Usage: bg-page, bg-surface, text-body, text-muted, border-line, etc.
+        page: 'var(--bg-page)',
+        surface: 'var(--bg-surface)',
+        raised: 'var(--bg-raised)',
+        inset: 'var(--bg-inset)',
+        body: 'var(--text-body)',
+        muted: 'var(--text-muted)',
+        subtle: 'var(--text-subtle)',
+        line: 'var(--border)',
+        'line-strong': 'var(--border-strong)',
         instagram: '#E1306C',
         tiktok: '#000000',
         youtube: '#FF0000',

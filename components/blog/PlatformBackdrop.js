@@ -13,7 +13,7 @@ export default function PlatformBackdrop({ size = 96, gap = 40, count = ICONS.le
   return (
     <div
       aria-hidden="true"
-      className={`pointer-events-none select-none flex items-center text-white ${className}`}
+      className={`pointer-events-none select-none flex items-center text-body ${className}`}
       style={{ gap }}
     >
       {ICONS.slice(0, count).map((Icon, i) => (
@@ -57,7 +57,7 @@ export function PlatformScatter({ opacity = 0.035 }) {
         return (
           <Icon
             key={k}
-            className="absolute text-white"
+            className="absolute text-body"
             style={{ top: s.top, left: s.left, fontSize: s.size, transform: `rotate(${s.rot}deg)` }}
           />
         )

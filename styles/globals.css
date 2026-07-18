@@ -2,6 +2,164 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ─────────────────────────────────────────────────────────────
+   Theme tokens. Light is the default (:root). Dark applies when the
+   user picks it (data-theme="dark") OR their OS prefers dark and they
+   haven't chosen (:root:not([data-theme])). The accent gradient
+   (#667eea → #764ba2) is shared by both themes.
+   ───────────────────────────────────────────────────────────── */
+:root {
+  --bg-page: #ffffff;
+  --bg-surface: #f8fafc;   /* cards */
+  --bg-raised: #ffffff;    /* raised card / popover */
+  --bg-inset: #f1f5f9;     /* wells, code blocks */
+  --text-body: #0f172a;
+  --text-muted: #475569;
+  --text-subtle: #94a3b8;
+  --border: #e2e8f0;
+  --border-strong: #cbd5e1;
+  --glass-bg: rgba(255, 255, 255, 0.7);
+  --glass-border: rgba(15, 23, 42, 0.08);
+  --scrollbar-track: #f1f5f9;
+  --nav-scrolled: rgba(255, 255, 255, 0.85);
+  --nav-top: rgba(255, 255, 255, 0.35);
+  --glass-card-bg: linear-gradient(to bottom right, rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.32));
+  --glass-card-border: rgba(15, 23, 42, 0.1);
+  --glass-card-border-hover: rgba(124, 108, 240, 0.45);
+  --card-shadow: 0 18px 44px -14px rgba(79, 70, 168, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.9);
+  /* Hero drama — light needs DEEP saturated stops (pastel-on-white washes out) */
+  --hero-grad-1: #4f46e5;   /* indigo-600 */
+  --hero-grad-2: #9333ea;   /* purple-600 */
+  --hero-grad-3: #db2777;   /* pink-600 */
+  --blob-1a: rgba(124, 58, 237, 0.42);  /* violet */
+  --blob-1b: rgba(217, 70, 239, 0.38);  /* fuchsia */
+  --blob-2a: rgba(37, 99, 235, 0.38);   /* blue */
+  --blob-2b: rgba(6, 182, 212, 0.32);   /* cyan */
+  --blob-3a: rgba(79, 70, 229, 0.30);   /* indigo */
+  --blob-3b: rgba(147, 51, 234, 0.28);  /* purple */
+  --dot-grid: rgba(15, 23, 42, 0.9);
+  --accent: #667eea;
+  --accent-2: #764ba2;
+}
+
+:root[data-theme="dark"],
+:root[data-theme="dark"] body {
+  --bg-page: #060a14;
+  --bg-surface: #0f172a;
+  --bg-raised: #131c2e;
+  --bg-inset: #0b1220;
+  --text-body: #f8fafc;
+  --text-muted: #cbd5e1;
+  --text-subtle: #64748b;
+  --border: rgba(255, 255, 255, 0.08);
+  --border-strong: rgba(255, 255, 255, 0.16);
+  --glass-bg: rgba(255, 255, 255, 0.05);
+  --glass-border: rgba(255, 255, 255, 0.10);
+  --scrollbar-track: #0f172a;
+  --nav-scrolled: rgba(15, 23, 42, 0.95);
+  --nav-top: rgba(2, 6, 23, 0.30);
+  --glass-card-bg: linear-gradient(to bottom right, rgba(255, 255, 255, 0.10), rgba(255, 255, 255, 0.03));
+  --glass-card-border: rgba(255, 255, 255, 0.10);
+  --glass-card-border-hover: rgba(255, 255, 255, 0.20);
+  --card-shadow: 0 8px 32px rgba(0, 0, 0, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  --hero-grad-1: #667eea;   /* primary */
+  --hero-grad-2: #a78bfa;   /* violet-400 */
+  --hero-grad-3: #e879f9;   /* fuchsia-400 */
+  --blob-1a: rgba(124, 58, 237, 0.30);
+  --blob-1b: rgba(192, 38, 211, 0.30);
+  --blob-2a: rgba(37, 99, 235, 0.30);
+  --blob-2b: rgba(8, 145, 178, 0.30);
+  --blob-3a: rgba(79, 70, 229, 0.20);
+  --blob-3b: rgba(147, 51, 234, 0.20);
+  --dot-grid: rgba(255, 255, 255, 0.8);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) {
+    --bg-page: #060a14;
+    --bg-surface: #0f172a;
+    --bg-raised: #131c2e;
+    --bg-inset: #0b1220;
+    --text-body: #f8fafc;
+    --text-muted: #cbd5e1;
+    --text-subtle: #64748b;
+    --border: rgba(255, 255, 255, 0.08);
+    --border-strong: rgba(255, 255, 255, 0.16);
+    --glass-bg: rgba(255, 255, 255, 0.05);
+    --glass-border: rgba(255, 255, 255, 0.10);
+    --scrollbar-track: #0f172a;
+    --nav-scrolled: rgba(15, 23, 42, 0.95);
+    --nav-top: rgba(2, 6, 23, 0.30);
+    --glass-card-bg: linear-gradient(to bottom right, rgba(255, 255, 255, 0.10), rgba(255, 255, 255, 0.03));
+    --glass-card-border: rgba(255, 255, 255, 0.10);
+    --glass-card-border-hover: rgba(255, 255, 255, 0.20);
+    --card-shadow: 0 8px 32px rgba(0, 0, 0, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+    --hero-grad-1: #667eea;
+    --hero-grad-2: #a78bfa;
+    --hero-grad-3: #e879f9;
+    --blob-1a: rgba(124, 58, 237, 0.30);
+    --blob-1b: rgba(192, 38, 211, 0.30);
+    --blob-2a: rgba(37, 99, 235, 0.30);
+    --blob-2b: rgba(8, 145, 178, 0.30);
+    --blob-3a: rgba(79, 70, 229, 0.20);
+    --blob-3b: rgba(147, 51, 234, 0.20);
+    --dot-grid: rgba(255, 255, 255, 0.8);
+  }
+}
+
+/* Kinetic platform marquee (hero). Track holds the list twice; translating it
+   -50% loops seamlessly. Edges masked to fade. Respects reduced-motion. */
+@keyframes marquee-l { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+@keyframes marquee-r { from { transform: translateX(-50%); } to { transform: translateX(0); } }
+.marquee-mask {
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent);
+}
+.marquee-track { display: flex; width: max-content; will-change: transform; animation: marquee-l 38s linear infinite; }
+.marquee-track.reverse { animation: marquee-r 44s linear infinite; }
+.marquee-row:hover .marquee-track { animation-play-state: paused; }
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track { animation: none; }
+}
+
+/* Theme-conditional visibility — used to swap dual light/dark screenshots
+   without JS/flash. Light is the default; dark overrides via data-theme or the
+   OS preference (when no explicit choice). */
+.only-dark { display: none; }
+.only-light { display: block; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) .only-dark { display: block; }
+  :root:not([data-theme]) .only-light { display: none; }
+}
+:root[data-theme="dark"] .only-dark { display: block; }
+:root[data-theme="dark"] .only-light { display: none; }
+:root[data-theme="light"] .only-light { display: block; }
+:root[data-theme="light"] .only-dark { display: none; }
+
+/* Hero headline gradient — theme-aware stops (deep on light, luminous on dark) */
+.hero-gradient-text {
+  background-image: linear-gradient(90deg, var(--hero-grad-1), var(--hero-grad-2), var(--hero-grad-3));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.hero-gradient-glow {
+  background-image: linear-gradient(90deg, var(--hero-grad-1), var(--hero-grad-2), var(--hero-grad-3));
+}
+
+/* Frosted glass card — use over gradient/colored backgrounds (hero, feature
+   grids) so the backdrop shows through. Theme-aware; hover brightens the edge. */
+.glass-card {
+  background: var(--glass-card-bg);
+  border: 1px solid var(--glass-card-border);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  transition: border-color 0.3s ease, transform 0.3s ease;
+}
+.glass-card:hover {
+  border-color: var(--glass-card-border-hover);
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -12,6 +170,10 @@ html {
   scroll-behavior: smooth;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  /* Stop mobile browsers from auto-inflating text ("font boosting"), which
+     makes headings/labels look oversized on phones. */
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
   /* clip (not hidden): hidden turns html/body into a scroll container,
      which silently kills every position:sticky descendant on the site */
   overflow-x: clip;
@@ -19,10 +181,11 @@ html {
 
 body {
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-  background: #ffffff;
-  color: #1a1a1a;
+  background: var(--bg-page);
+  color: var(--text-body);
   line-height: 1.6;
   overflow-x: clip;
+  transition: background-color 0.2s ease, color 0.2s ease;
 }
 
 /* Professional gradient text */
@@ -45,10 +208,10 @@ body {
 
 /* Glass morphism effect */
 .glass {
-  background: rgba(255, 255, 255, 0.8);
+  background: var(--glass-bg);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  border: 1px solid var(--glass-border);
 }
 
 /* Premium shadows */
@@ -82,7 +245,7 @@ body {
 }
 
 ::-webkit-scrollbar-track {
-  background: #f1f1f1;
+  background: var(--scrollbar-track);
 }
 
 ::-webkit-scrollbar-thumb {

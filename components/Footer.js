@@ -3,10 +3,12 @@ import Image from 'next/image'
 import { FiInstagram, FiYoutube } from 'react-icons/fi'
 import { BsTwitterX } from 'react-icons/bs'
 import { siteConfig } from '../config/siteConfig'
+import { FEATURES } from '../config/features'
 
 const footerLinks = {
+  // Feature tabs, kept in sync with the shared features config.
+  features: FEATURES.map((f) => ({ label: f.label, href: `/features?tab=${f.id}` })),
   product: [
-    { label: 'Features', href: '/#features' },
     { label: 'Platforms', href: '/#platforms' },
     { label: 'Use Cases', href: '/#use-cases' },
     { label: 'Pricing', href: '/pricing' },
@@ -28,29 +30,29 @@ const footerLinks = {
 const socialLinks = [
   { icon: FiYoutube, href: siteConfig.social.youtube, label: 'YouTube', color: 'hover:text-red-400' },
   { icon: FiInstagram, href: siteConfig.social.instagram, label: 'Instagram', color: 'hover:text-pink-400' },
-  { icon: BsTwitterX, href: siteConfig.social.twitter, label: 'X (Twitter)', color: 'hover:text-white' }
+  { icon: BsTwitterX, href: siteConfig.social.twitter, label: 'X (Twitter)', color: 'hover:text-body' }
 ]
 
 export default function Footer() {
   return (
-    <footer className="bg-slate-950 text-slate-400 border-t border-white/5">
+    <footer className="bg-page text-muted border-t border-line">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         {/* Top Section */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 mb-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-10 mb-12">
           {/* Brand Column */}
           <div className="lg:col-span-2">
             <div className="flex items-center gap-3 mb-4">
               <Image src="/logo.png" alt={siteConfig.name} width={36} height={36} className="w-9 h-9" />
-              <span className="text-xl font-bold text-white">{siteConfig.name}</span>
+              <span className="text-xl font-bold text-body">{siteConfig.name}</span>
             </div>
-            <p className="text-slate-400 mb-6 leading-relaxed text-sm max-w-sm">
+            <p className="text-muted mb-6 leading-relaxed text-sm max-w-sm">
               {siteConfig.description.slice(0, 120)}...
             </p>
             
             {/* Contact */}
             <div className="space-y-1.5 mb-6 text-sm">
               <p>
-                <a href={`mailto:${siteConfig.contact.info}`} className="hover:text-white transition-colors">
+                <a href={`mailto:${siteConfig.contact.info}`} className="hover:text-body transition-colors">
                   {siteConfig.contact.info}
                 </a>
               </p>
@@ -65,7 +67,7 @@ export default function Footer() {
                   href={social.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className={`w-9 h-9 bg-white/5 rounded-lg flex items-center justify-center transition-all duration-200 ${social.color} hover:bg-white/10`}
+                  className={`w-9 h-9 bg-surface rounded-lg flex items-center justify-center transition-all duration-200 ${social.color} hover:bg-surface`}
                   aria-label={social.label}
                 >
                   <social.icon className="text-base" />
@@ -74,13 +76,27 @@ export default function Footer() {
             </div>
           </div>
 
+          {/* Features */}
+          <div>
+            <h4 className="text-body font-semibold mb-4 text-sm">Features</h4>
+            <ul className="space-y-2.5">
+              {footerLinks.features.map((link, index) => (
+                <li key={index}>
+                  <a href={link.href} className="text-sm hover:text-body transition-colors duration-200">
+                    {link.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+
           {/* Product */}
           <div>
-            <h4 className="text-white font-semibold mb-4 text-sm">Product</h4>
+            <h4 className="text-body font-semibold mb-4 text-sm">Product</h4>
             <ul className="space-y-2.5">
               {footerLinks.product.map((link, index) => (
                 <li key={index}>
-                  <a href={link.href} className="text-sm hover:text-white transition-colors duration-200">
+                  <a href={link.href} className="text-sm hover:text-body transition-colors duration-200">
                     {link.label}
                   </a>
                 </li>
@@ -90,11 +106,11 @@ export default function Footer() {
 
           {/* Resources */}
           <div>
-            <h4 className="text-white font-semibold mb-4 text-sm">Resources</h4>
+            <h4 className="text-body font-semibold mb-4 text-sm">Resources</h4>
             <ul className="space-y-2.5">
               {footerLinks.resources.map((link, index) => (
                 <li key={index}>
-                  <a href={link.href} className="text-sm hover:text-white transition-colors duration-200">
+                  <a href={link.href} className="text-sm hover:text-body transition-colors duration-200">
                     {link.label}
                   </a>
                 </li>
@@ -104,11 +120,11 @@ export default function Footer() {
 
           {/* Company */}
           <div>
-            <h4 className="text-white font-semibold mb-4 text-sm">Company</h4>
+            <h4 className="text-body font-semibold mb-4 text-sm">Company</h4>
             <ul className="space-y-2.5">
               {footerLinks.company.map((link, index) => (
                 <li key={index}>
-                  <a href={link.href} className="text-sm hover:text-white transition-colors duration-200">
+                  <a href={link.href} className="text-sm hover:text-body transition-colors duration-200">
                     {link.label}
                   </a>
                 </li>
@@ -118,15 +134,15 @@ export default function Footer() {
         </div>
 
         {/* Bottom */}
-        <div className="border-t border-white/5 pt-8">
+        <div className="border-t border-line pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-            <p className="text-slate-500 text-sm">
+            <p className="text-subtle text-sm">
               &copy; {new Date().getFullYear()} {siteConfig.name}. All rights reserved.
             </p>
-            <p className="text-slate-600 text-xs">
+            <p className="text-muted text-xs">
               Kabon Share Limited &middot; RC 9478291
             </p>
-            <p className="text-slate-600 text-xs">
+            <p className="text-muted text-xs">
               {siteConfig.name} is not affiliated with Instagram, TikTok, YouTube, Facebook, X, or Threads.
               All trademarks are property of their respective owners.
             </p>

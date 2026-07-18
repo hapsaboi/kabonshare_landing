@@ -28,7 +28,7 @@ export default function Home() {
         <meta name="twitter:title" content="KabonShare — Publish Once, Reach Everyone" />
         <meta name="twitter:description" content="Multi-platform social media publishing. Post to Instagram, Facebook, Threads, TikTok, and YouTube from one place." />
       </Head>
-      <main className="min-h-screen bg-slate-950">
+      <main className="min-h-screen bg-page">
         <HeroNew />
         <Features />
         <AIFeatures />

@@ -13,9 +13,9 @@ export default function PostCard({ post, featured = false }) {
     return (
       <Link
         href={href}
-        className="group grid md:grid-cols-2 gap-0 rounded-3xl border border-white/10 bg-white/[0.03] overflow-hidden hover:border-white/20 transition-colors"
+        className="group grid md:grid-cols-2 gap-0 rounded-3xl border border-line bg-surface overflow-hidden hover:border-line-strong transition-colors"
       >
-        <div className="relative aspect-[16/9] md:aspect-auto md:min-h-[320px] bg-slate-900">
+        <div className="relative aspect-[16/9] md:aspect-auto md:min-h-[320px] bg-surface">
           {post.coverImage?.url ? (
             // eslint-disable-next-line @next/next/no-img-element
             <img
@@ -34,16 +34,16 @@ export default function PostCard({ post, featured = false }) {
             {post.category && (
               <span className="px-2.5 py-1 rounded-full bg-indigo-500/15 text-indigo-300 font-medium capitalize">{post.category}</span>
             )}
-            <span className="text-slate-500">{formatPostDate(post.publishedAt)}</span>
+            <span className="text-subtle">{formatPostDate(post.publishedAt)}</span>
           </div>
-          <h2 className="text-2xl md:text-3xl font-bold text-white tracking-tight leading-snug group-hover:text-indigo-300 transition-colors">
+          <h2 className="text-2xl md:text-3xl font-bold text-body tracking-tight leading-snug group-hover:text-indigo-300 transition-colors">
             {post.title}
           </h2>
           {post.excerpt && (
-            <p className="mt-3 text-slate-400 leading-relaxed line-clamp-3">{post.excerpt}</p>
+            <p className="mt-3 text-muted leading-relaxed line-clamp-3">{post.excerpt}</p>
           )}
-          <div className="mt-5 flex items-center gap-2 text-sm text-slate-500">
-            {post.authorName && <span className="text-slate-400">{post.authorName}</span>}
+          <div className="mt-5 flex items-center gap-2 text-sm text-subtle">
+            {post.authorName && <span className="text-muted">{post.authorName}</span>}
             {post.authorName && <span>·</span>}
             <span>{post.readingTimeMinutes} min read</span>
           </div>
@@ -55,9 +55,9 @@ export default function PostCard({ post, featured = false }) {
   return (
     <Link
       href={href}
-      className="group flex flex-col rounded-2xl border border-white/10 bg-white/[0.03] overflow-hidden hover:border-white/20 hover:-translate-y-1 transition-all duration-300"
+      className="group flex flex-col rounded-2xl border border-line bg-surface overflow-hidden hover:border-line-strong hover:-translate-y-1 transition-all duration-300"
     >
-      <div className="relative aspect-[16/9] bg-slate-900">
+      <div className="relative aspect-[16/9] bg-surface">
         {post.coverImage?.url ? (
           // eslint-disable-next-line @next/next/no-img-element
           <img
@@ -77,16 +77,16 @@ export default function PostCard({ post, featured = false }) {
           {post.category && (
             <span className="px-2 py-0.5 rounded-full bg-indigo-500/15 text-indigo-300 font-medium capitalize">{post.category}</span>
           )}
-          <span className="text-slate-500">{formatPostDate(post.publishedAt)}</span>
+          <span className="text-subtle">{formatPostDate(post.publishedAt)}</span>
         </div>
-        <h3 className="text-lg font-semibold text-white leading-snug group-hover:text-indigo-300 transition-colors line-clamp-2">
+        <h3 className="text-lg font-semibold text-body leading-snug group-hover:text-indigo-300 transition-colors line-clamp-2">
           {post.title}
         </h3>
         {post.excerpt && (
-          <p className="mt-2 text-sm text-slate-400 leading-relaxed line-clamp-2">{post.excerpt}</p>
+          <p className="mt-2 text-sm text-muted leading-relaxed line-clamp-2">{post.excerpt}</p>
         )}
-        <div className="mt-auto pt-4 flex items-center gap-2 text-xs text-slate-500">
-          {post.authorName && <span className="text-slate-400">{post.authorName}</span>}
+        <div className="mt-auto pt-4 flex items-center gap-2 text-xs text-subtle">
+          {post.authorName && <span className="text-muted">{post.authorName}</span>}
           {post.authorName && <span>·</span>}
           <span>{post.readingTimeMinutes} min read</span>
         </div>

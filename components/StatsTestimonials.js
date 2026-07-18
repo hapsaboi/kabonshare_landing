@@ -55,7 +55,7 @@ export default function StatsTestimonials() {
               Creators & Developers
             </span>
           </h2>
-          <p className="text-lg text-gray-500 max-w-2xl mx-auto">
+          <p className="text-lg text-subtle max-w-2xl mx-auto">
             Hear from teams and individuals using KabonShare to simplify their social media workflow.
           </p>
         </motion.div>
@@ -91,7 +91,7 @@ export default function StatsTestimonials() {
                 </div>
                 <div>
                   <div className="font-semibold text-gray-900 text-sm">{testimonial.author}</div>
-                  <div className="text-xs text-gray-500">{testimonial.role}</div>
+                  <div className="text-xs text-subtle">{testimonial.role}</div>
                 </div>
               </div>
             </motion.div>
@@ -109,7 +109,7 @@ export default function StatsTestimonials() {
           <h3 className="text-2xl md:text-3xl font-bold mb-3">
             Ready to Simplify Your Social Publishing?
           </h3>
-          <p className="text-lg mb-6 text-white/80 max-w-xl mx-auto">
+          <p className="text-lg mb-6 text-muted max-w-xl mx-auto">
             Join creators and developers who publish smarter with KabonShare.
           </p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
@@ -121,7 +121,7 @@ export default function StatsTestimonials() {
             </a>
             <a
               href={siteConfig.api.docs}
-              className="inline-flex items-center justify-center bg-white/10 backdrop-blur-sm text-white px-7 py-3.5 rounded-xl font-semibold border border-white/20 hover:bg-white/20 transition-all duration-300"
+              className="inline-flex items-center justify-center glass-card backdrop-blur-sm text-body px-7 py-3.5 rounded-xl font-semibold border border-white/20 hover:glass-card transition-all duration-300"
             >
               View API Docs
             </a>

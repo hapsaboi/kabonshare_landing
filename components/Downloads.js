@@ -83,7 +83,7 @@ export default function Downloads() {
             </span>{' '}
             Everywhere
           </h2>
-          <p className="text-lg text-gray-500 max-w-2xl mx-auto">
+          <p className="text-lg text-subtle max-w-2xl mx-auto">
             Download our apps for your preferred platform and start publishing across all your social channels.
           </p>
         </motion.div>
@@ -112,25 +112,25 @@ export default function Downloads() {
                     {app.iconUrl ? (
                       <Image src={app.iconUrl} alt="" width={40} height={40} className="rounded-lg object-cover" />
                     ) : (
-                      <PlatformIcon className="w-7 h-7 text-white" />
+                      <PlatformIcon className="w-7 h-7 text-body" />
                     )}
                   </div>
                   <div className="flex-1 min-w-0">
                     <h3 className="text-lg font-bold text-gray-900 group-hover:text-primary transition-colors">
                       {app.name}
                     </h3>
-                    <span className="text-sm text-gray-400 font-medium">{meta.label}</span>
+                    <span className="text-sm text-muted font-medium">{meta.label}</span>
                   </div>
                 </div>
 
                 {/* Description */}
                 {app.description && (
-                  <p className="text-sm text-gray-500 mb-4 line-clamp-2">{app.description}</p>
+                  <p className="text-sm text-subtle mb-4 line-clamp-2">{app.description}</p>
                 )}
 
                 {/* Version + size info */}
                 {app.latestVersion && (
-                  <div className="flex items-center gap-3 text-xs text-gray-400 mb-5">
+                  <div className="flex items-center gap-3 text-xs text-muted mb-5">
                     <span className="px-2 py-1 bg-gray-50 rounded-md font-medium">
                       v{app.latestVersion.version}
                     </span>

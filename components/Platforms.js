@@ -9,7 +9,7 @@ import { siteConfig } from '../config/siteConfig'
 const platforms = [
   {
     name: 'Instagram',
-    features: ['Feed Posts', 'Stories', 'Reels', 'Cover Photos'],
+    features: ['Feed Posts', 'Carousels', 'Reels', 'Stories'],
     status: 'live',
     icon: FiInstagram,
     gradient: 'from-purple-500 via-pink-500 to-orange-500'
@@ -30,14 +30,14 @@ const platforms = [
   },
   {
     name: 'TikTok',
-    features: ['Videos', 'Photo Carousels', 'Custom Covers'],
+    features: ['Videos', 'Photo Carousels'],
     status: 'live',
     icon: SiTiktok,
     gradient: 'from-gray-900 via-gray-800 to-pink-600'
   },
   {
     name: 'YouTube',
-    features: ['Videos', 'Shorts', 'Custom Thumbnails'],
+    features: ['Videos', 'Shorts'],
     status: 'live',
     icon: FiYoutube,
     gradient: 'from-red-600 to-red-500'
@@ -51,21 +51,21 @@ const platforms = [
   },
   {
     name: 'LinkedIn',
-    features: ['Posts', 'Articles', 'Media', 'Documents'],
+    features: ['Posts', 'Multi-Image', 'Videos', 'Articles'],
     status: 'live',
     icon: SiLinkedin,
     gradient: 'from-blue-700 to-blue-900'
   },
   {
     name: 'Bluesky',
-    features: ['Posts', 'Images', 'Carousels', 'Threads'],
+    features: ['Posts', 'Images', 'Videos', 'Threads'],
     status: 'live',
     icon: SiBluesky,
     gradient: 'from-sky-400 to-blue-500'
   },
   {
     name: 'Pinterest',
-    features: ['Pins', 'Carousels', 'Idea Pins', 'Video Pins'],
+    features: ['Pins', 'Image Carousels', 'Video Pins'],
     status: 'live',
     icon: SiPinterest,
     gradient: 'from-red-500 to-rose-600'
@@ -77,7 +77,7 @@ export default function Platforms() {
   const comingSoonCount = platforms.filter(p => p.status === 'coming').length
 
   return (
-    <section id="platforms" className="py-24 bg-white relative overflow-hidden">
+    <section id="platforms" className="py-24 bg-page relative overflow-hidden">
       {/* Subtle background pattern */}
       <div className="absolute inset-0 opacity-[0.02]" style={{ backgroundImage: 'radial-gradient(circle at 1px 1px, #667eea 1px, transparent 0)', backgroundSize: '40px 40px' }} />
 
@@ -95,21 +95,21 @@ export default function Platforms() {
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-indigo-50 border border-indigo-100 mb-6"
+            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-indigo-500/10 border border-indigo-500/20 mb-6"
           >
-            <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
-            <span className="text-sm font-medium text-indigo-700">
-              {liveCount} Platforms Live &bull; {comingSoonCount} Coming Soon
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+            <span className="text-xs font-semibold text-indigo-600 dark:text-indigo-300 tracking-wider uppercase">
+              All {liveCount} platforms live
             </span>
           </motion.div>
 
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6 tracking-tight">
+          <h2 className="font-display text-4xl md:text-5xl font-extrabold text-body mb-6 tracking-[-0.02em]">
             One API,{' '}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary">
               Every Platform
             </span>
           </h2>
-          <p className="text-lg text-gray-500 max-w-2xl mx-auto">
+          <p className="text-lg text-subtle max-w-2xl mx-auto">
             Publish to all major social networks with a single API call.
             No platform-specific code needed.
           </p>
@@ -125,18 +125,24 @@ export default function Platforms() {
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
               whileHover={{ y: -8, scale: 1.02 }}
-              className="group relative bg-white rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-100"
+              className="group relative overflow-hidden bg-surface rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-all duration-300 border border-line"
             >
+              {/* Washed platform-logo watermark */}
+              <platform.icon
+                className="pointer-events-none absolute -right-3 -bottom-4 text-[5.5rem] text-body opacity-[0.04] transition-opacity duration-300 group-hover:opacity-[0.07]"
+                style={{ transform: 'rotate(-8deg)' }}
+              />
+
               {/* Status Badge */}
               <div className="absolute top-4 right-4">
                 {platform.status === 'live' ? (
-                  <span className="flex items-center gap-1.5 bg-green-100 text-green-700 px-3 py-1.5 rounded-full text-xs font-bold uppercase tracking-wide">
-                    <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
+                  <span className="flex items-center gap-1.5 bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 px-3 py-1.5 rounded-full text-xs font-bold uppercase tracking-wide">
+                    <span className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse" />
                     Live
                   </span>
                 ) : (
-                  <span className="flex items-center gap-1.5 bg-orange-100 text-orange-700 px-3 py-1.5 rounded-full text-xs font-bold uppercase tracking-wide">
-                    <span className="w-2 h-2 bg-orange-500 rounded-full" />
+                  <span className="flex items-center gap-1.5 bg-amber-500/15 text-amber-600 dark:text-amber-400 px-3 py-1.5 rounded-full text-xs font-bold uppercase tracking-wide">
+                    <span className="w-2 h-2 bg-amber-500 rounded-full" />
                     Soon
                   </span>
                 )}
@@ -152,21 +158,21 @@ export default function Platforms() {
                   <platform.icon className="text-2xl text-white" />
                 </motion.div>
                 <div>
-                  <h3 className="text-lg font-bold text-gray-900">{platform.name}</h3>
-                  <p className="text-xs text-gray-500 mt-0.5">Social Network</p>
+                  <h3 className="font-display text-lg font-extrabold text-body">{platform.name}</h3>
+                  <p className="text-xs text-subtle mt-0.5">Social Network</p>
                 </div>
               </div>
 
               {/* Features */}
               <div className="space-y-1.5">
-                <p className="text-xs font-semibold text-gray-700 mb-1.5">
+                <p className="text-xs font-semibold text-muted mb-1.5">
                   Supported Features:
                 </p>
                 <div className="flex flex-wrap gap-1.5">
                   {platform.features.map((feature, idx) => (
                     <span
                       key={idx}
-                      className="inline-flex items-center gap-1 bg-gray-100 text-gray-700 px-2 py-0.5 rounded text-xs font-medium"
+                      className="inline-flex items-center gap-1 bg-inset text-muted px-2 py-0.5 rounded text-xs font-medium"
                     >
                       <span className="text-primary">•</span>
                       {feature}

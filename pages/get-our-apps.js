@@ -19,7 +19,7 @@ export default function GetOurApps() {
       <main className="min-h-screen bg-white">
         <Navbar />
         {/* Dark header so navbar text is visible before scroll */}
-        <div className="bg-slate-950 pt-16" />
+        <div className="bg-page pt-16" />
         <Downloads />
         <Footer />
       </main>

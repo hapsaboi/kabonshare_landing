@@ -11,7 +11,7 @@ export default function Custom404() {
         <meta name="description" content="The page you're looking for doesn't exist." />
       </Head>
 
-      <div className="min-h-screen bg-slate-950 flex flex-col">
+      <div className="min-h-screen bg-page flex flex-col">
         <Navbar />
 
         <div className="flex-1 flex items-center justify-center px-4">
@@ -19,10 +19,10 @@ export default function Custom404() {
             <div className="text-8xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-purple-400 mb-4">
               404
             </div>
-            <h1 className="text-2xl font-bold text-white mb-3">
+            <h1 className="text-2xl font-bold text-body mb-3">
               Page not found
             </h1>
-            <p className="text-slate-400 mb-8">
+            <p className="text-muted mb-8">
               The page you&apos;re looking for doesn&apos;t exist or has been moved.
             </p>
             <div className="flex flex-col sm:flex-row gap-3 justify-center">
@@ -34,7 +34,7 @@ export default function Custom404() {
               </Link>
               <Link
                 href="/contact"
-                className="inline-flex items-center justify-center px-6 py-3 bg-white/5 text-white font-semibold rounded-xl border border-white/10 hover:bg-white/10 transition-all duration-300"
+                className="inline-flex items-center justify-center px-6 py-3 bg-surface text-body font-semibold rounded-xl border border-line hover:bg-surface transition-all duration-300"
               >
                 Contact Support
               </Link>

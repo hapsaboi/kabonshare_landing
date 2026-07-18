@@ -22,7 +22,7 @@ const FAQS = [
 ]
 
 const PLAN_COLORS = {
-  free:     { accent: 'from-slate-400 to-slate-500',    badge: null,              ring: 'border-slate-700' },
+  free:     { accent: 'from-slate-400 to-slate-500',    badge: null,              ring: 'border-line' },
   creator:  { accent: 'from-indigo-400 to-violet-500',  badge: null,              ring: 'border-indigo-500/40' },
   pro:      { accent: 'from-violet-500 to-purple-600',  badge: 'Most Popular',    ring: 'border-violet-500/60' },
   busines:  { accent: 'from-emerald-400 to-teal-500',   badge: 'Best Value',      ring: 'border-emerald-500/40' },
@@ -35,16 +35,16 @@ function FAQItem({ q, a, num }) {
     <div
       onClick={() => setOpen(o => !o)}
       className={`rounded-2xl border cursor-pointer transition-all duration-200 overflow-hidden
-        ${open ? 'bg-slate-800/80 border-slate-700' : 'bg-slate-900 border-slate-800 hover:border-slate-700 hover:bg-slate-800/40'}`}
+        ${open ? 'bg-surface/80 border-line' : 'bg-surface border-line hover:border-line hover:bg-surface/40'}`}
     >
       <div className="flex items-center gap-4 px-5 py-4">
         <span className="w-7 h-7 rounded-xl bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 text-[11px] font-bold flex items-center justify-center flex-shrink-0">
           {String(num).padStart(2, '0')}
         </span>
-        <span className="text-sm font-semibold text-white flex-1 leading-snug">{q}</span>
+        <span className="text-sm font-semibold text-body flex-1 leading-snug">{q}</span>
         <FiChevronDown
           size={15}
-          className={`text-slate-400 flex-shrink-0 transition-transform duration-300 ${open ? 'rotate-180 text-indigo-400' : ''}`}
+          className={`text-muted flex-shrink-0 transition-transform duration-300 ${open ? 'rotate-180 text-indigo-400' : ''}`}
         />
       </div>
       <AnimatePresence initial={false}>
@@ -57,7 +57,7 @@ function FAQItem({ q, a, num }) {
             transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
             style={{ overflow: 'hidden' }}
           >
-            <div className="px-5 pb-5 pl-16 text-sm text-slate-400 leading-relaxed">
+            <div className="px-5 pb-5 pl-16 text-sm text-muted leading-relaxed">
               {a}
             </div>
           </motion.div>
@@ -121,6 +121,7 @@ export default function Pricing() {
 
   const fmt = (amount, curr) => new Intl.NumberFormat('en-US', {
     style: 'currency', currency: curr || 'USD',
+    currencyDisplay: 'narrowSymbol', // ₦ / $ instead of "NGN" / "US$" — keeps big prices from overflowing
     minimumFractionDigits: amount % 1 !== 0 ? 2 : 0,
     maximumFractionDigits: amount % 1 !== 0 ? 2 : 0,
   }).format(amount)
@@ -129,16 +130,16 @@ export default function Pricing() {
     const f = []
     const l = plan.limits || {}
     const ft = plan.features || {}
-    if (l.creditsPerMonth !== undefined) f.push({ icon: FiZap,       text: l.creditsPerMonth === -1 ? 'Unlimited credits/mo' : `${l.creditsPerMonth} credits/mo` })
-    if (l.maxAccounts !== undefined)     f.push({ icon: FiCheck,     text: l.maxAccounts === -1 ? 'Unlimited accounts' : `${l.maxAccounts} social accounts` })
-    if (l.maxWorkspaces !== undefined)   f.push({ icon: FiUsers,     text: l.maxWorkspaces === -1 ? 'Unlimited workspaces' : `${l.maxWorkspaces} workspace${l.maxWorkspaces > 1 ? 's' : ''}` })
-    if (l.storageQuotaMB !== undefined)  f.push({ icon: FiHardDrive, text: l.storageQuotaMB === -1 ? 'Unlimited storage' : l.storageQuotaMB >= 1000 ? `${(l.storageQuotaMB/1000).toFixed(0)}GB storage` : `${l.storageQuotaMB}MB storage` })
-    if (l.aiGenerationsPerMonth !== undefined) f.push({ icon: FiZap, text: l.aiGenerationsPerMonth === -1 ? 'Unlimited AI generations' : l.aiGenerationsPerMonth > 0 ? `${l.aiGenerationsPerMonth} AI generations/mo` : 'No AI generations', dim: l.aiGenerationsPerMonth === 0 })
-    if (l.maxTeamMembers > 1 || l.maxTeamMembers === -1) f.push({ icon: FiUsers, text: l.maxTeamMembers === -1 ? 'Unlimited team members' : `Up to ${l.maxTeamMembers} team members` })
-    if (ft.allowVideo)      f.push({ icon: FiCheck, text: 'Video publishing' })
-    if (ft.allowScheduling) f.push({ icon: FiCheck, text: 'Post scheduling' })
-    f.push({ icon: FiCheck, text: 'Analytics dashboard' })
-    f.push({ icon: FiCheck, text: 'API access' })
+    if (l.creditsPerMonth !== undefined) f.push({ key: 'credits', icon: FiZap,       text: l.creditsPerMonth === -1 ? 'Unlimited credits/mo' : `${l.creditsPerMonth} credits/mo` })
+    if (l.maxAccounts !== undefined)     f.push({ key: 'accounts', icon: FiCheck,     text: l.maxAccounts === -1 ? 'Unlimited accounts' : `${l.maxAccounts} social accounts` })
+    if (l.maxWorkspaces !== undefined)   f.push({ key: 'workspaces', icon: FiUsers,     text: l.maxWorkspaces === -1 ? 'Unlimited workspaces' : `${l.maxWorkspaces} workspace${l.maxWorkspaces > 1 ? 's' : ''}` })
+    if (l.storageQuotaMB !== undefined)  f.push({ key: 'storage', icon: FiHardDrive, text: l.storageQuotaMB === -1 ? 'Unlimited storage' : l.storageQuotaMB >= 1024 ? `${Math.round(l.storageQuotaMB/1024)}GB storage` : `${l.storageQuotaMB}MB storage` })
+    if (l.aiGenerationsPerMonth !== undefined) f.push({ key: 'ai', icon: FiZap, text: l.aiGenerationsPerMonth === -1 ? 'Unlimited AI generations' : l.aiGenerationsPerMonth > 0 ? `${l.aiGenerationsPerMonth} AI generations/mo` : 'No AI generations', dim: l.aiGenerationsPerMonth === 0 })
+    if (l.maxTeamMembers > 1 || l.maxTeamMembers === -1) f.push({ key: 'team', icon: FiUsers, text: l.maxTeamMembers === -1 ? 'Unlimited team members' : `Up to ${l.maxTeamMembers} team members` })
+    if (ft.allowVideo)      f.push({ key: 'video', icon: FiCheck, text: 'Video publishing' })
+    if (ft.allowScheduling) f.push({ key: 'scheduling', icon: FiCheck, text: 'Post scheduling' })
+    f.push({ key: 'analytics', icon: FiCheck, text: 'Analytics dashboard' })
+    f.push({ key: 'api', icon: FiCheck, text: 'API access' })
     return f
   }
 
@@ -155,7 +156,7 @@ export default function Pricing() {
 
       <Navbar />
 
-      <div className="min-h-screen bg-slate-950 relative overflow-hidden">
+      <div className="min-h-screen bg-page relative overflow-hidden">
         {/* background glows */}
         <div className="absolute inset-0 pointer-events-none overflow-hidden">
           <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-violet-600/8 rounded-full blur-[140px]" />
@@ -165,47 +166,47 @@ export default function Pricing() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-32 relative z-10">
 
           {/* ── Header ── */}
-          <motion.div variants={fade} custom={0} initial="hidden" animate="visible" className="text-center mb-14">
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-indigo-500/10 border border-indigo-500/20 mb-5">
-              <span className="w-1.5 h-1.5 rounded-full bg-indigo-400 animate-pulse" />
-              <span className="text-xs font-semibold text-indigo-300 tracking-wider uppercase">Simple, Transparent Pricing</span>
+          <motion.div variants={fade} custom={0} initial="hidden" animate="visible" className="text-center max-w-2xl mx-auto mb-9">
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-indigo-500/10 border border-indigo-500/20 mb-6">
+              <span className="w-1.5 h-1.5 rounded-full bg-indigo-500 dark:bg-indigo-400 animate-pulse" />
+              <span className="text-xs font-semibold text-indigo-600 dark:text-indigo-300 tracking-wider uppercase">Pricing</span>
             </div>
-            <h1 className="text-5xl md:text-6xl font-bold text-white tracking-tight mb-4">
-              Choose Your{' '}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-cyan-400">Perfect Plan</span>
+            <h1 className="font-display text-5xl md:text-6xl font-extrabold text-body tracking-[-0.035em] leading-[1.0] mb-5">
+              Simple pricing that{' '}
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-cyan-400">scales with you.</span>
             </h1>
-            <p className="text-lg text-slate-400 max-w-xl mx-auto">
-              Start free, scale as you grow. No hidden fees, cancel anytime.
+            <p className="text-lg text-muted">
+              Start free and upgrade only when you grow. No hidden fees, cancel anytime.
             </p>
           </motion.div>
 
           {/* ── Billing toggle + currency ── */}
-          <motion.div variants={fade} custom={1} initial="hidden" animate="visible" className="flex flex-col sm:flex-row justify-center items-center gap-3 mb-12">
-            <div className="flex items-center p-1 bg-slate-900 border border-slate-800 rounded-2xl gap-1">
+          <motion.div variants={fade} custom={1} initial="hidden" animate="visible" className="flex flex-col sm:flex-row justify-center items-center gap-3 mb-3">
+            <div className="flex items-center p-1 bg-surface border border-line rounded-full gap-1">
               <button
                 onClick={() => setBillingCycle('month')}
-                className={`px-6 py-2.5 rounded-xl text-sm font-semibold transition-all ${billingCycle === 'month' ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-500/25' : 'text-slate-400 hover:text-white'}`}
+                className={`px-6 py-2 rounded-full text-sm font-semibold transition-all ${billingCycle === 'month' ? 'bg-primary text-white shadow-md' : 'text-muted hover:text-body'}`}
               >
                 Monthly
               </button>
               <button
                 onClick={() => setBillingCycle('year')}
-                className={`px-6 py-2.5 rounded-xl text-sm font-semibold transition-all flex items-center gap-2 ${billingCycle === 'year' ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-500/25' : 'text-slate-400 hover:text-white'}`}
+                className={`px-6 py-2 rounded-full text-sm font-semibold transition-all flex items-center gap-2 ${billingCycle === 'year' ? 'bg-primary text-white shadow-md' : 'text-muted hover:text-body'}`}
               >
                 Yearly
-                <span className={`text-[11px] px-2 py-0.5 rounded-full font-bold ${billingCycle === 'year' ? 'bg-white/20 text-white' : 'bg-emerald-500/20 text-emerald-400'}`}>
+                <span className={`text-[11px] px-2 py-0.5 rounded-full font-bold ${billingCycle === 'year' ? 'bg-white/20 text-white' : 'bg-emerald-500/15 text-emerald-500'}`}>
                   Save {yearlyDiscount.percent}%
                 </span>
               </button>
             </div>
 
             {availableCurrencies.length > 1 && (
-              <div className="flex items-center p-1 bg-slate-900 border border-slate-800 rounded-2xl gap-1">
+              <div className="flex items-center p-1 bg-surface border border-line rounded-full gap-1">
                 {availableCurrencies.map(curr => (
                   <button
                     key={curr}
                     onClick={() => setCurrency(curr)}
-                    className={`px-4 py-2.5 rounded-xl text-sm font-semibold transition-all ${currency === curr ? 'bg-slate-700 text-white' : 'text-slate-500 hover:text-slate-300'}`}
+                    className={`px-4 py-2 rounded-full text-sm font-semibold transition-all ${currency === curr ? 'bg-inset text-body' : 'text-subtle hover:text-muted'}`}
                   >
                     {curr}
                   </button>
@@ -213,16 +214,19 @@ export default function Pricing() {
               </div>
             )}
           </motion.div>
+          <p className="text-center text-xs text-subtle mb-12 flex items-center justify-center gap-1.5">
+            <FiCheck className="text-emerald-500" size={12} /> No credit card required · Cancel anytime
+          </p>
 
           {/* ── Plan cards ── */}
           {loading ? (
             <div className="text-center py-20">
               <div className="w-10 h-10 rounded-full border-2 border-indigo-500/20 border-t-indigo-500 animate-spin mx-auto mb-4" />
-              <p className="text-slate-500 text-sm">Loading plans…</p>
+              <p className="text-subtle text-sm">Loading plans…</p>
             </div>
           ) : (
             <motion.div variants={fade} custom={2} initial="hidden" animate="visible"
-              className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5"
+              className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 items-stretch pt-3"
             >
               {plans.map((plan, i) => {
                 const price = getPlanPrice(plan)
@@ -230,85 +234,84 @@ export default function Pricing() {
                 const isFree = !price || price.amount === 0
                 const colors = PLAN_COLORS[plan.name?.toLowerCase()] || PLAN_COLORS.creator
                 const isPopular = colors.badge === 'Most Popular'
+                // "Everything in X, plus" — higher tiers list only what changed vs the plan to their left.
+                const prevPlan = i > 0 ? plans[i - 1] : null
+                const prevMap = prevPlan ? Object.fromEntries(getFeatures(prevPlan).map((pf) => [pf.key, pf.text])) : {}
+                const shown = prevPlan ? features.filter((f) => prevMap[f.key] !== f.text) : features
 
                 return (
                   <motion.div
                     key={plan._id}
                     variants={fade} custom={2 + i * 0.15}
                     initial="hidden" animate="visible"
-                    className={`relative flex flex-col rounded-3xl overflow-hidden border bg-slate-900 transition-all duration-300 hover:-translate-y-1
-                      ${isPopular ? 'border-violet-500/60 shadow-xl shadow-violet-500/10' : colors.ring ? `border ${colors.ring}` : 'border-slate-800'}
-                    `}
+                    className={`group relative flex flex-col rounded-3xl border bg-surface p-6 transition-all duration-300 hover:-translate-y-1.5
+                      ${isPopular
+                        ? 'border-violet-500/60 shadow-2xl shadow-violet-500/15 ring-1 ring-violet-500/20'
+                        : 'border-line hover:border-line-strong'}`}
                   >
-                    {/* Top accent */}
-                    <div className={`h-1 w-full bg-gradient-to-r ${colors.accent}`} />
-
                     {/* Badge */}
                     {colors.badge && (
-                      <div className="absolute top-4 right-4">
-                        <span className={`inline-flex items-center gap-1 text-[10px] font-bold px-2.5 py-1 rounded-full text-white bg-gradient-to-r ${colors.accent}`}>
-                          <FiStar size={9} /> {colors.badge}
-                        </span>
-                      </div>
+                      <span className={`absolute -top-3 left-1/2 -translate-x-1/2 inline-flex items-center gap-1 text-[10px] font-bold px-3 py-1 rounded-full text-white shadow-md bg-gradient-to-r ${colors.accent}`}>
+                        <FiStar size={9} /> {colors.badge}
+                      </span>
                     )}
 
-                    <div className="flex flex-col flex-1 p-6">
-                      {/* Name */}
-                      <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1">Plan</p>
-                      <h3 className="text-xl font-bold text-white capitalize mb-4">{plan.name}</h3>
-
-                      {/* Price */}
-                      <div className="mb-6">
-                        {isFree ? (
-                          <div className="text-4xl font-extrabold text-white">Free</div>
-                        ) : billingCycle === 'year' ? (
-                          <>
-                            <div className="flex items-baseline gap-1">
-                              <span className="text-4xl font-extrabold text-white">
-                                {fmt(price._monthly || price.amount / 12, price.currency)}
-                              </span>
-                              <span className="text-sm text-slate-500">/mo</span>
-                            </div>
-                            <p className="text-xs text-slate-500 mt-1">{fmt(price.amount, price.currency)} billed yearly</p>
-                          </>
-                        ) : (
-                          <div className="flex items-baseline gap-1">
-                            <span className="text-4xl font-extrabold text-white">{fmt(price.amount, price.currency)}</span>
-                            <span className="text-sm text-slate-500">/mo</span>
-                          </div>
-                        )}
-                      </div>
-
-                      {/* Divider */}
-                      <div className="h-px bg-slate-800 mb-5" />
-
-                      {/* Features */}
-                      <ul className="space-y-2.5 mb-8 flex-1">
-                        {features.map((f, fi) => (
-                          <li key={fi} className={`flex items-start gap-2.5 text-xs ${f.dim ? 'opacity-40' : ''}`}>
-                            <span className={`w-4 h-4 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5 ${f.dim ? 'bg-slate-700' : 'bg-emerald-500/15'}`}>
-                              <FiCheck size={9} className={f.dim ? 'text-slate-500' : 'text-emerald-400'} />
-                            </span>
-                            <span className="text-slate-300 leading-tight">{f.text}</span>
-                          </li>
-                        ))}
-                      </ul>
-
-                      {/* CTA */}
-                      <a
-                        href="https://dashboard.kabonshare.com/signup"
-                        className={`block w-full text-center py-3 rounded-xl text-sm font-semibold transition-all duration-200
-                          ${isPopular
-                            ? 'bg-gradient-to-r from-violet-500 to-purple-600 text-white hover:from-violet-400 hover:to-purple-500 shadow-lg shadow-violet-500/20'
-                            : isFree
-                            ? 'bg-slate-800 border border-slate-700 text-white hover:bg-slate-700'
-                            : 'bg-indigo-600 text-white hover:bg-indigo-500 shadow-lg shadow-indigo-500/20'
-                          }
-                        `}
-                      >
-                        {isFree ? 'Start for Free' : 'Get Started'}
-                      </a>
+                    {/* Name */}
+                    <div className="flex items-center gap-2.5 mb-5">
+                      <span className={`w-2.5 h-2.5 rounded-full bg-gradient-to-br ${colors.accent}`} />
+                      <h3 className="font-display text-lg font-extrabold text-body capitalize">{plan.name}</h3>
                     </div>
+
+                    {/* Price */}
+                    <div className="mb-6">
+                      {isFree ? (
+                        <span className="font-display text-4xl font-extrabold text-body">Free</span>
+                      ) : billingCycle === 'year' ? (
+                        <>
+                          <div className="flex items-baseline gap-1">
+                            <span className="font-display text-3xl xl:text-4xl font-extrabold text-body tracking-tight tabular-nums whitespace-nowrap">{fmt(price._monthly || price.amount / 12, price.currency)}</span>
+                            <span className="text-sm text-subtle">/mo</span>
+                          </div>
+                          <p className="text-xs text-subtle mt-1.5">{fmt(price.amount, price.currency)} billed yearly</p>
+                        </>
+                      ) : (
+                        <div className="flex items-baseline gap-1">
+                          <span className="font-display text-3xl xl:text-4xl font-extrabold text-body tracking-tight tabular-nums whitespace-nowrap">{fmt(price.amount, price.currency)}</span>
+                          <span className="text-sm text-subtle">/mo</span>
+                        </div>
+                      )}
+                    </div>
+
+                    {/* CTA */}
+                    <a
+                      href="https://dashboard.kabonshare.com/signup"
+                      className={`block w-full text-center py-3 rounded-xl text-sm font-bold transition-all duration-200
+                        ${isPopular
+                          ? `text-white bg-gradient-to-r ${colors.accent} shadow-lg shadow-violet-500/25 hover:-translate-y-0.5`
+                          : isFree
+                          ? 'bg-inset border border-line text-body hover:border-line-strong'
+                          : 'bg-primary text-white hover:bg-primary/90 shadow-lg shadow-primary/20 hover:-translate-y-0.5'}`}
+                    >
+                      {isFree ? 'Start for Free' : 'Get Started'}
+                    </a>
+
+                    {/* Features */}
+                    <div className="h-px bg-line my-6" />
+                    {prevPlan && (
+                      <p className="text-[13px] font-semibold text-body mb-3.5">
+                        Everything in <span className="capitalize">{prevPlan.name}</span>, plus
+                      </p>
+                    )}
+                    <ul className="space-y-3 flex-1">
+                      {shown.map((f, fi) => (
+                        <li key={f.key || fi} className={`flex items-start gap-2.5 text-[13px] ${f.dim ? 'opacity-45' : ''}`}>
+                          <span className={`w-4 h-4 rounded-full flex items-center justify-center flex-shrink-0 mt-px ${f.dim ? 'bg-line' : 'bg-emerald-500/15'}`}>
+                            <FiCheck size={9} className={f.dim ? 'text-subtle' : 'text-emerald-500'} />
+                          </span>
+                          <span className="text-muted leading-snug">{f.text}</span>
+                        </li>
+                      ))}
+                    </ul>
                   </motion.div>
                 )
               })}
@@ -319,14 +322,13 @@ export default function Pricing() {
           <motion.div variants={fade} custom={6} initial="hidden" animate="visible" className="mt-28 max-w-4xl mx-auto">
             <div className="text-center mb-12">
               <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-indigo-500/10 border border-indigo-500/20 mb-4">
-                <FiMessageCircle size={12} className="text-indigo-400" />
-                <span className="text-xs font-semibold text-indigo-300 tracking-wider uppercase">FAQ</span>
+                <FiMessageCircle size={12} className="text-indigo-500 dark:text-indigo-400" />
+                <span className="text-xs font-semibold text-indigo-600 dark:text-indigo-300 tracking-wider uppercase">FAQ</span>
               </div>
-              <h2 className="text-3xl md:text-4xl font-bold text-white tracking-tight mb-3">
-                Frequently Asked{' '}
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-cyan-400">Questions</span>
+              <h2 className="font-display text-3xl md:text-4xl font-extrabold text-body tracking-[-0.025em] mb-3">
+                Questions? Answered.
               </h2>
-              <p className="text-slate-400 text-sm max-w-md mx-auto">
+              <p className="text-muted text-sm max-w-md mx-auto">
                 Everything you need to know about KabonShare plans and billing.
               </p>
             </div>
@@ -336,10 +338,10 @@ export default function Pricing() {
             </div>
 
             <div className="mt-10 text-center">
-              <p className="text-sm text-slate-500 mb-3">Still have questions?</p>
+              <p className="text-sm text-subtle mb-3">Still have questions?</p>
               <Link
                 href="/contact"
-                className="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl border border-slate-700 text-slate-300 text-sm font-medium hover:border-indigo-500/50 hover:text-white transition-all duration-200"
+                className="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl border border-line text-muted text-sm font-medium hover:border-indigo-500/50 hover:text-body transition-all duration-200"
               >
                 <FiMessageCircle size={14} />
                 Contact Support

@@ -15,7 +15,7 @@ const channels = [
   {
     icon: HiOutlineMail,
     title: 'Email Support',
-    description: 'For bug reports, account questions, or anything technical. We aim to respond within a few hours.',
+    description: 'Bug reports, account questions, or anything technical. A real human replies — usually within a few hours.',
     action: `mailto:${siteConfig.contact.support}`,
     actionText: siteConfig.contact.support,
     color: '#8B5CF6',
@@ -23,15 +23,15 @@ const channels = [
   {
     icon: HiOutlineBookOpen,
     title: 'Documentation',
-    description: 'Full API reference, quick-start guides, and integration tutorials — self-serve answers 24/7.',
+    description: 'Full API reference, quick-start guides and integration tutorials — self-serve answers, 24/7.',
     action: siteConfig.api.docs,
-    actionText: 'Browse Docs',
+    actionText: 'Browse the docs',
     color: '#3B82F6',
   },
   {
     icon: HiOutlineLightningBolt,
     title: 'Partnerships & Enterprise',
-    description: 'Custom integrations, white-label solutions, and dedicated support for teams and agencies.',
+    description: 'Custom integrations, white-label solutions and dedicated support for teams and agencies.',
     action: `mailto:${siteConfig.contact.info}`,
     actionText: siteConfig.contact.info,
     color: '#F59E0B',
@@ -57,7 +57,7 @@ const details = [
     icon: HiOutlineClock,
     iconColor: 'text-amber-400',
     label: 'Hours',
-    value: 'Mon – Fri: 9 AM – 6 PM WAT',
+    value: 'Mon – Fri · 9 AM – 6 PM WAT',
     sub: 'Email support available 24/7',
   },
 ]
@@ -68,14 +68,9 @@ const socials = [
   { icon: BsTwitterX, href: siteConfig.social.twitter, label: 'X (Twitter)' },
 ]
 
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: { opacity: 1, transition: { staggerChildren: 0.1 } },
-}
-
-const itemVariants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
+const rise = {
+  hidden: { opacity: 0, y: 24 },
+  visible: (i = 0) => ({ opacity: 1, y: 0, transition: { duration: 0.55, delay: i * 0.08, ease: [0.22, 1, 0.36, 1] } }),
 }
 
 export default function Contact() {
@@ -90,212 +85,169 @@ export default function Contact() {
         <meta property="og:url" content="https://kabonshare.com/contact/" />
       </Head>
 
-      <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 relative overflow-hidden">
-        {/* Background blobs — span entire page */}
-        <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <motion.div
-            animate={{ x: [0, 150, 0], y: [0, -100, 0], scale: [1, 1.2, 1] }}
-            transition={{ duration: 15, repeat: Infinity, ease: 'easeInOut' }}
-            className="absolute -top-40 -right-40 w-[600px] h-[600px] bg-gradient-to-br from-violet-600/30 to-fuchsia-600/30 rounded-full filter blur-[120px]"
-          />
-          <motion.div
-            animate={{ x: [0, -100, 0], y: [0, 120, 0], scale: [1, 1.3, 1] }}
-            transition={{ duration: 18, repeat: Infinity, ease: 'easeInOut', delay: 1 }}
-            className="absolute -bottom-40 -left-40 w-[700px] h-[700px] bg-gradient-to-tr from-blue-600/30 to-cyan-600/30 rounded-full filter blur-[120px]"
-          />
+      <div className="min-h-screen bg-page text-body relative overflow-hidden">
+        {/* Ambient brand glow — a single deliberate light source up top */}
+        <div className="pointer-events-none absolute inset-x-0 top-0 h-[720px] overflow-hidden">
+          <div className="absolute -top-40 left-1/2 -translate-x-1/2 w-[1100px] h-[620px] rounded-full blur-[140px] opacity-25 bg-gradient-to-br from-primary via-violet-500 to-fuchsia-500" />
         </div>
-
-        {/* Grid pattern — span entire page */}
-        <div
-          className="absolute inset-0 opacity-[0.03] pointer-events-none"
-          style={{ backgroundImage: 'radial-gradient(circle, rgba(255,255,255,0.8) 1px, transparent 1px)', backgroundSize: '40px 40px' }}
-        />
 
         <Navbar />
 
-        {/* ── Hero ────────────────────────────────────────────── */}
-        <section className="relative pt-32 pb-20 px-4 sm:px-6 lg:px-8">
-          <div className="relative z-10 max-w-7xl mx-auto">
-            <div className="max-w-3xl">
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.1 }}
-                className="inline-flex items-center gap-2 bg-white/5 backdrop-blur-sm px-4 py-2 rounded-full border border-white/10 mb-8"
-              >
-                <span className="w-2 h-2 bg-emerald-400 rounded-full animate-pulse" />
-                <span className="text-white/80 text-sm font-medium">We typically reply within a few hours</span>
-              </motion.div>
+        {/* ── Hero ─────────────────────────────────────────────── */}
+        <section className="relative px-6 lg:px-8 pt-36 pb-16">
+          <div className="max-w-6xl mx-auto">
+            <motion.div
+              custom={0} variants={rise} initial="hidden" animate="visible"
+              className="inline-flex items-center gap-2 rounded-full border border-line bg-surface/50 backdrop-blur-sm px-4 py-1.5 mb-9"
+            >
+              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+              <span className="text-xs font-medium text-muted">We typically reply within a few hours</span>
+            </motion.div>
 
-              <motion.h1
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.2 }}
-                className="text-5xl sm:text-6xl lg:text-7xl font-extrabold text-white mb-6 leading-[1.1] tracking-tight"
-              >
-                <span className="inline-block">Let&apos;s</span>{' '}
-                <span className="relative inline-block">
-                  <span className="absolute inset-0 blur-2xl bg-gradient-to-r from-primary via-violet-400 to-secondary opacity-40" />
-                  <span className="relative bg-clip-text text-transparent bg-gradient-to-r from-primary via-violet-400 to-fuchsia-400">
-                    Talk.
-                  </span>
-                </span>
-              </motion.h1>
+            <motion.h1
+              custom={1} variants={rise} initial="hidden" animate="visible"
+              className="font-display text-6xl sm:text-7xl lg:text-8xl font-extrabold tracking-[-0.045em] leading-[0.92]"
+            >
+              Let&apos;s{' '}
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-violet-400 to-fuchsia-400">talk.</span>
+            </motion.h1>
 
-              <motion.p
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.3 }}
-                className="text-lg sm:text-xl text-slate-400 leading-relaxed max-w-xl"
-              >
-                Have a question, need support, or want to explore a partnership? Pick the channel that works for you — we&apos;re always happy to help.
-              </motion.p>
-            </div>
+            <motion.p
+              custom={2} variants={rise} initial="hidden" animate="visible"
+              className="mt-7 text-lg sm:text-xl text-muted max-w-xl leading-relaxed"
+            >
+              Questions, feedback, or a partnership in mind? Pick a channel — a real person is on the other end.
+            </motion.p>
           </div>
         </section>
 
-        {/* ── Contact Channels ────────────────────────────────── */}
-        <section className="relative px-4 sm:px-6 lg:px-8 pb-24">
-          <div className="max-w-7xl mx-auto">
-            <motion.div
-              variants={containerVariants}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, margin: '-50px' }}
-              className="grid md:grid-cols-3 gap-6"
-            >
-              {channels.map((ch, i) => (
-                <motion.a
-                  key={i}
-                  href={ch.action}
-                  target={ch.action.startsWith('http') ? '_blank' : undefined}
-                  rel={ch.action.startsWith('http') ? 'noopener noreferrer' : undefined}
-                  variants={itemVariants}
-                  whileHover={{ y: -5 }}
-                  className="group relative bg-slate-900/50 backdrop-blur-sm rounded-2xl p-7 border border-white/5 hover:border-white/10 transition-all duration-300 overflow-hidden"
+        {/* ── Channels — one row of tappable cards ─────────────── */}
+        <section className="relative px-6 lg:px-8 pb-20">
+          <div className="max-w-6xl mx-auto grid gap-4 sm:gap-5 md:grid-cols-3">
+            {channels.map((ch, i) => (
+              <motion.a
+                key={ch.title}
+                href={ch.action}
+                target={ch.action.startsWith('http') ? '_blank' : undefined}
+                rel={ch.action.startsWith('http') ? 'noopener noreferrer' : undefined}
+                custom={i} variants={rise} initial="hidden" whileInView="visible" viewport={{ once: true, margin: '-60px' }}
+                className="group relative flex flex-col rounded-2xl border border-line bg-surface/40 p-7 overflow-hidden transition-colors duration-300 hover:border-line-strong"
+              >
+                {/* Washed brand-icon watermark */}
+                <ch.icon
+                  className="pointer-events-none absolute -right-5 -bottom-6 text-[9rem] opacity-[0.06] group-hover:opacity-[0.1] transition-opacity duration-500"
+                  style={{ color: ch.color, transform: 'rotate(-12deg)' }}
+                />
+                {/* Accent wash on hover */}
+                <div
+                  className="pointer-events-none absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                  style={{ background: `radial-gradient(120% 90% at 50% 0%, ${ch.color}24, transparent 62%)` }}
+                />
+                <div
+                  className="relative w-14 h-14 rounded-2xl flex items-center justify-center mb-5 transition-transform duration-300 group-hover:scale-105"
+                  style={{ backgroundColor: `${ch.color}1f`, boxShadow: `inset 0 0 0 1px ${ch.color}33` }}
                 >
-                  {/* Hover glow */}
-                  <div
-                    className="absolute inset-0 opacity-0 group-hover:opacity-10 transition-opacity duration-500"
-                    style={{ background: `radial-gradient(circle at top right, ${ch.color}, transparent 70%)` }}
-                  />
+                  <ch.icon className="text-2xl" style={{ color: ch.color }} />
+                </div>
 
-                  <div className="relative z-10">
-                    <div className="mb-5 inline-flex p-3 rounded-xl bg-white/5 border border-white/10 group-hover:scale-110 transition-transform duration-300">
-                      <ch.icon className="text-2xl" style={{ color: ch.color }} />
-                    </div>
-                    <h3 className="text-lg font-bold text-white mb-2.5 group-hover:text-indigo-300 transition-colors">
-                      {ch.title}
-                    </h3>
-                    <p className="text-slate-400 text-sm leading-relaxed mb-5">
-                      {ch.description}
-                    </p>
-                    <span className="inline-flex items-center gap-1.5 text-sm font-semibold text-indigo-400 group-hover:gap-2.5 transition-all">
-                      {ch.actionText} <span>→</span>
-                    </span>
-                  </div>
-                </motion.a>
-              ))}
-            </motion.div>
+                <h3 className="relative font-display text-xl font-bold text-body tracking-[-0.01em]">{ch.title}</h3>
+                <p className="relative text-muted text-sm mt-2 leading-relaxed">{ch.description}</p>
+
+                <span
+                  className="relative mt-auto pt-6 inline-flex items-center gap-2 text-sm font-semibold break-words"
+                  style={{ color: ch.color }}
+                >
+                  {ch.actionText}
+                  <FaArrowRight className="text-xs shrink-0 transition-transform duration-300 group-hover:translate-x-1" />
+                </span>
+              </motion.a>
+            ))}
           </div>
         </section>
 
         {/* ── Details + Socials ────────────────────────────────── */}
-        <section className="px-4 sm:px-6 lg:px-8 pb-24">
-          <div className="max-w-7xl mx-auto">
+        <section className="relative px-6 lg:px-8 pb-20">
+          <div className="max-w-6xl mx-auto">
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-              className="grid lg:grid-cols-2 gap-6"
+              variants={rise} custom={0} initial="hidden" whileInView="visible" viewport={{ once: true, margin: '-60px' }}
+              className="rounded-2xl border border-line bg-surface/30 p-7 md:p-9"
             >
-              {/* Left — Details */}
-              <div className="bg-slate-900/50 backdrop-blur-sm rounded-2xl border border-white/5 p-8 md:p-10">
-                <h2 className="text-xl font-bold text-white mb-8">Get in Touch</h2>
-                <div className="space-y-6">
-                  {details.map((d, i) => {
-                    const inner = (
-                      <div className="flex gap-4">
-                        <div className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center flex-shrink-0">
-                          <d.icon className={`${d.iconColor} text-lg`} />
-                        </div>
-                        <div>
-                          <p className="text-xs font-medium text-slate-500 uppercase tracking-wider mb-1">{d.label}</p>
-                          <p className="text-sm text-white font-medium">{d.value}</p>
-                          {d.sub && <p className="text-xs text-slate-400 mt-0.5">{d.sub}</p>}
-                        </div>
-                      </div>
-                    )
-                    return d.href ? (
-                      <a key={i} href={d.href} className="block hover:opacity-80 transition-opacity">{inner}</a>
-                    ) : (
-                      <div key={i}>{inner}</div>
-                    )
-                  })}
-                </div>
-              </div>
-
-              {/* Right — Socials + Quick Links */}
-              <div className="space-y-6">
-                {/* Social cards */}
-                <div className="bg-slate-900/50 backdrop-blur-sm rounded-2xl border border-white/5 p-8 md:p-10">
-                  <h2 className="text-xl font-bold text-white mb-6">Follow Us</h2>
-                  <div className="grid grid-cols-3 gap-4">
-                    {socials.map((s, i) => (
-                      <motion.a
-                        key={i}
-                        href={s.href}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        whileHover={{ y: -5 }}
-                        className="group relative bg-gradient-to-br from-white/[0.08] to-white/[0.02] backdrop-blur-xl rounded-2xl p-6 border border-white/[0.08] hover:border-white/20 transition-all duration-300 flex flex-col items-center gap-3 overflow-hidden"
-                        style={{ boxShadow: '0 8px 32px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.06)' }}
-                      >
-                        <div className="absolute top-0 left-1/4 right-1/4 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent" />
-                        <s.icon className="text-2xl text-white/70 group-hover:text-white group-hover:scale-110 transition-all duration-300" />
-                        <span className="text-xs font-medium text-slate-400 group-hover:text-white/80 transition-colors">{s.label}</span>
-                      </motion.a>
-                    ))}
-                  </div>
-                </div>
-
-                {/* CTA card */}
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.6, delay: 0.2 }}
-                  className="relative overflow-hidden rounded-2xl"
-                >
-                  <div className="absolute inset-0 bg-gradient-to-r from-primary to-secondary opacity-90" />
-                  <div className="absolute -top-20 -right-20 w-60 h-60 bg-white/10 rounded-full blur-3xl" />
-                  <div className="absolute -bottom-20 -left-20 w-60 h-60 bg-white/10 rounded-full blur-3xl" />
-
-                  <div className="relative p-8 md:p-10">
-                    <h3 className="text-xl font-bold text-white mb-2">
-                      Ready to Start Publishing?
-                    </h3>
-                    <p className="text-white/70 text-sm mb-6 max-w-sm">
-                      Create a free account and start pushing content to all your platforms in minutes.
-                    </p>
-                    <div className="flex flex-wrap gap-3">
-                      <a
-                        href={siteConfig.dashboard}
-                        className="group inline-flex items-center gap-2 bg-white text-indigo-600 px-6 py-3 rounded-xl font-semibold text-sm hover:bg-gray-50 hover:-translate-y-0.5 transition-all duration-300 shadow-lg"
-                      >
-                        Get Started Free
-                        <FaArrowRight className="text-xs group-hover:translate-x-0.5 transition-transform" />
-                      </a>
-                      <a
-                        href={siteConfig.api.docs}
-                        className="inline-flex items-center gap-2 text-white/80 hover:text-white px-6 py-3 rounded-xl font-medium text-sm border border-white/20 hover:border-white/40 transition-all duration-300"
-                      >
-                        View Docs
-                      </a>
+              <div className="grid sm:grid-cols-3 gap-8">
+                {details.map((d) => (
+                  <div key={d.label} className="flex items-start gap-4">
+                    <div className="shrink-0 w-11 h-11 rounded-xl border border-line bg-surface flex items-center justify-center">
+                      <d.icon className={`${d.iconColor} text-lg`} />
+                    </div>
+                    <div className="min-w-0">
+                      <p className="text-[11px] font-semibold uppercase tracking-[0.12em] text-subtle mb-1.5">{d.label}</p>
+                      {d.href ? (
+                        <a href={d.href} className="text-sm font-medium text-body hover:text-primary transition-colors">{d.value}</a>
+                      ) : (
+                        <p className="text-sm font-medium text-body">{d.value}</p>
+                      )}
+                      {d.sub && <p className="text-xs text-muted mt-1">{d.sub}</p>}
                     </div>
                   </div>
-                </motion.div>
+                ))}
+              </div>
+
+              <div className="mt-8 pt-7 border-t border-line flex flex-wrap items-center gap-4">
+                <span className="text-sm font-medium text-muted">Follow along</span>
+                <div className="flex gap-3">
+                  {socials.map((s) => (
+                    <a
+                      key={s.label}
+                      href={s.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={s.label}
+                      className="group w-11 h-11 rounded-xl border border-line bg-surface/40 flex items-center justify-center hover:border-line-strong transition-colors"
+                    >
+                      <s.icon className="text-lg text-muted group-hover:text-body transition-colors" />
+                    </a>
+                  ))}
+                </div>
+              </div>
+            </motion.div>
+          </div>
+        </section>
+
+        {/* ── CTA — the one deliberate gradient moment ─────────── */}
+        <section className="relative px-6 lg:px-8 pb-28">
+          <div className="max-w-6xl mx-auto">
+            <motion.div
+              variants={rise} custom={0} initial="hidden" whileInView="visible" viewport={{ once: true, margin: '-60px' }}
+              className="relative overflow-hidden rounded-3xl px-8 py-12 md:px-14 md:py-16"
+            >
+              <div className="absolute inset-0 bg-gradient-to-br from-primary to-secondary" />
+              <div
+                className="absolute inset-0 opacity-[0.14]"
+                style={{ backgroundImage: 'radial-gradient(circle, #fff 1px, transparent 1px)', backgroundSize: '22px 22px' }}
+              />
+              <div className="absolute -right-16 -bottom-24 w-72 h-72 rounded-full bg-white/10 blur-3xl" />
+
+              <div className="relative max-w-2xl">
+                <h2 className="font-display text-3xl md:text-5xl font-extrabold text-white tracking-[-0.035em] leading-[1.02] mb-4">
+                  Ready to start publishing?
+                </h2>
+                <p className="text-white/85 text-base md:text-lg mb-9 max-w-lg">
+                  Create a free account and push content to all nine networks in minutes.
+                </p>
+                <div className="flex flex-wrap gap-3">
+                  <a
+                    href={siteConfig.dashboard}
+                    className="group inline-flex items-center gap-2 bg-white text-primary px-7 py-3.5 rounded-xl font-bold text-sm hover:-translate-y-0.5 transition-transform duration-300 shadow-xl shadow-black/10"
+                  >
+                    Get started free
+                    <FaArrowRight className="text-xs transition-transform duration-300 group-hover:translate-x-1" />
+                  </a>
+                  <a
+                    href={siteConfig.api.docs}
+                    className="inline-flex items-center gap-2 text-white px-7 py-3.5 rounded-xl font-semibold text-sm border border-white/30 hover:bg-white/10 transition-colors"
+                  >
+                    View docs
+                  </a>
+                </div>
               </div>
             </motion.div>
           </div>

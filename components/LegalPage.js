@@ -34,21 +34,21 @@ export default function LegalPage({ title, description, lastUpdated, intro, sect
     <>
       <Navbar />
 
-      <div className="min-h-screen bg-slate-950">
+      <div className="min-h-screen bg-page">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 pb-20">
           {/* Document header */}
-          <header className="max-w-3xl border-b border-white/10 pb-10 mb-10">
+          <header className="max-w-3xl border-b border-line pb-10 mb-10">
             <p className="text-sm font-medium text-indigo-400 mb-3">Legal</p>
-            <h1 className="text-4xl sm:text-5xl font-bold text-white tracking-tight mb-4">{title}</h1>
-            <p className="text-lg text-slate-400 leading-relaxed">{description}</p>
-            <p className="mt-4 text-sm text-slate-500">Last updated {lastUpdated}</p>
+            <h1 className="text-4xl sm:text-5xl font-bold text-body tracking-tight mb-4">{title}</h1>
+            <p className="text-lg text-muted leading-relaxed">{description}</p>
+            <p className="mt-4 text-sm text-subtle">Last updated {lastUpdated}</p>
           </header>
 
           <div className="lg:grid lg:grid-cols-[240px_minmax(0,1fr)] lg:gap-16">
             {/* Table of contents — sticky rail on desktop, inline list on mobile */}
             <nav aria-label="Table of contents" className="mb-10 lg:mb-0">
               <div className="lg:sticky lg:top-28">
-                <p className="text-xs font-semibold uppercase tracking-wider text-slate-500 mb-4">On this page</p>
+                <p className="text-xs font-semibold uppercase tracking-wider text-subtle mb-4">On this page</p>
                 <ol className="space-y-2.5">
                   {sections.map((s, i) => {
                     const active = s.id === activeId
@@ -58,11 +58,11 @@ export default function LegalPage({ title, description, lastUpdated, intro, sect
                           href={`#${s.id}`}
                           aria-current={active ? 'true' : undefined}
                           className={`group flex items-baseline gap-2.5 text-sm transition-colors ${
-                            active ? 'text-white font-medium' : 'text-slate-400 hover:text-white'
+                            active ? 'text-body font-medium' : 'text-muted hover:text-body'
                           }`}
                         >
                           <span className={`font-mono text-xs transition-colors ${
-                            active ? 'text-indigo-400' : 'text-slate-600 group-hover:text-indigo-400'
+                            active ? 'text-indigo-400' : 'text-muted group-hover:text-indigo-400'
                           }`}>{String(i + 1).padStart(2, '0')}</span>
                           {s.title}
                         </a>
@@ -76,12 +76,12 @@ export default function LegalPage({ title, description, lastUpdated, intro, sect
             {/* Document body */}
             <main className="max-w-3xl">
               {intro && (
-                <p className="text-slate-300 leading-relaxed pb-12 mb-12 border-b border-white/5">{intro}</p>
+                <p className="text-muted leading-relaxed pb-12 mb-12 border-b border-line">{intro}</p>
               )}
 
               {sections.map((section, index) => (
-                <section key={section.id} id={section.id} className="scroll-mt-28 pb-12 mb-12 border-b border-white/5 last:border-0 last:mb-0 last:pb-0">
-                  <h2 className="flex items-baseline gap-3 text-2xl font-semibold text-white mb-6">
+                <section key={section.id} id={section.id} className="scroll-mt-28 pb-12 mb-12 border-b border-line last:border-0 last:mb-0 last:pb-0">
+                  <h2 className="flex items-baseline gap-3 text-2xl font-semibold text-body mb-6">
                     <span className="font-mono text-sm text-indigo-400">{String(index + 1).padStart(2, '0')}</span>
                     {section.title}
                   </h2>
@@ -90,15 +90,15 @@ export default function LegalPage({ title, description, lastUpdated, intro, sect
                     {section.content.map((block, blockIndex) => (
                       <div key={blockIndex}>
                         {block.text && (
-                          <p className="text-slate-300 leading-relaxed mb-4">{block.text}</p>
+                          <p className="text-muted leading-relaxed mb-4">{block.text}</p>
                         )}
                         {block.subtitle && (
-                          <h3 className="text-base font-semibold text-white mb-3">{block.subtitle}</h3>
+                          <h3 className="text-base font-semibold text-body mb-3">{block.subtitle}</h3>
                         )}
                         {block.items && (
                           <ul className="space-y-2.5">
                             {block.items.map((item, itemIndex) => (
-                              <li key={itemIndex} className="relative pl-5 text-[15px] leading-relaxed text-slate-400 [&_strong]:text-slate-200 [&_strong]:font-medium [&_a]:text-indigo-400 [&_a]:underline [&_a]:underline-offset-2 hover:[&_a]:text-indigo-300">
+                              <li key={itemIndex} className="relative pl-5 text-[15px] leading-relaxed text-muted [&_strong]:text-slate-200 [&_strong]:font-medium [&_a]:text-indigo-400 [&_a]:underline [&_a]:underline-offset-2 hover:[&_a]:text-indigo-300">
                                 <span className="absolute left-0 top-[0.7em] w-1.5 h-px bg-slate-600" aria-hidden="true"></span>
                                 <span dangerouslySetInnerHTML={{ __html: item }} />
                               </li>
@@ -112,8 +112,8 @@ export default function LegalPage({ title, description, lastUpdated, intro, sect
               ))}
 
               {/* Contact */}
-              <div className="mt-4 rounded-xl border border-white/10 bg-white/[0.03] px-6 py-5">
-                <p className="text-sm text-slate-400 leading-relaxed">
+              <div className="mt-4 rounded-xl border border-line bg-surface px-6 py-5">
+                <p className="text-sm text-muted leading-relaxed">
                   {contactPrompt}{' '}
                   <a href={`mailto:${siteConfig.contact.support}`} className="text-indigo-400 hover:text-indigo-300 font-medium">
                     {siteConfig.contact.support}
