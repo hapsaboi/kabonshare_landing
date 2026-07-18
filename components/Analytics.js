@@ -8,8 +8,8 @@ const fade = {
 }
 
 const shots = [
-  { light: '/features/analytics-hero-light.png',     dark: '/features/analytics-hero-dark.png',     alt: 'KabonShare analytics dashboard' },
-  { light: '/features/analytics-audience-light.png', dark: '/features/analytics-audience-dark.png', alt: 'Audience insights' },
+  { light: '/features/analytics-hero-light.webp',     dark: '/features/analytics-hero-dark.webp',     alt: 'KabonShare analytics dashboard' },
+  { light: '/features/analytics-audience-light.webp', dark: '/features/analytics-audience-dark.webp', alt: 'Audience insights' },
 ]
 
 const capabilities = [

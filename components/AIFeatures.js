@@ -98,9 +98,9 @@ export default function AIFeatures() {
 
             <div className="relative rounded-3xl border border-line bg-surface overflow-hidden shadow-2xl shadow-violet-900/10">
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/features/ai-caption-light.png" alt="Kabon AI caption generator" className="only-light w-full" />
+              <img src="/features/ai-caption-light.webp" alt="Kabon AI caption generator" className="only-light w-full" />
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/features/ai-caption-dark.png" alt="Kabon AI caption generator" className="only-dark w-full" />
+              <img src="/features/ai-caption-dark.webp" alt="Kabon AI caption generator" className="only-dark w-full" />
             </div>
 
             {/* Floating speed badge */}

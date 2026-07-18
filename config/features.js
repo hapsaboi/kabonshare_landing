@@ -12,7 +12,7 @@ import { siteConfig } from './siteConfig'
 //
 // `menuDesc` is the short line in the nav dropdown.
 // Every `image` is a screenshot slot — set it to a path in /public/features/
-// (e.g. '/features/publishing-hero.png') once you have the real screenshot;
+// (e.g. '/features/publishing-hero.webp') once you have the real screenshot;
 // until then a styled placeholder renders in its place.
 export const FEATURES = [
   {
@@ -31,8 +31,8 @@ export const FEATURES = [
         'Native scheduling — posts fire even if you’re offline',
       ],
       image: {
-        light: '/features/publishing-hero-light.png',
-        dark: '/features/publishing-hero-dark.png',
+        light: '/features/publishing-hero-light.webp',
+        dark: '/features/publishing-hero-dark.webp',
       },
     },
     benefits: [
@@ -52,8 +52,8 @@ export const FEATURES = [
           'First comment, alt text, location & more',
         ],
         image: {
-          light: '/features/publishing-platforms-light.png',
-          dark: '/features/publishing-platforms-dark.png',
+          light: '/features/publishing-platforms-light.webp',
+          dark: '/features/publishing-platforms-dark.webp',
         },
         flip: false,
       },
@@ -67,8 +67,8 @@ export const FEATURES = [
           'Automatic retries if a network hiccups',
         ],
         image: {
-          light: '/features/publishing-schedule-light.png',
-          dark: '/features/publishing-schedule-dark.png',
+          light: '/features/publishing-schedule-light.webp',
+          dark: '/features/publishing-schedule-dark.webp',
         },
         flip: true,
       },
@@ -91,8 +91,8 @@ export const FEATURES = [
         'Bulk scheduler — paste a batch and queue it',
       ],
       image: {
-        light: '/features/scheduling-hero-light.png',
-        dark: '/features/scheduling-hero-dark.png',
+        light: '/features/scheduling-hero-light.webp',
+        dark: '/features/scheduling-hero-dark.webp',
       },
     },
     benefits: [
@@ -112,8 +112,8 @@ export const FEATURES = [
           'Best-time hints right on the calendar',
         ],
         image: {
-          light: '/features/scheduling-calendar-light.png',
-          dark: '/features/scheduling-calendar-dark.png',
+          light: '/features/scheduling-calendar-light.webp',
+          dark: '/features/scheduling-calendar-dark.webp',
         },
         flip: false,
       },
@@ -127,8 +127,8 @@ export const FEATURES = [
           'Even spread, best times or fixed interval',
         ],
         image: {
-          light: '/features/scheduling-bulk-light.png',
-          dark: '/features/scheduling-bulk-dark.png',
+          light: '/features/scheduling-bulk-light.webp',
+          dark: '/features/scheduling-bulk-dark.webp',
         },
         flip: true,
       },
@@ -152,8 +152,8 @@ export const FEATURES = [
         'Kabon AI agent — create, schedule & analyze from chat',
       ],
       image: {
-        light: '/features/ai-hero-light.png',
-        dark: '/features/ai-hero-dark.png',
+        light: '/features/ai-hero-light.webp',
+        dark: '/features/ai-hero-dark.webp',
       },
     },
     benefits: [
@@ -173,8 +173,8 @@ export const FEATURES = [
           'Regenerate until it feels right',
         ],
         image: {
-          light: '/features/ai-caption-light.png',
-          dark: '/features/ai-caption-dark.png',
+          light: '/features/ai-caption-light.webp',
+          dark: '/features/ai-caption-dark.webp',
         },
         flip: false,
       },
@@ -188,8 +188,8 @@ export const FEATURES = [
           'Everything our MCP server can do — with zero setup',
         ],
         image: {
-          light: '/features/ai-assistant-light.png',
-          dark: '/features/ai-assistant-dark.png',
+          light: '/features/ai-assistant-light.webp',
+          dark: '/features/ai-assistant-dark.webp',
         },
         flip: true,
       },
@@ -212,8 +212,8 @@ export const FEATURES = [
         'Engagement-window heatmaps for the best times',
       ],
       image: {
-        light: '/features/analytics-hero-light.png',
-        dark: '/features/analytics-hero-dark.png',
+        light: '/features/analytics-hero-light.webp',
+        dark: '/features/analytics-hero-dark.webp',
       },
     },
     benefits: [
@@ -233,8 +233,8 @@ export const FEATURES = [
           'Trends over time, per account',
         ],
         image: {
-          light: '/features/analytics-audience-light.png',
-          dark: '/features/analytics-audience-dark.png',
+          light: '/features/analytics-audience-light.webp',
+          dark: '/features/analytics-audience-dark.webp',
         },
         flip: false,
       },
@@ -248,8 +248,8 @@ export const FEATURES = [
           'Real platform metrics, not estimates',
         ],
         image: {
-          light: '/features/analytics-heatmap-light.png',
-          dark: '/features/analytics-heatmap-dark.png',
+          light: '/features/analytics-heatmap-light.webp',
+          dark: '/features/analytics-heatmap-dark.webp',
         },
         flip: true,
       },
@@ -272,8 +272,8 @@ export const FEATURES = [
         'Every connected platform in one place',
       ],
       image: {
-        light: '/features/followers-hero-light.png',
-        dark: '/features/followers-hero-dark.png',
+        light: '/features/followers-hero-light.webp',
+        dark: '/features/followers-hero-dark.webp',
       },
     },
     benefits: [
@@ -292,7 +292,7 @@ export const FEATURES = [
           'Smoothly animated as it changes',
           'Profile photo and handle right on screen',
         ],
-        image: '/features/followers-live.png',
+        image: '/features/followers-live.webp',
         flip: false,
       },
       {
@@ -304,7 +304,7 @@ export const FEATURES = [
           'Clean, broadcast-ready design',
           'Great for launches and live events',
         ],
-        image: '/features/followers-launch.png',
+        image: '/features/followers-launch.webp',
         flip: true,
       },
     ],
@@ -326,8 +326,8 @@ export const FEATURES = [
         'Threaded comments right on each post',
       ],
       image: {
-        light: '/features/collaboration-hero-light.png',
-        dark: '/features/collaboration-hero-dark.png',
+        light: '/features/collaboration-hero-light.webp',
+        dark: '/features/collaboration-hero-dark.webp',
       },
     },
     benefits: [
@@ -347,8 +347,8 @@ export const FEATURES = [
           'Full activity history',
         ],
         image: {
-          light: '/features/collaboration-workspace-light.png',
-          dark: '/features/collaboration-workspace-dark.png',
+          light: '/features/collaboration-workspace-light.webp',
+          dark: '/features/collaboration-workspace-dark.webp',
         },
         flip: false,
       },
@@ -362,8 +362,8 @@ export const FEATURES = [
           'Built-in team chat',
         ],
         image: {
-          light: '/features/collaboration-feedback-light.png',
-          dark: '/features/collaboration-feedback-dark.png',
+          light: '/features/collaboration-feedback-light.webp',
+          dark: '/features/collaboration-feedback-dark.webp',
         },
         flip: true,
       },
@@ -437,8 +437,8 @@ export const FEATURES = [
         'Royalty-free media via Unsplash, Pexels & Giphy',
       ],
       image: {
-        light: '/features/media-hero-light.png',
-        dark: '/features/media-hero-dark.png',
+        light: '/features/media-hero-light.webp',
+        dark: '/features/media-hero-dark.webp',
       },
     },
     benefits: [
@@ -458,8 +458,8 @@ export const FEATURES = [
           'Thumbnails don’t count to your quota',
         ],
         image: {
-          light: '/features/media-library-light.png',
-          dark: '/features/media-library-dark.png',
+          light: '/features/media-library-light.webp',
+          dark: '/features/media-library-dark.webp',
         },
         flip: false,
       },
@@ -473,8 +473,8 @@ export const FEATURES = [
           'We only touch the files you pick',
         ],
         image: {
-          light: '/features/media-import-light.png',
-          dark: '/features/media-import-dark.png',
+          light: '/features/media-import-light.webp',
+          dark: '/features/media-import-dark.webp',
         },
         flip: true,
       },
