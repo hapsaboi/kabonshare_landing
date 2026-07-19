@@ -31,6 +31,7 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
   const [featuresExpanded, setFeaturesExpanded] = useState(false)
+  const [useCasesExpanded, setUseCasesExpanded] = useState(false)
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20)
@@ -43,7 +44,7 @@ export default function Navbar() {
     return () => { document.body.style.overflow = '' }
   }, [mobileOpen])
 
-  const close = useCallback(() => { setMobileOpen(false); setFeaturesExpanded(false) }, [])
+  const close = useCallback(() => { setMobileOpen(false); setFeaturesExpanded(false); setUseCasesExpanded(false) }, [])
 
   const links = [
     { label: 'Features',     href: '/features' },
@@ -80,18 +81,18 @@ export default function Navbar() {
 
                 {/* Features mega-menu */}
                 <div className="relative group/feat">
-                  <a href="/features"
+                  <Link href="/features"
                     className="inline-flex items-center gap-1 px-3 py-2 text-[15px] font-display font-semibold text-muted group-hover/feat:text-body rounded-lg transition-colors">
                     Features
                     <FiChevronDown className="w-3.5 h-3.5 transition-transform duration-200 group-hover/feat:rotate-180" />
-                  </a>
+                  </Link>
 
                   {/* Panel (pt-3 = invisible hover bridge to the trigger) */}
                   <div className="invisible opacity-0 translate-y-1 group-hover/feat:visible group-hover/feat:opacity-100 group-hover/feat:translate-y-0 absolute left-0 top-full pt-3 transition-all duration-200">
                     <div className="w-[600px] rounded-2xl bg-raised border border-line shadow-2xl p-3">
                       <div className="grid grid-cols-2 gap-1">
                         {featureMenu.map((f) => (
-                          <a key={f.href} href={f.href}
+                          <Link key={f.href} href={f.href}
                             className="flex gap-3 p-3 rounded-xl hover:bg-inset transition-colors">
                             <span className="flex items-center justify-center w-9 h-9 rounded-lg shrink-0"
                               style={{ background: `color-mix(in srgb, ${f.color} 13%, transparent)` }}>
@@ -106,31 +107,31 @@ export default function Navbar() {
                               </div>
                               <p className="text-[13px] text-muted mt-1.5 leading-snug">{f.desc}</p>
                             </div>
-                          </a>
+                          </Link>
                         ))}
                       </div>
-                      <a href="/features"
+                      <Link href="/features"
                         className="mt-1 flex items-center justify-center gap-1.5 py-2.5 rounded-xl text-sm font-semibold text-primary hover:bg-inset transition-colors">
                         Explore all features
                         <FiArrowRight className="w-3.5 h-3.5" />
-                      </a>
+                      </Link>
                     </div>
                   </div>
                 </div>
 
                 {/* Use Cases mega-menu */}
                 <div className="relative group/uc">
-                  <a href="/case-studies"
+                  <Link href="/case-studies"
                     className="inline-flex items-center gap-1 px-3 py-2 text-[15px] font-display font-semibold text-muted group-hover/uc:text-body rounded-lg transition-colors">
                     Use Cases
                     <FiChevronDown className="w-3.5 h-3.5 transition-transform duration-200 group-hover/uc:rotate-180" />
-                  </a>
+                  </Link>
 
                   <div className="invisible opacity-0 translate-y-1 group-hover/uc:visible group-hover/uc:opacity-100 group-hover/uc:translate-y-0 absolute left-0 top-full pt-3 transition-all duration-200">
                     <div className="w-[560px] rounded-2xl bg-raised border border-line shadow-2xl p-3">
                       <div className="grid grid-cols-2 gap-1">
                         {useCaseMenu.map((u) => (
-                          <a key={u.href} href={u.href}
+                          <Link key={u.href} href={u.href}
                             className="flex gap-3 p-3 rounded-xl hover:bg-inset transition-colors">
                             <span className="flex items-center justify-center w-9 h-9 rounded-lg shrink-0"
                               style={{ background: `color-mix(in srgb, ${u.color} 13%, transparent)` }}>
@@ -140,24 +141,24 @@ export default function Navbar() {
                               <span className="font-display font-bold text-body text-[15px] leading-none">{u.title}</span>
                               <p className="text-[13px] text-muted mt-1.5 leading-snug">{u.desc}</p>
                             </div>
-                          </a>
+                          </Link>
                         ))}
                       </div>
-                      <a href="/case-studies"
+                      <Link href="/case-studies"
                         className="mt-1 flex items-center justify-center gap-1.5 py-2.5 rounded-xl text-sm font-semibold text-primary hover:bg-inset transition-colors">
                         See all use cases
                         <FiArrowRight className="w-3.5 h-3.5" />
-                      </a>
+                      </Link>
                     </div>
                   </div>
                 </div>
 
                 {/* Remaining links */}
                 {links.filter((l) => l.label !== 'Features' && l.label !== 'Use Cases').map((l) => (
-                  <a key={l.href} href={l.href}
+                  <Link key={l.href} href={l.href}
                     className="px-3 py-2 text-[15px] font-display font-semibold text-muted hover:text-body rounded-lg transition-colors duration-150">
                     {l.label}
-                  </a>
+                  </Link>
                 ))}
               </div>
             </div>
@@ -220,7 +221,7 @@ export default function Navbar() {
                   <div className={`overflow-hidden transition-all duration-300 ${featuresExpanded ? 'max-h-[760px]' : 'max-h-0'}`}>
                     <div className="pl-2.5 pr-1 py-1 space-y-0.5">
                       {featureMenu.map((f) => (
-                        <a key={f.href} href={f.href} onClick={close}
+                        <Link key={f.href} href={f.href} onClick={close}
                           className="flex items-start gap-3 px-3 py-2 rounded-lg hover:bg-inset transition-colors">
                           <span className="flex items-center justify-center w-8 h-8 rounded-md shrink-0 mt-0.5"
                             style={{ background: `color-mix(in srgb, ${f.color} 13%, transparent)` }}>
@@ -235,16 +236,45 @@ export default function Navbar() {
                             </div>
                             <p className="text-[12px] text-muted mt-0.5 leading-snug">{f.desc}</p>
                           </div>
-                        </a>
+                        </Link>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              ) : l.label === 'Use Cases' ? (
+                <div key="use-cases">
+                  <button
+                    onClick={() => setUseCasesExpanded(v => !v)}
+                    aria-expanded={useCasesExpanded}
+                    className="w-full flex items-center justify-between px-4 py-2.5 text-sm font-medium text-muted hover:text-body hover:bg-inset rounded-xl transition-colors"
+                  >
+                    Use Cases
+                    <FiChevronDown className={`w-4 h-4 transition-transform duration-200 ${useCasesExpanded ? 'rotate-180' : ''}`} />
+                  </button>
+                  {/* Accordion body */}
+                  <div className={`overflow-hidden transition-all duration-300 ${useCasesExpanded ? 'max-h-[760px]' : 'max-h-0'}`}>
+                    <div className="pl-2.5 pr-1 py-1 space-y-0.5">
+                      {useCaseMenu.map((u) => (
+                        <Link key={u.href} href={u.href} onClick={close}
+                          className="flex items-start gap-3 px-3 py-2 rounded-lg hover:bg-inset transition-colors">
+                          <span className="flex items-center justify-center w-8 h-8 rounded-md shrink-0 mt-0.5"
+                            style={{ background: `color-mix(in srgb, ${u.color} 13%, transparent)` }}>
+                            <u.icon style={{ color: u.color, fontSize: 16 }} />
+                          </span>
+                          <div className="min-w-0">
+                            <span className="text-sm font-semibold text-body">{u.title}</span>
+                            <p className="text-[12px] text-muted mt-0.5 leading-snug">{u.desc}</p>
+                          </div>
+                        </Link>
                       ))}
                     </div>
                   </div>
                 </div>
               ) : (
-                <a key={l.href} href={l.href} onClick={close}
+                <Link key={l.href} href={l.href} onClick={close}
                   className="flex items-center px-4 py-2.5 text-sm font-medium text-muted hover:text-body hover:bg-inset rounded-xl transition-colors">
                   {l.label}
-                </a>
+                </Link>
               )
             ))}
           </div>

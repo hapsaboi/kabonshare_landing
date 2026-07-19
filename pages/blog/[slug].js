@@ -122,7 +122,7 @@ export default function BlogArticle({ post, html, headings, related }) {
                 <span className="text-sm text-subtle">{formatPostDate(post.publishedAt)}</span>
               </div>
 
-              <h1 className="text-4xl sm:text-5xl font-bold text-body tracking-tight leading-[1.1] mb-5">
+              <h1 className="font-display text-4xl sm:text-5xl font-bold text-body tracking-tight leading-[1.1] mb-5">
                 {post.title}
               </h1>
 
@@ -200,7 +200,7 @@ export default function BlogArticle({ post, html, headings, related }) {
             <main className="max-w-3xl min-w-0">
               <article
                 className="prose prose-invert prose-slate max-w-none
-                  prose-headings:text-body prose-headings:tracking-tight prose-headings:scroll-mt-28
+                  prose-headings:font-display prose-headings:text-body prose-headings:tracking-tight prose-headings:scroll-mt-28
                   prose-p:text-muted prose-li:text-muted
                   prose-a:text-indigo-400 prose-a:no-underline hover:prose-a:underline
                   prose-strong:text-body prose-blockquote:border-indigo-500/50 prose-blockquote:text-muted
@@ -215,7 +215,7 @@ export default function BlogArticle({ post, html, headings, related }) {
 
                 {related.length > 0 && (
                   <section>
-                    <h2 className="text-xl font-semibold text-body mb-6">Keep reading</h2>
+                    <h2 className="font-display text-xl font-semibold text-body mb-6">Keep reading</h2>
                     <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
                       {related.map(p => <PostCard key={p.slug} post={p} />)}
                     </div>

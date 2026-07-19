@@ -12,7 +12,7 @@ const fade = {
 // /case-studies — the full stories live there, so we don't re-tell them here.
 export default function UseCases() {
   return (
-    <section id="use-cases" className="py-28 bg-page relative overflow-hidden">
+    <section id="use-cases" className="py-16 md:py-28 bg-page relative overflow-hidden">
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[700px] h-[300px] bg-violet-600/6 rounded-full blur-[120px]" />
       </div>
@@ -26,7 +26,7 @@ export default function UseCases() {
               <span className="w-1.5 h-1.5 rounded-full bg-indigo-500 dark:bg-indigo-400 animate-pulse" />
               <span className="text-xs font-semibold text-indigo-600 dark:text-indigo-300 tracking-wider uppercase">Built for everyone</span>
             </div>
-            <h2 className="font-display text-4xl md:text-5xl font-extrabold text-body tracking-[-0.02em] leading-[1.04] mb-4">
+            <h2 className="font-display text-3xl sm:text-4xl md:text-5xl font-extrabold text-body tracking-[-0.02em] leading-[1.04] mb-4">
               Built for{' '}
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-violet-400 to-indigo-400">how you work.</span>
             </h2>

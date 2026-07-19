@@ -12,7 +12,7 @@ const fade = {
 // /features — the deep dives live there, so we don't re-explain them here.
 export default function Features() {
   return (
-    <section id="features" className="py-28 bg-page relative overflow-hidden">
+    <section id="features" className="py-16 md:py-28 bg-page relative overflow-hidden">
       {/* Background glows */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
         <div className="absolute top-1/4 left-0 w-[500px] h-[500px] bg-violet-600/6 rounded-full blur-[140px]" />
@@ -28,7 +28,7 @@ export default function Features() {
               <span className="w-1.5 h-1.5 rounded-full bg-indigo-500 dark:bg-indigo-400 animate-pulse" />
               <span className="text-xs font-semibold text-indigo-600 dark:text-indigo-300 tracking-wider uppercase">Everything you need</span>
             </div>
-            <h2 className="font-display text-4xl md:text-5xl font-extrabold text-body tracking-[-0.02em] leading-[1.04] mb-4">
+            <h2 className="font-display text-3xl sm:text-4xl md:text-5xl font-extrabold text-body tracking-[-0.02em] leading-[1.04] mb-4">
               One platform.<br className="hidden sm:block" /> Every tool to grow.
             </h2>
             <p className="text-muted text-lg leading-relaxed">

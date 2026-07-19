@@ -77,7 +77,7 @@ export default function Platforms() {
   const comingSoonCount = platforms.filter(p => p.status === 'coming').length
 
   return (
-    <section id="platforms" className="py-24 bg-page relative overflow-hidden">
+    <section id="platforms" className="py-14 md:py-24 bg-page relative overflow-hidden">
       {/* Subtle background pattern */}
       <div className="absolute inset-0 opacity-[0.02]" style={{ backgroundImage: 'radial-gradient(circle at 1px 1px, #667eea 1px, transparent 0)', backgroundSize: '40px 40px' }} />
 
@@ -103,13 +103,13 @@ export default function Platforms() {
             </span>
           </motion.div>
 
-          <h2 className="font-display text-4xl md:text-5xl font-extrabold text-body mb-6 tracking-[-0.02em]">
+          <h2 className="font-display text-3xl sm:text-4xl md:text-5xl font-extrabold text-body mb-6 tracking-[-0.02em]">
             One API,{' '}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary">
               Every Platform
             </span>
           </h2>
-          <p className="text-lg text-subtle max-w-2xl mx-auto">
+          <p className="text-base sm:text-lg text-subtle max-w-2xl mx-auto">
             Publish to all major social networks with a single API call.
             No platform-specific code needed.
           </p>

@@ -24,7 +24,7 @@ const capabilities = [
 
 export default function AIFeatures() {
   return (
-    <section id="ai-features" className="py-16 bg-page relative overflow-hidden">
+    <section id="ai-features" className="py-12 md:py-16 bg-page relative overflow-hidden">
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-violet-600/10 rounded-full blur-[120px]" />
         <div className="absolute bottom-0 right-0 w-[400px] h-[400px] bg-indigo-600/8 rounded-full blur-[100px]" />

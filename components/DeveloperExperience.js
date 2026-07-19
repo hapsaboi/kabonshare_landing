@@ -141,7 +141,7 @@ export default function DeveloperExperience() {
   }
 
   return (
-    <section id="developer-experience" className="py-14 bg-page relative overflow-hidden">
+    <section id="developer-experience" className="py-10 md:py-14 bg-page relative overflow-hidden">
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute top-1/3 left-0 w-[400px] h-[400px] bg-emerald-500/5 rounded-full blur-[100px]" />
         <div className="absolute bottom-1/3 right-0 w-[400px] h-[400px] bg-cyan-500/5 rounded-full blur-[100px]" />

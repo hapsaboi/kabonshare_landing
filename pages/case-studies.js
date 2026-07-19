@@ -638,7 +638,7 @@ export default function CaseStudies() {
             Built for{' '}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-violet-400 to-indigo-400">every workflow.</span>
           </h1>
-          <p className="text-lg text-muted max-w-xl mx-auto leading-relaxed">
+          <p className="text-base sm:text-lg text-muted max-w-xl mx-auto leading-relaxed">
             Whether you&apos;re a solo creator, an agency managing 50 clients, or a developer building social features — KabonShare fits.
           </p>
         </section>
@@ -685,10 +685,10 @@ export default function CaseStudies() {
                     </span>
                     <span className="text-sm font-semibold uppercase tracking-[0.12em]" style={{ color: accent }}>{study.label}</span>
                   </div>
-                  <h2 className="font-display text-4xl md:text-5xl font-extrabold text-body tracking-[-0.03em] leading-[1.02] mb-5 whitespace-pre-line">
+                  <h2 className="font-display text-3xl sm:text-4xl md:text-5xl font-extrabold text-body tracking-[-0.03em] leading-[1.02] mb-5 whitespace-pre-line">
                     {study.title}
                   </h2>
-                  <p className="text-lg text-muted leading-relaxed mb-8 max-w-md">{study.subtitle}</p>
+                  <p className="text-base sm:text-lg text-muted leading-relaxed mb-8 max-w-md">{study.subtitle}</p>
 
                   <div className="flex items-start gap-8 mb-9">
                     {study.stats.map((stat, i) => (
@@ -825,10 +825,10 @@ export default function CaseStudies() {
               viewport={{ once: true }}
               transition={{ duration: 0.5 }}
             >
-              <h2 className="font-display text-4xl md:text-5xl font-extrabold text-body tracking-[-0.025em] mb-5">
+              <h2 className="font-display text-3xl sm:text-4xl md:text-5xl font-extrabold text-body tracking-[-0.025em] mb-5">
                 Ready to publish smarter?
               </h2>
-              <p className="text-lg text-muted mb-10 max-w-md mx-auto">
+              <p className="text-base sm:text-lg text-muted mb-10 max-w-md mx-auto">
                 Free tier available. No credit card required. Set up in minutes.
               </p>
               <div className="flex flex-col sm:flex-row gap-3 justify-center">

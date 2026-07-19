@@ -36,7 +36,7 @@ export default function PostCard({ post, featured = false }) {
             )}
             <span className="text-subtle">{formatPostDate(post.publishedAt)}</span>
           </div>
-          <h2 className="text-2xl md:text-3xl font-bold text-body tracking-tight leading-snug group-hover:text-indigo-300 transition-colors">
+          <h2 className="font-display text-2xl md:text-3xl font-bold text-body tracking-tight leading-snug group-hover:text-indigo-300 transition-colors">
             {post.title}
           </h2>
           {post.excerpt && (
@@ -79,7 +79,7 @@ export default function PostCard({ post, featured = false }) {
           )}
           <span className="text-subtle">{formatPostDate(post.publishedAt)}</span>
         </div>
-        <h3 className="text-lg font-semibold text-body leading-snug group-hover:text-indigo-300 transition-colors line-clamp-2">
+        <h3 className="font-display text-lg font-semibold text-body leading-snug group-hover:text-indigo-300 transition-colors line-clamp-2">
           {post.title}
         </h3>
         {post.excerpt && (

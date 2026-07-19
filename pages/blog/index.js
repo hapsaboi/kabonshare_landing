@@ -86,7 +86,7 @@ export default function BlogIndex({ posts, categories }) {
           {/* Hero */}
           <header className="text-center max-w-2xl mx-auto mb-12">
             <p className="text-sm font-semibold uppercase tracking-[0.2em] text-indigo-400 mb-4">KabonShare Blog</p>
-            <h1 className="text-4xl sm:text-6xl font-bold text-body tracking-tight mb-5">
+            <h1 className="font-display text-4xl sm:text-6xl font-bold text-body tracking-tight mb-5">
               Grow your{' '}
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-cyan-400">social presence</span>
             </h1>

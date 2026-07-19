@@ -1,6 +1,7 @@
 'use client'
 import { useState, useEffect } from 'react'
 import Head from 'next/head'
+import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { motion, AnimatePresence } from 'framer-motion'
 import { FiCheck, FiArrowRight } from 'react-icons/fi'
@@ -164,10 +165,10 @@ export default function FeaturesPage() {
                     </span>
                     <span className="text-sm font-semibold uppercase tracking-[0.1em]" style={{ color: f.color }}>{f.hero.eyebrow}</span>
                   </div>
-                  <h1 className="font-display text-4xl sm:text-5xl lg:text-[3.5rem] font-extrabold text-body tracking-[-0.03em] leading-[1.02] mb-5">
+                  <h1 className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-[3.5rem] font-extrabold text-body tracking-[-0.03em] leading-[1.05] sm:leading-[1.02] mb-4 sm:mb-5">
                     {f.hero.title}
                   </h1>
-                  <p className="text-lg text-muted leading-relaxed mb-7 max-w-xl">{f.hero.desc}</p>
+                  <p className="text-base sm:text-lg text-muted leading-relaxed mb-7 max-w-xl">{f.hero.desc}</p>
                   <div className="mb-9"><Bullets items={f.hero.bullets} color={f.color} /></div>
                   <div className="flex flex-wrap items-center gap-4">
                     <a href={`${siteConfig.dashboard}/signup`}
@@ -182,7 +183,7 @@ export default function FeaturesPage() {
                         <FiArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
                       </a>
                     ) : (
-                      <a href="/pricing" className="inline-flex items-center gap-1.5 text-body font-semibold hover:text-primary transition-colors">View pricing</a>
+                      <Link href="/pricing" className="inline-flex items-center gap-1.5 text-body font-semibold hover:text-primary transition-colors">View pricing</Link>
                     )}
                   </div>
                 </div>

@@ -6,7 +6,7 @@ import Link from 'next/link'
 export default function BlogCTA() {
   return (
     <div className="rounded-3xl bg-gradient-to-br from-indigo-500 to-violet-600 p-8 sm:p-10 text-center">
-      <h2 className="text-2xl sm:text-3xl font-bold text-body tracking-tight">
+      <h2 className="font-display text-2xl sm:text-3xl font-bold text-body tracking-tight">
         Publish once, reach everyone
       </h2>
       <p className="mt-3 text-indigo-100 max-w-xl mx-auto leading-relaxed">

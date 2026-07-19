@@ -24,7 +24,7 @@ const FAQS = [
 const PLAN_COLORS = {
   free:     { accent: 'from-slate-400 to-slate-500',    badge: null,              ring: 'border-line' },
   creator:  { accent: 'from-indigo-400 to-violet-500',  badge: null,              ring: 'border-indigo-500/40' },
-  pro:      { accent: 'from-violet-500 to-purple-600',  badge: 'Most Popular',    ring: 'border-violet-500/60' },
+  pro:      { accent: 'from-violet-500 to-purple-600',  badge: 'Growth',          ring: 'border-violet-500/60' },
   busines:  { accent: 'from-emerald-400 to-teal-500',   badge: 'Best Value',      ring: 'border-emerald-500/40' },
   business: { accent: 'from-emerald-400 to-teal-500',   badge: 'Best Value',      ring: 'border-emerald-500/40' },
 }
@@ -171,11 +171,11 @@ export default function Pricing() {
               <span className="w-1.5 h-1.5 rounded-full bg-indigo-500 dark:bg-indigo-400 animate-pulse" />
               <span className="text-xs font-semibold text-indigo-600 dark:text-indigo-300 tracking-wider uppercase">Pricing</span>
             </div>
-            <h1 className="font-display text-5xl md:text-6xl font-extrabold text-body tracking-[-0.035em] leading-[1.0] mb-5">
+            <h1 className="font-display text-3xl sm:text-5xl md:text-6xl font-extrabold text-body tracking-[-0.035em] leading-[1.0] mb-5">
               Simple pricing that{' '}
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-cyan-400">scales with you.</span>
             </h1>
-            <p className="text-lg text-muted">
+            <p className="text-base sm:text-lg text-muted">
               Start free and upgrade only when you grow. No hidden fees, cancel anytime.
             </p>
           </motion.div>
@@ -233,7 +233,7 @@ export default function Pricing() {
                 const features = getFeatures(plan)
                 const isFree = !price || price.amount === 0
                 const colors = PLAN_COLORS[plan.name?.toLowerCase()] || PLAN_COLORS.creator
-                const isPopular = colors.badge === 'Most Popular'
+                const isPopular = colors.badge === 'Growth'
                 // "Everything in X, plus" — higher tiers list only what changed vs the plan to their left.
                 const prevPlan = i > 0 ? plans[i - 1] : null
                 const prevMap = prevPlan ? Object.fromEntries(getFeatures(prevPlan).map((pf) => [pf.key, pf.text])) : {}

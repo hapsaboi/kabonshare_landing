@@ -36,7 +36,7 @@ const supportChannels = [
 
 export default function ContactSupport() {
   return (
-    <section id="contact-support" className="py-24 bg-page relative overflow-hidden">
+    <section id="contact-support" className="py-14 md:py-24 bg-page relative overflow-hidden">
       {/* Subtle background */}
       <div className="absolute inset-0 opacity-[0.02]" style={{ backgroundImage: 'radial-gradient(circle at 1px 1px, #667eea 1px, transparent 0)', backgroundSize: '40px 40px' }} />
 
@@ -60,13 +60,13 @@ export default function ContactSupport() {
             <span className="text-xs font-semibold text-indigo-600 dark:text-indigo-300 tracking-wider uppercase">Support</span>
           </motion.div>
 
-          <h2 className="font-display text-4xl md:text-5xl font-extrabold text-body mb-5 tracking-[-0.02em]">
+          <h2 className="font-display text-3xl sm:text-4xl md:text-5xl font-extrabold text-body mb-5 tracking-[-0.02em]">
             We&apos;re here to{' '}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary">
               help.
             </span>
           </h2>
-          <p className="text-lg text-subtle max-w-2xl mx-auto">
+          <p className="text-base sm:text-lg text-subtle max-w-2xl mx-auto">
             Choose how you want to connect with us
           </p>
         </motion.div>

@@ -1,5 +1,6 @@
 'use client'
 import { motion } from 'framer-motion'
+import Link from 'next/link'
 import { FiClock, FiBarChart2, FiActivity, FiRadio, FiArrowRight } from 'react-icons/fi'
 
 const fade = {
@@ -21,7 +22,7 @@ const capabilities = [
 
 export default function Analytics() {
   return (
-    <section id="analytics" className="py-16 bg-page relative overflow-hidden">
+    <section id="analytics" className="py-12 md:py-16 bg-page relative overflow-hidden">
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[700px] h-[350px] bg-cyan-600/8 rounded-full blur-[120px]" />
         <div className="absolute bottom-0 right-0 w-[400px] h-[300px] bg-blue-600/6 rounded-full blur-[100px]" />
@@ -65,11 +66,11 @@ export default function Analytics() {
 
         {/* CTA */}
         <div className="text-center mb-12">
-          <a href="/features?tab=analytics"
+          <Link href="/features?tab=analytics"
             className="group inline-flex items-center gap-2 text-sm font-semibold text-cyan-600 dark:text-cyan-400 hover:text-cyan-500 transition-colors">
             Explore analytics
             <FiArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5" />
-          </a>
+          </Link>
         </div>
 
         {/* ── Capability cards ── */}

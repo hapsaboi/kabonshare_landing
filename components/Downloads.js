@@ -76,7 +76,7 @@ export default function Downloads() {
             <span className="text-sm font-medium text-gray-700">Available Now</span>
           </motion.div>
 
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 mb-6">
             Get{' '}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary">
               KabonShare

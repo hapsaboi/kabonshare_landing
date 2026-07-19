@@ -47,7 +47,7 @@ export default function BlogCategory({ posts, categories, category }) {
         <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 pb-20">
           <header className="max-w-3xl mb-10">
             <Link href="/blog/" className="text-sm text-subtle hover:text-muted transition-colors">← All posts</Link>
-            <h1 className="mt-4 text-4xl sm:text-5xl font-bold text-body tracking-tight capitalize mb-3">{pretty}</h1>
+            <h1 className="font-display mt-4 text-4xl sm:text-5xl font-bold text-body tracking-tight capitalize mb-3">{pretty}</h1>
             <p className="text-lg text-muted">{posts.length} article{posts.length !== 1 ? 's' : ''}</p>
           </header>
 
