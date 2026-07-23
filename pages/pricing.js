@@ -139,6 +139,7 @@ export default function Pricing() {
     if (ft.allowVideo)      f.push({ key: 'video', icon: FiCheck, text: 'Video publishing' })
     if (ft.allowScheduling) f.push({ key: 'scheduling', icon: FiCheck, text: 'Post scheduling' })
     f.push({ key: 'analytics', icon: FiCheck, text: 'Analytics dashboard' })
+    if (ft.allowReportBuilder) f.push({ key: 'reports', icon: FiCheck, text: 'Exportable report builder' })
     f.push({ key: 'api', icon: FiCheck, text: 'API access' })
     return f
   }
