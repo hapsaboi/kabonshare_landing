@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react'
 import Head from 'next/head'
 import Link from 'next/link'
 import { motion, AnimatePresence } from 'framer-motion'
-import { FiCheck, FiZap, FiUsers, FiHardDrive, FiStar, FiChevronDown, FiMessageCircle } from 'react-icons/fi'
+import { FiCheck, FiZap, FiUsers, FiHardDrive, FiStar, FiChevronDown, FiMessageCircle, FiPlus, FiMinus } from 'react-icons/fi'
 import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
 
@@ -16,18 +16,26 @@ const FAQS = [
   { q: 'What are credits?', a: 'Credits are used to publish posts. Each post costs 1 credit regardless of media type or how many platforms you publish to simultaneously.' },
   { q: 'What are AI credits?', a: 'AI credits power the caption generator. Upload an image, video, or audio file and get a title, captions, and hashtags instantly. Each generation costs 1 AI credit.' },
   { q: 'What platforms are supported?', a: 'Currently live: Instagram (Feed, Stories, Reels), Facebook Pages, Threads, TikTok (Videos & Photos), YouTube (Videos & Shorts), and X (Twitter). LinkedIn coming soon.' },
+  { q: 'Can I connect more accounts than my plan includes?', a: 'Yes. Every paid plan lets you add extra connected-account slots as a recurring add-on — the per-account price is shown on each plan above. Add or remove slots anytime from your billing dashboard; the cost is prorated for the current cycle and folds into your renewal.' },
   { q: 'How does storage work?', a: 'Upload media to your Asset Library and reuse across posts. Thumbnails don\'t count towards your quota. Plans range from 1 GB (Free) to 100 GB (Business).' },
   { q: 'Can I upgrade or downgrade?', a: 'Yes — changes take effect immediately and we prorate the charges based on your billing cycle.' },
   { q: 'What happens if I run out of credits?', a: 'Buy extra credits anytime inside your dashboard. Purchased credits never expire; subscription credits reset monthly.' },
 ]
 
+// Which plan carries the "Most Popular" badge + highlight. Keyed by plan name
+// (lowercase) so it doesn't drift when marketing labels change.
+const RECOMMENDED_PLAN = 'growth'
+const RECOMMENDED_LABEL = 'Most Popular'
+
+// Accent colours per plan (badge is handled separately via RECOMMENDED_PLAN).
 const PLAN_COLORS = {
-  free:     { accent: 'from-slate-400 to-slate-500',    badge: null,              ring: 'border-line' },
-  creator:  { accent: 'from-indigo-400 to-violet-500',  badge: null,              ring: 'border-indigo-500/40' },
-  pro:      { accent: 'from-violet-500 to-purple-600',  badge: 'Growth',          ring: 'border-violet-500/60' },
-  busines:  { accent: 'from-emerald-400 to-teal-500',   badge: 'Best Value',      ring: 'border-emerald-500/40' },
-  business: { accent: 'from-emerald-400 to-teal-500',   badge: 'Best Value',      ring: 'border-emerald-500/40' },
+  free:     { accent: 'from-slate-400 to-slate-500',    ring: 'border-line' },
+  starter:  { accent: 'from-indigo-400 to-violet-500',  ring: 'border-indigo-500/40' },
+  growth:   { accent: 'from-violet-500 to-purple-600',  ring: 'border-violet-500/60' },
+  pro:      { accent: 'from-fuchsia-500 to-pink-600',   ring: 'border-fuchsia-500/50' },
+  business: { accent: 'from-emerald-400 to-teal-500',   ring: 'border-emerald-500/40' },
 }
+const DEFAULT_COLORS = { accent: 'from-indigo-400 to-violet-500', ring: 'border-line' }
 
 function FAQItem({ q, a, num }) {
   const [open, setOpen] = useState(false)
@@ -70,7 +78,8 @@ function FAQItem({ q, a, num }) {
 export default function Pricing() {
   const [plans, setPlans] = useState([])
   const [loading, setLoading] = useState(true)
-  const [billingCycle, setBillingCycle] = useState('month')
+  const [billingCycle, setBillingCycle] = useState('year')
+  const [accountsWanted, setAccountsWanted] = useState(1) // seeded to the cheapest paid plan's included accounts once plans load
   const [currency, setCurrency] = useState('USD')
   const [availableCurrencies, setAvailableCurrencies] = useState(['USD'])
   const [yearlyDiscount, setYearlyDiscount] = useState({ percent: 20, minMonths: 12 })
@@ -87,6 +96,15 @@ export default function Pricing() {
       setPlans(fetchedPlans)
       if (payload?.yearlyDiscount) setYearlyDiscount(payload.yearlyDiscount)
 
+      // Seed the account count from the cheapest PAID plan's included accounts,
+      // so the selector starts where paid pricing begins (not the free tier).
+      const paid = fetchedPlans
+        .map(p => ({ p, amt: (p.prices?.find(pr => pr.interval === 'month' && pr.currency === 'USD') || p.prices?.find(pr => pr.interval === 'month'))?.amount ?? 0 }))
+        .filter(x => x.amt > 0)
+        .sort((a, b) => a.amt - b.amt)
+      const inc = paid[0]?.p?.limits?.maxAccounts
+      if (typeof inc === 'number' && inc > 0) setAccountsWanted(inc)
+
       const currencies = new Set()
       fetchedPlans.forEach(plan => plan.prices?.forEach(p => { if (p.currency) currencies.add(p.currency) }))
       const currencyArray = Array.from(currencies).sort()
@@ -100,25 +118,6 @@ export default function Pricing() {
     }
   }
 
-  const getPlanPrice = (plan) => {
-    if (!plan.prices?.length) return null
-    if (billingCycle === 'year') {
-      let yp = plan.prices.find(p => p.currency === currency && p.interval === 'year')
-        || plan.prices.find(p => p.interval === 'year' && p.currency === 'USD')
-      if (yp) return yp
-      let mp = plan.prices.find(p => p.currency === currency && p.interval === 'month')
-        || plan.prices.find(p => p.interval === 'month' && p.currency === 'USD')
-      if (mp) {
-        const m = 1 - yearlyDiscount.percent / 100
-        return { ...mp, interval: 'year', amount: Math.round(mp.amount * 12 * m / 10) * 10, _monthly: Math.round(mp.amount * m * 10) / 10, _calc: true }
-      }
-      return null
-    }
-    return plan.prices.find(p => p.currency === currency && p.interval === 'month')
-        || plan.prices.find(p => p.interval === 'month' && p.currency === 'USD')
-        || null
-  }
-
   const fmt = (amount, curr) => new Intl.NumberFormat('en-US', {
     style: 'currency', currency: curr || 'USD',
     currencyDisplay: 'narrowSymbol', // ₦ / $ instead of "NGN" / "US$" — keeps big prices from overflowing
@@ -126,12 +125,41 @@ export default function Pricing() {
     maximumFractionDigits: amount % 1 !== 0 ? 2 : 0,
   }).format(amount)
 
+  // Channel-driven pricing: base plan + paid extra-account slots for accounts
+  // beyond what the plan includes, for the selected count + currency.
+  const computePricing = (plan) => {
+    const monthly = plan.prices?.find(p => p.currency === currency && p.interval === 'month')
+      || plan.prices?.find(p => p.interval === 'month' && p.currency === 'USD')
+    const base = monthly?.amount || 0
+    const unit = monthly?.pricePerExtraAccount || 0
+    const curr = monthly?.currency || currency
+    const included = plan.limits?.maxAccounts ?? 0
+    const unlimited = included === -1
+    const maxExtra = plan.limits?.maxExtraAccounts
+    const extraCap = (maxExtra === -1 || maxExtra == null) ? Infinity : maxExtra
+    const maxAccounts = unlimited ? Infinity : included + (unit > 0 ? extraCap : 0)
+    const capped = !unlimited && accountsWanted > maxAccounts
+    const billedAccounts = unlimited ? accountsWanted : Math.min(accountsWanted, maxAccounts)
+    const extraNeeded = unlimited ? 0 : Math.max(0, billedAccounts - included)
+    const monthlyTotal = base + extraNeeded * unit
+    const isFree = monthlyTotal === 0
+    const m = 1 - (yearlyDiscount.percent || 0) / 100
+    const yearlyTotal = Math.round(monthlyTotal * 12 * m / 10) * 10
+    const yearlyMonthly = Math.round(monthlyTotal * m * 10) / 10
+    const accountsLabel = unlimited
+      ? 'Unlimited accounts'
+      : capped
+      ? `Up to ${maxAccounts} accounts`
+      : `${accountsWanted} account${accountsWanted > 1 ? 's' : ''}`
+    return { base, unit, curr, included, unlimited, maxAccounts, capped, billedAccounts, extraNeeded, monthlyTotal, isFree, yearlyTotal, yearlyMonthly, accountsLabel }
+  }
+
   const getFeatures = (plan) => {
     const f = []
     const l = plan.limits || {}
     const ft = plan.features || {}
     if (l.creditsPerMonth !== undefined) f.push({ key: 'credits', icon: FiZap,       text: l.creditsPerMonth === -1 ? 'Unlimited credits/mo' : `${l.creditsPerMonth} credits/mo` })
-    if (l.maxAccounts !== undefined)     f.push({ key: 'accounts', icon: FiCheck,     text: l.maxAccounts === -1 ? 'Unlimited accounts' : `${l.maxAccounts} social accounts` })
+    if (l.maxAccounts !== undefined)     f.push({ key: 'accounts', icon: FiCheck,     text: l.maxAccounts === -1 ? 'Unlimited accounts included' : `${l.maxAccounts} account${l.maxAccounts > 1 ? 's' : ''} included` })
     if (l.maxWorkspaces !== undefined)   f.push({ key: 'workspaces', icon: FiUsers,     text: l.maxWorkspaces === -1 ? 'Unlimited workspaces' : `${l.maxWorkspaces} workspace${l.maxWorkspaces > 1 ? 's' : ''}` })
     if (l.storageQuotaMB !== undefined)  f.push({ key: 'storage', icon: FiHardDrive, text: l.storageQuotaMB === -1 ? 'Unlimited storage' : l.storageQuotaMB >= 1024 ? `${Math.round(l.storageQuotaMB/1024)}GB storage` : `${l.storageQuotaMB}MB storage` })
     if (l.aiGenerationsPerMonth !== undefined) f.push({ key: 'ai', icon: FiZap, text: l.aiGenerationsPerMonth === -1 ? 'Unlimited AI generations' : l.aiGenerationsPerMonth > 0 ? `${l.aiGenerationsPerMonth} AI generations/mo` : 'No AI generations', dim: l.aiGenerationsPerMonth === 0 })
@@ -181,39 +209,70 @@ export default function Pricing() {
             </p>
           </motion.div>
 
-          {/* ── Billing toggle + currency ── */}
-          <motion.div variants={fade} custom={1} initial="hidden" animate="visible" className="flex flex-col sm:flex-row justify-center items-center gap-3 mb-3">
-            <div className="flex items-center p-1 bg-surface border border-line rounded-full gap-1">
-              <button
-                onClick={() => setBillingCycle('month')}
-                className={`px-6 py-2 rounded-full text-sm font-semibold transition-all ${billingCycle === 'month' ? 'bg-primary text-white shadow-md' : 'text-muted hover:text-body'}`}
-              >
-                Monthly
-              </button>
-              <button
-                onClick={() => setBillingCycle('year')}
-                className={`px-6 py-2 rounded-full text-sm font-semibold transition-all flex items-center gap-2 ${billingCycle === 'year' ? 'bg-primary text-white shadow-md' : 'text-muted hover:text-body'}`}
-              >
-                Yearly
-                <span className={`text-[11px] px-2 py-0.5 rounded-full font-bold ${billingCycle === 'year' ? 'bg-white/20 text-white' : 'bg-emerald-500/15 text-emerald-500'}`}>
-                  Save {yearlyDiscount.percent}%
-                </span>
-              </button>
+          {/* ── Controls: how many accounts + billing ── */}
+          <motion.div variants={fade} custom={1} initial="hidden" animate="visible"
+            className="rounded-2xl border border-line bg-surface p-5 sm:p-6 mb-3 flex flex-col md:flex-row md:items-center md:justify-between gap-5">
+            {/* Accounts stepper */}
+            <div className="flex items-center justify-between md:justify-start gap-5">
+              <div>
+                <div className="text-base font-bold text-body">Accounts</div>
+                <div className="text-xs sm:text-sm text-muted">How many accounts you want to connect</div>
+              </div>
+              <div className="flex items-center gap-3 flex-shrink-0">
+                <button
+                  onClick={() => setAccountsWanted(n => Math.max(1, n - 1))}
+                  disabled={accountsWanted <= 1}
+                  aria-label="Fewer accounts"
+                  className="w-9 h-9 rounded-full border border-line flex items-center justify-center text-muted hover:text-body hover:border-line-strong disabled:opacity-40 transition-colors"
+                >
+                  <FiMinus size={16} />
+                </button>
+                <span className="w-7 text-center text-lg font-extrabold text-body tabular-nums">{accountsWanted}</span>
+                <button
+                  onClick={() => setAccountsWanted(n => Math.min(50, n + 1))}
+                  disabled={accountsWanted >= 50}
+                  aria-label="More accounts"
+                  className="w-9 h-9 rounded-full border border-line flex items-center justify-center text-muted hover:text-body hover:border-line-strong disabled:opacity-40 transition-colors"
+                >
+                  <FiPlus size={16} />
+                </button>
+              </div>
             </div>
 
-            {availableCurrencies.length > 1 && (
-              <div className="flex items-center p-1 bg-surface border border-line rounded-full gap-1">
-                {availableCurrencies.map(curr => (
-                  <button
-                    key={curr}
-                    onClick={() => setCurrency(curr)}
-                    className={`px-4 py-2 rounded-full text-sm font-semibold transition-all ${currency === curr ? 'bg-inset text-body' : 'text-subtle hover:text-muted'}`}
-                  >
-                    {curr}
-                  </button>
-                ))}
+            {/* Billing + currency */}
+            <div className="flex items-center justify-between md:justify-end gap-3 flex-wrap">
+              <div className="flex items-center p-1 bg-inset border border-line rounded-full gap-1">
+                <button
+                  onClick={() => setBillingCycle('month')}
+                  className={`px-5 py-2 rounded-full text-sm font-semibold transition-all ${billingCycle === 'month' ? 'bg-primary text-white shadow-md' : 'text-muted hover:text-body'}`}
+                >
+                  Monthly
+                </button>
+                <button
+                  onClick={() => setBillingCycle('year')}
+                  className={`px-5 py-2 rounded-full text-sm font-semibold transition-all flex items-center gap-2 ${billingCycle === 'year' ? 'bg-primary text-white shadow-md' : 'text-muted hover:text-body'}`}
+                >
+                  Yearly
+                  <span className={`text-[11px] px-2 py-0.5 rounded-full font-bold ${billingCycle === 'year' ? 'bg-white/20 text-white' : 'bg-emerald-500/15 text-emerald-500'}`}>
+                    Save {yearlyDiscount.percent}%
+                  </span>
+                </button>
               </div>
-            )}
+
+              {availableCurrencies.length > 1 && (
+                <div className="flex items-center p-1 bg-inset border border-line rounded-full gap-1">
+                  {availableCurrencies.map(curr => (
+                    <button
+                      key={curr}
+                      onClick={() => setCurrency(curr)}
+                      className={`px-3.5 py-2 rounded-full text-sm font-semibold transition-all ${currency === curr ? 'bg-surface text-body shadow-sm' : 'text-subtle hover:text-muted'}`}
+                    >
+                      {curr}
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
           </motion.div>
           <p className="text-center text-xs text-subtle mb-12 flex items-center justify-center gap-1.5">
             <FiCheck className="text-emerald-500" size={12} /> No credit card required · Cancel anytime
@@ -230,11 +289,11 @@ export default function Pricing() {
               className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 items-stretch pt-3"
             >
               {plans.map((plan, i) => {
-                const price = getPlanPrice(plan)
+                const pricing = computePricing(plan)
                 const features = getFeatures(plan)
-                const isFree = !price || price.amount === 0
-                const colors = PLAN_COLORS[plan.name?.toLowerCase()] || PLAN_COLORS.creator
-                const isPopular = colors.badge === 'Growth'
+                const isFree = pricing.isFree
+                const colors = PLAN_COLORS[plan.name?.toLowerCase()] || DEFAULT_COLORS
+                const isPopular = plan.name?.toLowerCase() === RECOMMENDED_PLAN
                 // "Everything in X, plus" — higher tiers list only what changed vs the plan to their left.
                 const prevPlan = i > 0 ? plans[i - 1] : null
                 const prevMap = prevPlan ? Object.fromEntries(getFeatures(prevPlan).map((pf) => [pf.key, pf.text])) : {}
@@ -251,9 +310,9 @@ export default function Pricing() {
                         : 'border-line hover:border-line-strong'}`}
                   >
                     {/* Badge */}
-                    {colors.badge && (
+                    {isPopular && (
                       <span className={`absolute -top-3 left-1/2 -translate-x-1/2 inline-flex items-center gap-1 text-[10px] font-bold px-3 py-1 rounded-full text-white shadow-md bg-gradient-to-r ${colors.accent}`}>
-                        <FiStar size={9} /> {colors.badge}
+                        <FiStar size={9} /> {RECOMMENDED_LABEL}
                       </span>
                     )}
 
@@ -263,23 +322,36 @@ export default function Pricing() {
                       <h3 className="font-display text-lg font-extrabold text-body capitalize">{plan.name}</h3>
                     </div>
 
-                    {/* Price */}
+                    {/* Price — reflects the selected number of accounts */}
                     <div className="mb-6">
                       {isFree ? (
-                        <span className="font-display text-4xl font-extrabold text-body">Free</span>
+                        <>
+                          <span className="font-display text-4xl font-extrabold text-body">Free</span>
+                          <p className="text-xs text-subtle mt-2">
+                            {pricing.unlimited ? 'Unlimited accounts' : `Connect up to ${pricing.included} account${pricing.included > 1 ? 's' : ''}`}
+                          </p>
+                        </>
                       ) : billingCycle === 'year' ? (
                         <>
                           <div className="flex items-baseline gap-1">
-                            <span className="font-display text-3xl xl:text-4xl font-extrabold text-body tracking-tight tabular-nums whitespace-nowrap">{fmt(price._monthly || price.amount / 12, price.currency)}</span>
+                            <span className="font-display text-3xl xl:text-4xl font-extrabold text-body tracking-tight tabular-nums whitespace-nowrap">{fmt(pricing.yearlyMonthly, pricing.curr)}</span>
                             <span className="text-sm text-subtle">/mo</span>
                           </div>
-                          <p className="text-xs text-subtle mt-1.5">{fmt(price.amount, price.currency)} billed yearly</p>
+                          <p className="text-xs text-subtle mt-1.5">
+                            {pricing.accountsLabel} · {fmt(pricing.yearlyTotal, pricing.curr)} billed yearly <span className="text-emerald-500 font-medium">(save {yearlyDiscount.percent}%)</span>
+                          </p>
                         </>
                       ) : (
-                        <div className="flex items-baseline gap-1">
-                          <span className="font-display text-3xl xl:text-4xl font-extrabold text-body tracking-tight tabular-nums whitespace-nowrap">{fmt(price.amount, price.currency)}</span>
-                          <span className="text-sm text-subtle">/mo</span>
-                        </div>
+                        <>
+                          <div className="flex items-baseline gap-1">
+                            <span className="font-display text-3xl xl:text-4xl font-extrabold text-body tracking-tight tabular-nums whitespace-nowrap">{fmt(pricing.monthlyTotal, pricing.curr)}</span>
+                            <span className="text-sm text-subtle">/mo</span>
+                          </div>
+                          <p className="text-xs text-subtle mt-1.5">
+                            {pricing.accountsLabel}
+                            {pricing.extraNeeded > 0 && !pricing.capped && <span className="text-muted"> · incl. {pricing.extraNeeded} extra</span>}
+                          </p>
+                        </>
                       )}
                     </div>
 

@@ -15,7 +15,7 @@ const featureMenu = FEATURES.map((f) => ({
   icon: f.icon,
   color: f.color,
   badge: f.badge,
-  href: `/features?tab=${f.id}`,
+  href: `/features/${f.slug}/`,
 }))
 
 // Same idea for Use Cases — kept in sync with /case-studies.
@@ -24,7 +24,7 @@ const useCaseMenu = USE_CASES.map((u) => ({
   desc: u.menuDesc,
   icon: u.icon,
   color: u.color,
-  href: `/case-studies?tab=${u.id}`,
+  href: `/case-studies/${u.slug}/`,
 }))
 
 export default function Navbar() {

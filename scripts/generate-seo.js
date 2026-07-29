@@ -13,10 +13,36 @@ const SITE = 'https://kabonshare.com'
 const API = process.env.NEXT_PUBLIC_API_URL || 'https://api.kabonshare.com'
 const OUT = path.join(__dirname, '..', 'out')
 
+// Keep the /features/<slug>/ list in sync with config/features.js (that file
+// imports react-icons, so it can't be required from this CJS script directly).
+const FEATURE_SLUGS = [
+  'social-media-publishing',
+  'social-media-scheduling',
+  'ai-social-media-manager',
+  'social-media-analytics',
+  'live-follower-count',
+  'team-collaboration',
+  'live-streaming-multistream',
+  'media-library',
+  'social-media-api',
+]
+
+// Keep in sync with config/useCases.js (same reason as FEATURE_SLUGS).
+const USE_CASE_SLUGS = [
+  'social-media-for-creators',
+  'social-media-for-agencies',
+  'social-media-for-brands',
+  'social-media-for-saas',
+  'social-media-for-schools',
+]
+
 const STATIC_PAGES = [
   '/',
+  '/features/',
+  ...FEATURE_SLUGS.map((s) => `/features/${s}/`),
   '/pricing/',
   '/case-studies/',
+  ...USE_CASE_SLUGS.map((s) => `/case-studies/${s}/`),
   '/contact/',
   '/get-our-apps/',
   '/privacy/',

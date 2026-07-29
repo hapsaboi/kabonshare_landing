@@ -17,10 +17,15 @@ import { siteConfig } from './siteConfig'
 export const FEATURES = [
   {
     id: 'publishing',
+    slug: 'social-media-publishing',
     label: 'Publishing',
     icon: FiSend,
     color: '#6366f1',
     menuDesc: 'Compose once, publish to all 9 networks',
+    seo: {
+      title: 'Social Media Publishing Tool — Post to 9 Networks at Once',
+      description: 'Write once and publish to Instagram, TikTok, YouTube, Facebook, X, Threads, LinkedIn, Bluesky & Pinterest. Per-platform captions, every format, native scheduling.',
+    },
     hero: {
       eyebrow: 'Cross-platform publishing',
       title: 'One composer. Every network.',
@@ -77,10 +82,15 @@ export const FEATURES = [
 
   {
     id: 'scheduling',
+    slug: 'social-media-scheduling',
     label: 'Scheduling',
     icon: FiCalendar,
     color: '#8b5cf6',
     menuDesc: 'Visual calendar, best times & bulk scheduler',
+    seo: {
+      title: 'Social Media Scheduling — Visual Calendar & Bulk Scheduler',
+      description: 'Plan weeks of content in one sitting with a visual calendar, best-time suggestions from your own data, and a bulk scheduler that queues a whole batch at once.',
+    },
     hero: {
       eyebrow: 'Scheduling & planning',
       title: 'Plan weeks of content in one sitting.',
@@ -137,11 +147,16 @@ export const FEATURES = [
 
   {
     id: 'ai',
+    slug: 'ai-social-media-manager',
     label: 'AI Studio',
     icon: FiZap,
     color: '#d946ef',
     badge: 'New',
     menuDesc: 'Media-aware captions, hashtags & Kabon AI',
+    seo: {
+      title: 'AI Social Media Manager — Captions, Hashtags & an AI Agent',
+      description: 'Generate titles, captions and hashtags from your media — image, video or audio — then let Kabon AI create, schedule and manage your content just by chatting.',
+    },
     hero: {
       eyebrow: 'AI content engine',
       title: 'Your AI co-pilot for content.',
@@ -198,10 +213,15 @@ export const FEATURES = [
 
   {
     id: 'analytics',
+    slug: 'social-media-analytics',
     label: 'Analytics',
     icon: FiTrendingUp,
     color: '#10b981',
     menuDesc: 'Performance, audience & best-time insights',
+    seo: {
+      title: 'Social Media Analytics — Performance & Audience Insights',
+      description: 'Performance, audience and best-time insights for every connected account, pulled straight from each platform — so you always know what to post next.',
+    },
     hero: {
       eyebrow: 'Analytics & insights',
       title: 'Know what works — everywhere.',
@@ -258,10 +278,15 @@ export const FEATURES = [
 
   {
     id: 'followers',
+    slug: 'live-follower-count',
     label: 'Live Followers',
     icon: FiRadio,
     color: '#14b8a6',
     menuDesc: 'Real-time follower counters for every account',
+    seo: {
+      title: 'Live Follower Count — Real-Time Counter for Every Account',
+      description: 'Watch follower counts tick up in real time across every connected account, with a full-screen counter built for live streams, events and office-wall displays.',
+    },
     hero: {
       eyebrow: 'Real-time follower counts',
       title: 'Your follower count, live.',
@@ -312,10 +337,15 @@ export const FEATURES = [
 
   {
     id: 'collaboration',
+    slug: 'team-collaboration',
     label: 'Collaboration',
     icon: FiUsers,
     color: '#3b82f6',
     menuDesc: 'Workspaces, approvals, comments & chat',
+    seo: {
+      title: 'Social Media Team Collaboration — Approvals, Comments & Chat',
+      description: 'Multiple workspaces, granular roles, configurable multi-stage approval flows, threaded post comments and built-in team chat — from planning to publishing.',
+    },
     hero: {
       eyebrow: 'Teams & approvals',
       title: 'Collaboration without the chaos.',
@@ -372,10 +402,15 @@ export const FEATURES = [
 
   {
     id: 'live',
+    slug: 'live-streaming-multistream',
     label: 'Streaming',
     icon: FiVideo,
     color: '#f43f5e',
     menuDesc: 'Multistream from the desktop studio',
+    seo: {
+      title: 'Multistream Live Streaming Studio — Go Live Everywhere at Once',
+      description: 'A desktop studio that streams one broadcast to multiple platforms simultaneously, with scenes, overlays and a built-in video editor with AI auto-captions.',
+    },
     hero: {
       eyebrow: 'Live streaming studio',
       title: 'Go live everywhere at once.',
@@ -423,10 +458,15 @@ export const FEATURES = [
 
   {
     id: 'media',
+    slug: 'media-library',
     label: 'Media Library',
     icon: FiFolder,
     color: '#f59e0b',
     menuDesc: 'Assets + Drive, Dropbox & Canva imports',
+    seo: {
+      title: 'Social Media Asset Library — Drive, Dropbox & Canva Imports',
+      description: 'A central asset library with folders, tags and search, plus one-click imports from Google Drive, Dropbox, Canva, Unsplash, Pexels and Giphy.',
+    },
     hero: {
       eyebrow: 'Media library & integrations',
       title: 'All your assets, one place.',
@@ -483,10 +523,15 @@ export const FEATURES = [
 
   {
     id: 'api',
+    slug: 'social-media-api',
     label: 'Developer API',
     icon: FiCode,
     color: '#06b6d4',
     menuDesc: 'REST API, MCP server & webhooks',
+    seo: {
+      title: 'Social Media Publishing API — REST API, MCP Server & Webhooks',
+      description: 'KabonShare is API-first. Publish and schedule across 9 networks over a clean REST API, react to webhooks, or drive it all from any AI client via our MCP server.',
+    },
     hero: {
       eyebrow: 'Developer API',
       title: 'Publishing, programmable.',
@@ -567,5 +612,6 @@ GET    /api/assets                browse the media library
   },
 ]
 
-// Convenience map for lookups by id.
+// Convenience maps for lookups by id and by URL slug.
 export const FEATURE_BY_ID = Object.fromEntries(FEATURES.map((f) => [f.id, f]))
+export const FEATURE_BY_SLUG = Object.fromEntries(FEATURES.map((f) => [f.slug, f]))

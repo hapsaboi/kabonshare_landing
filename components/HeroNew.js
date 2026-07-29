@@ -127,9 +127,9 @@ export default function Hero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-lg sm:text-xl text-muted max-w-2xl mx-auto mb-9 leading-relaxed"
+            className="text-lg sm:text-xl text-muted max-w-3xl mx-auto mb-9 leading-relaxed"
           >
-            One composer for every network — scheduling, AI captions, live streaming and analytics built in. Write it once, we publish everywhere.
+            All your social accounts, one dashboard. Compose a post once and we&apos;ll publish it to Instagram, TikTok, YouTube, X and five more — with scheduling, AI captions, live streaming and analytics built in.
           </motion.p>
 
           {/* CTAs */}

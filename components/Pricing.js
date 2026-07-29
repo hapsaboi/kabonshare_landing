@@ -8,6 +8,7 @@ const highlights = [
   'Free tier available — no credit card needed',
   'Credit-based pricing — pay only for what you use',
   'AI credits included in Pro and Business plans',
+  'Add extra connected accounts on any paid plan',
   'Multi-currency support (USD, NGN, EUR, GBP)',
   'Monthly and yearly billing with savings',
   'Cancel or change plans anytime'
