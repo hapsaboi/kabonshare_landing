@@ -24,6 +24,7 @@ const FAQS = [
 
 // Which plan carries the "Most Popular" badge + highlight. Keyed by plan name
 // (lowercase) so it doesn't drift when marketing labels change.
+const MAX_ACCOUNTS = 1000
 const RECOMMENDED_PLAN = 'growth'
 const RECOMMENDED_LABEL = 'Most Popular'
 
@@ -227,10 +228,19 @@ export default function Pricing() {
                 >
                   <FiMinus size={16} />
                 </button>
-                <span className="w-7 text-center text-lg font-extrabold text-body tabular-nums">{accountsWanted}</span>
+                {/* Typeable — stepping one-by-one to 1000 isn't usable */}
+                <input
+                  type="number" min={1} max={MAX_ACCOUNTS} value={accountsWanted}
+                  onChange={(e) => {
+                    const n = parseInt(e.target.value, 10)
+                    setAccountsWanted(Number.isNaN(n) ? 1 : Math.max(1, Math.min(MAX_ACCOUNTS, n)))
+                  }}
+                  aria-label="Number of accounts"
+                  className="w-16 text-center text-lg font-extrabold text-body tabular-nums bg-transparent border border-line rounded-lg py-1 outline-none focus:border-primary transition-colors [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+                />
                 <button
-                  onClick={() => setAccountsWanted(n => Math.min(50, n + 1))}
-                  disabled={accountsWanted >= 50}
+                  onClick={() => setAccountsWanted(n => Math.min(MAX_ACCOUNTS, n + 1))}
+                  disabled={accountsWanted >= MAX_ACCOUNTS}
                   aria-label="More accounts"
                   className="w-9 h-9 rounded-full border border-line flex items-center justify-center text-muted hover:text-body hover:border-line-strong disabled:opacity-40 transition-colors"
                 >
