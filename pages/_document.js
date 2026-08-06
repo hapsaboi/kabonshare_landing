@@ -21,9 +21,19 @@ export default function Document() {
         {/* Analytics — Plausible (privacy-friendly, no cookies) */}
         <script defer data-domain="kabonshare.com" src="https://plausible.io/js/script.js"></script>
 
-        {/* Favicon & App Icons */}
-        <link rel="icon" href="/favicon.ico" />
-        <link rel="apple-touch-icon" href="/logo.png" />
+        {/* Favicon & App Icons.
+            PNG first, with an explicit type: link previewers (WhatsApp, Slack,
+            iMessage) look for a PNG icon to badge the card with and routinely
+            skip a multi-frame .ico. The .ico stays last as the legacy fallback
+            for older desktop browsers. */}
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+        {/* Transparent, matching the other icons. Note iOS composites a
+            transparent home-screen icon onto black — fine for this mark, which
+            is a bright gradient, but worth knowing if the logo ever changes. */}
+        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+        <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png" />
+        <link rel="icon" href="/favicon.ico" sizes="any" />
 
         {/* Blog RSS feed */}
         <link rel="alternate" type="application/rss+xml" title="KabonShare Blog" href="/rss.xml" />
