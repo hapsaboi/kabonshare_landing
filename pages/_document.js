@@ -31,10 +31,19 @@ export default function Document() {
         {/* Default OG tags (pages can override) */}
         <meta property="og:site_name" content="KabonShare" />
         <meta property="og:type" content="website" />
-        <meta property="og:image" content="https://kabonshare.com/logo.png" />
+        {/* 1200x630. WhatsApp, Twitter and LinkedIn all crop to ~1.91:1 — the
+            old square logo.png got letterboxed into a card instead of filling
+            it, which is why the preview showed an icon rather than a banner.
+            Declaring width/height lets WhatsApp render the card immediately
+            instead of waiting to fetch and measure the file. */}
+        <meta property="og:image" content="https://kabonshare.com/og-image.png" />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta property="og:image:type" content="image/png" />
+        <meta property="og:image:alt" content="KabonShare — publish once, reach everyone" />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:site" content="@kabonshare" />
-        <meta name="twitter:image" content="https://kabonshare.com/logo.png" />
+        <meta name="twitter:image" content="https://kabonshare.com/og-image.png" />
 
         {/* Theme color */}
         <meta name="theme-color" content="#667eea" />
