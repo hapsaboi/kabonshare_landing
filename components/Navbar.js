@@ -166,7 +166,7 @@ export default function Navbar() {
             {/* Desktop CTA */}
             <div className="hidden lg:flex items-center gap-3">
               <ThemeToggle />
-              <a href={siteConfig.dashboard}
+              <a href={`${siteConfig.dashboard}/login`}
                 className="px-5 py-2 rounded-full border border-line-strong text-body text-sm font-semibold hover:bg-inset transition-colors duration-150">
                 Log in
               </a>
@@ -279,7 +279,7 @@ export default function Navbar() {
             ))}
           </div>
           <div className="px-3 pb-3 pt-2 border-t border-line flex flex-col gap-2">
-            <a href={siteConfig.dashboard}
+            <a href={`${siteConfig.dashboard}/login`}
               className="block text-center py-2.5 text-sm font-medium text-muted hover:text-body rounded-xl transition-colors">
               Log in
             </a>

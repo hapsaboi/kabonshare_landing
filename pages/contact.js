@@ -235,7 +235,7 @@ export default function Contact() {
                 </p>
                 <div className="flex flex-wrap gap-3">
                   <a
-                    href={siteConfig.dashboard}
+                    href={`${siteConfig.dashboard}/signup`}
                     className="group inline-flex items-center gap-2 bg-white text-primary px-7 py-3.5 rounded-xl font-bold text-sm hover:-translate-y-0.5 transition-transform duration-300 shadow-xl shadow-black/10"
                   >
                     Get started free

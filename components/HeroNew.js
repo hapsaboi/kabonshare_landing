@@ -7,6 +7,7 @@ import { BsTwitterX } from 'react-icons/bs'
 import Link from 'next/link'
 import Navbar from './Navbar'
 import { siteConfig } from '../config/siteConfig'
+import { track, EVENTS } from '../lib/analytics'
 
 export default function Hero() {
   // color = the icon color (brand-black platforms use the body token so they're
@@ -117,9 +118,9 @@ export default function Hero() {
             transition={{ duration: 0.7, delay: 0.05 }}
             className="font-display text-6xl sm:text-7xl lg:text-8xl font-extrabold text-body leading-[0.92] tracking-[-0.035em] mb-6"
           >
-            Post once.<br />
-            <span className="text-primary">Reach </span>
-            <span className="text-transparent" style={{ WebkitTextStroke: '2px var(--text-body)' }}>everyone.</span>
+            Create once.<br />
+            <span className="text-primary">Publish </span>
+            <span className="text-transparent" style={{ WebkitTextStroke: '2px var(--text-body)' }}>everywhere.</span>
           </motion.h1>
 
           {/* Subheadline */}
@@ -129,7 +130,7 @@ export default function Hero() {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="text-lg sm:text-xl text-muted max-w-3xl mx-auto mb-9 leading-relaxed"
           >
-            All your social accounts, one dashboard. Compose a post once and we&apos;ll publish it to Instagram, TikTok, YouTube, X and five more — with scheduling, AI captions, live streaming and analytics built in.
+            All your social accounts, one dashboard. Create a post once and we&apos;ll publish it to Instagram, TikTok, YouTube, X and five more — with scheduling, AI captions, live streaming and analytics built in.
           </motion.p>
 
           {/* CTAs */}
@@ -140,7 +141,11 @@ export default function Hero() {
             className="flex flex-wrap items-center justify-center gap-4"
           >
             <a
-              href={siteConfig.dashboard}
+              href={`${siteConfig.dashboard}/signup`}
+              // ViewContent on the CTA click — genuine intent. Firing it on
+              // page load, as the brief warns, would make every bounce look
+              // like engagement and teach Meta to buy the wrong traffic.
+              onClick={() => track(EVENTS.CONTENT_VIEWED, { name: 'hero_cta', category: 'signup_intent' })}
               className="group inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-primary to-violet-500 text-white text-lg font-semibold rounded-2xl hover:shadow-2xl hover:shadow-primary/30 transition-all duration-300 hover:-translate-y-0.5"
             >
               Get Started Free
