@@ -48,7 +48,12 @@ export default function App({ Component, pageProps }) {
           landing page and load time is the campaign's cost of entry.
           Renders nothing at all when the env var is unset, so dev and any
           un-configured environment stay clean. The snippet stubs `fbq` before
-          the library arrives, so events fired early are queued, not lost. */}
+          the library arrives, so events fired early are queued, not lost.
+
+          `autoConfig` off: by default fbevents.js infers events from button
+          text and hooks history changes, inventing conversion-shaped events
+          nobody wrote. Separate from the Events Manager toggle of a similar
+          name — this is the only place it can be disabled. */}
       {META_PIXEL_ID && (
         <>
           <Script id="meta-pixel" strategy="afterInteractive">
@@ -61,6 +66,7 @@ export default function App({ Component, pageProps }) {
               t.src=v;s=b.getElementsByTagName(e)[0];
               s.parentNode.insertBefore(t,s)}(window,document,'script',
               'https://connect.facebook.net/en_US/fbevents.js');
+              fbq('set', 'autoConfig', false, '${META_PIXEL_ID}');
               fbq('init', '${META_PIXEL_ID}');
               fbq('track', 'PageView');
             `}
