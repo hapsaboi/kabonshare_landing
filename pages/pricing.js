@@ -3,9 +3,11 @@ import { useState, useEffect } from 'react'
 import Head from 'next/head'
 import Link from 'next/link'
 import { motion, AnimatePresence } from 'framer-motion'
-import { FiCheck, FiZap, FiUsers, FiHardDrive, FiStar, FiChevronDown, FiMessageCircle, FiPlus, FiMinus } from 'react-icons/fi'
+import { FiCheck, FiStar, FiChevronDown, FiMessageCircle, FiPlus, FiMinus, FiX } from 'react-icons/fi'
 import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
+import { detectCurrency, rememberCurrency } from '../lib/currency'
+import { computeSlotsMonthly, hasVolumePricing, describeSlotPricing } from '../lib/billing/slotPricing'
 
 const fade = {
   hidden: { opacity: 0, y: 20 },
@@ -25,18 +27,172 @@ const FAQS = [
 // Which plan carries the "Most Popular" badge + highlight. Keyed by plan name
 // (lowercase) so it doesn't drift when marketing labels change.
 const MAX_ACCOUNTS = 1000
-const RECOMMENDED_PLAN = 'growth'
-const RECOMMENDED_LABEL = 'Most Popular'
 
-// Accent colours per plan (badge is handled separately via RECOMMENDED_PLAN).
+/**
+ * Currencies offered on the pricing page, in display order.
+ *
+ * Plans can hold price rows in currencies we don't want to advertise — this is
+ * the shop window, not the full catalogue. A plan with no row in either of
+ * these falls back to its USD pricing via computePricing.
+ */
+const SUPPORTED_CURRENCIES = ['USD', 'NGN']
+
+/**
+ * Colours and the "Most Popular" badge now come from the plan itself
+ * (`presentation` and `isRecommended`), set in the admin panel.
+ *
+ * The map below is a fallback for plans that have no presentation set yet. It
+ * used to be the only source, keyed by plan name — which failed silently twice:
+ * the badge pointed at 'growth', a plan that doesn't exist, and 'team' was
+ * missing entirely so it rendered in Starter's colours.
+ */
+
+/**
+ * Accent colours per plan, keyed by lowercase plan name.
+ *
+ * `badge` defaults to `accent` and only needs setting when the badge should
+ * differ from the card's own accent — a gradient that reads well as a 2.5px dot
+ * is not always the one that reads well as a filled pill.
+ *
+ * A plan missing from here falls back to DEFAULT_COLORS, which is why `team`
+ * previously looked identical to `starter`.
+ */
 const PLAN_COLORS = {
   free:     { accent: 'from-slate-400 to-slate-500',    ring: 'border-line' },
   starter:  { accent: 'from-indigo-400 to-violet-500',  ring: 'border-indigo-500/40' },
+  team:     { accent: 'from-violet-500 to-purple-600',  ring: 'border-violet-500/60', badge: 'from-violet-600 to-purple-700' },
   growth:   { accent: 'from-violet-500 to-purple-600',  ring: 'border-violet-500/60' },
   pro:      { accent: 'from-fuchsia-500 to-pink-600',   ring: 'border-fuchsia-500/50' },
   business: { accent: 'from-emerald-400 to-teal-500',   ring: 'border-emerald-500/40' },
 }
 const DEFAULT_COLORS = { accent: 'from-indigo-400 to-violet-500', ring: 'border-line' }
+
+/**
+ * Extra-account pricing, one row per BAND.
+ *
+ * Rows are the brackets themselves rather than sample totals: the bands are the
+ * thing being explained, and a reader who sees "$53.50 at 11 accounts" still
+ * has to work backwards to find where the rate changed. Showing the structure
+ * removes that step.
+ *
+ * Bands are unioned across plans so every plan is a column against a shared set
+ * of rows — plans with different boundaries still line up, and a plan that
+ * doesn't reach a band shows a dash rather than a misleading price.
+ *
+ * Renders nothing unless at least one plan has brackets configured.
+ */
+function VolumeTable({ plans, currency, fmt, computePricing }) {
+  const priced = (plans || [])
+    .map((plan) => ({ plan, pricing: computePricing(plan) }))
+    .filter(({ pricing }) => (pricing.tiers || []).length > 0)
+
+  if (priced.length === 0) return null
+
+  // Every boundary any plan defines, so the rows are shared across columns.
+  const edges = new Set()
+  priced.forEach(({ pricing }) => pricing.tiers.forEach((t) => t.upTo && edges.add(t.upTo)))
+  const sorted = [...edges].sort((a, b) => a - b)
+
+  const raw = []
+  let from = 1
+  for (const upTo of sorted) {
+    raw.push({ from, upTo })
+    from = upTo + 1
+  }
+  raw.push({ from, upTo: null })   // the open-ended top band
+
+  // Rate a given plan charges for slots inside a band. A plan whose table stops
+  // below this band charges its flat fallback; null means it has no rate at all.
+  const rateFor = (pricing, band) => {
+    const tiers = [...pricing.tiers].sort((a, b) => (a.upTo ?? Infinity) - (b.upTo ?? Infinity))
+    const hit = tiers.find((t) => (t.upTo ?? Infinity) >= band.from)
+    if (hit) return hit.price
+    return pricing.unit > 0 ? pricing.unit : null
+  }
+
+  // Merge adjacent bands where no plan's rate actually changes. Unioning
+  // boundaries can split a range that is uniform for every column — two
+  // identical rows reading "1–5" and "6–10" invite the reader to hunt for a
+  // difference that isn't there.
+  const bands = raw.reduce((acc, band) => {
+    const prev = acc[acc.length - 1]
+    const same = prev && priced.every(({ pricing }) => rateFor(pricing, prev) === rateFor(pricing, band))
+    if (same) prev.upTo = band.upTo
+    else acc.push({ ...band })
+    return acc
+  }, [])
+
+  const label = (b) => b.upTo == null
+    ? `Accounts ${b.from}+`
+    : b.from === b.upTo ? `Account ${b.from}` : `Accounts ${b.from}–${b.upTo}`
+
+  return (
+    <motion.div variants={fade} custom={5.5} initial="hidden" animate="visible" className="mt-24 max-w-4xl mx-auto">
+      <div className="text-center mb-8">
+        <h2 className="font-display text-2xl sm:text-3xl font-extrabold text-body tracking-tight">
+          Adding more accounts
+        </h2>
+        <p className="text-muted mt-2 text-sm max-w-xl mx-auto">
+          Each band applies only to the accounts inside it — the first ones stay at
+          the first rate, so adding more never reprices what you already have.
+        </p>
+      </div>
+
+      <div className="overflow-x-auto rounded-2xl border border-line">
+        <table className="w-full text-sm border-collapse">
+          <thead>
+            <tr className="bg-surface/50">
+              <th className="text-left font-semibold text-body px-4 py-3 whitespace-nowrap">
+                Social accounts
+                <span className="ml-2 font-normal text-subtle text-xs">· per account, per month</span>
+              </th>
+              {priced.map(({ plan }) => (
+                <th key={plan._id} className="text-right font-semibold text-body px-4 py-3 capitalize whitespace-nowrap">
+                  {plan.name}
+                </th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {/* What the plan already includes. Stated because "extra accounts"
+                is only meaningful relative to a starting number. */}
+            <tr className="border-t border-line">
+              <td className="px-4 py-3">
+                <span className="text-body">Included with the plan</span>
+                <span className="block text-xs text-subtle mt-0.5">No extra charge</span>
+              </td>
+              {priced.map(({ plan, pricing }) => (
+                <td key={plan._id} className="px-4 py-3 text-right text-body tabular-nums whitespace-nowrap">
+                  {pricing.unlimited ? 'Unlimited' : `${pricing.included} free`}
+                </td>
+              ))}
+            </tr>
+
+            {bands.map((band, i) => (
+              <tr key={i} className="border-t border-line">
+                <td className="px-4 py-3 text-body whitespace-nowrap">{label(band)}</td>
+                {priced.map(({ plan, pricing }) => {
+                  const rate = rateFor(pricing, band)
+                  return (
+                    <td key={plan._id} className="px-4 py-3 text-right text-body tabular-nums whitespace-nowrap">
+                      {rate == null
+                        ? <span className="text-subtle">—</span>
+                        : <>{fmt(rate, pricing.curr)}<span className="text-subtle text-xs">/mo</span></>}
+                    </td>
+                  )
+                })}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      <p className="text-xs text-subtle mt-3 text-center">
+        Added mid-cycle, you only pay for the time remaining. Remove them anytime.
+      </p>
+    </motion.div>
+  )
+}
 
 function FAQItem({ q, a, num }) {
   const [open, setOpen] = useState(false)
@@ -108,9 +264,28 @@ export default function Pricing() {
 
       const currencies = new Set()
       fetchedPlans.forEach(plan => plan.prices?.forEach(p => { if (p.currency) currencies.add(p.currency) }))
-      const currencyArray = Array.from(currencies).sort()
+      // Only the currencies we actually want to sell in. Plans may carry EUR
+      // and GBP rows for other purposes; showing a picker for a currency
+      // nobody supports is a promise we don't keep.
+      //
+      // Filtered here rather than at render so currency detection and the
+      // fallback below both see the same narrowed list — filtering only the
+      // buttons would let detectCurrency select a hidden currency and leave the
+      // picker with nothing highlighted.
+      const currencyArray = Array.from(currencies)
+        .filter(c => SUPPORTED_CURRENCIES.includes(c))
+        .sort((a, b) => SUPPORTED_CURRENCIES.indexOf(a) - SUPPORTED_CURRENCIES.indexOf(b))
       setAvailableCurrencies(currencyArray.length > 0 ? currencyArray : ['USD'])
-      if (currencyArray.length > 0 && !currencyArray.includes('USD')) setCurrency(currencyArray[0])
+
+      // Show local pricing where we can. Someone arriving from a naira-budget ad
+      // and meeting a dollar figure has to do mental arithmetic before they can
+      // judge whether it's affordable, and most won't bother.
+      const detected = detectCurrency(currencyArray)
+      if (detected) {
+        setCurrency(detected)
+      } else if (currencyArray.length > 0 && !currencyArray.includes('USD')) {
+        setCurrency(currencyArray[0])
+      }
     } catch (err) {
       console.error('Failed to fetch plans:', err)
       setPlans([])
@@ -133,16 +308,24 @@ export default function Pricing() {
       || plan.prices?.find(p => p.interval === 'month' && p.currency === 'USD')
     const base = monthly?.amount || 0
     const unit = monthly?.pricePerExtraAccount || 0
+    const tiers = monthly?.extraAccountTiers || []
+    // "Does this plan sell slots at all" — true if either a flat rate or a
+    // bracket table is set. A plan priced purely by brackets has unit === 0.
+    const sellsSlots = unit > 0 || tiers.length > 0
     const curr = monthly?.currency || currency
     const included = plan.limits?.maxAccounts ?? 0
     const unlimited = included === -1
     const maxExtra = plan.limits?.maxExtraAccounts
     const extraCap = (maxExtra === -1 || maxExtra == null) ? Infinity : maxExtra
-    const maxAccounts = unlimited ? Infinity : included + (unit > 0 ? extraCap : 0)
+    const maxAccounts = unlimited ? Infinity : included + (sellsSlots ? extraCap : 0)
     const capped = !unlimited && accountsWanted > maxAccounts
     const billedAccounts = unlimited ? accountsWanted : Math.min(accountsWanted, maxAccounts)
     const extraNeeded = unlimited ? 0 : Math.max(0, billedAccounts - included)
-    const monthlyTotal = base + extraNeeded * unit
+    // Priced through the bracket table, not `extraNeeded * unit`. Multiplying a
+    // flat rate here would quote a total the checkout doesn't charge — the
+    // stepper is the first number a customer sees, so it has to be the real one.
+    const extrasMonthly = computeSlotsMonthly(monthly, extraNeeded)
+    const monthlyTotal = base + extrasMonthly
     const isFree = monthlyTotal === 0
     const m = 1 - (yearlyDiscount.percent || 0) / 100
     const yearlyTotal = Math.round(monthlyTotal * 12 * m / 10) * 10
@@ -152,25 +335,73 @@ export default function Pricing() {
       : capped
       ? `Up to ${maxAccounts} accounts`
       : `${accountsWanted} account${accountsWanted > 1 ? 's' : ''}`
-    return { base, unit, curr, included, unlimited, maxAccounts, capped, billedAccounts, extraNeeded, monthlyTotal, isFree, yearlyTotal, yearlyMonthly, accountsLabel }
+    return { base, unit, tiers, sellsSlots, extrasMonthly, curr, included, unlimited, maxAccounts, capped, billedAccounts, extraNeeded, monthlyTotal, isFree, yearlyTotal, yearlyMonthly, accountsLabel }
   }
 
-  const getFeatures = (plan) => {
-    const f = []
+  /**
+   * Feature groups for a plan.
+   *
+   * Grouped rather than a flat list because the list is now long enough that a
+   * single column of ticks is unreadable — the group headers let the eye skip
+   * whole blocks, and they double as the upgrade story ("Collaboration: just
+   * you" vs five lines).
+   *
+   * Every plan renders every group. The previous version diffed each tier
+   * against the one to its left, which made the best plan look like the
+   * thinnest — Team showed five bullets where Free showed eight. People scan
+   * one column, the one they think they want, so a column that only makes
+   * sense relative to its neighbour fails the reader who never looks left.
+   */
+  const getFeatureGroups = (plan) => {
     const l = plan.limits || {}
     const ft = plan.features || {}
-    if (l.creditsPerMonth !== undefined) f.push({ key: 'credits', icon: FiZap,       text: l.creditsPerMonth === -1 ? 'Unlimited credits/mo' : `${l.creditsPerMonth} credits/mo` })
-    if (l.maxAccounts !== undefined)     f.push({ key: 'accounts', icon: FiCheck,     text: l.maxAccounts === -1 ? 'Unlimited accounts included' : `${l.maxAccounts} account${l.maxAccounts > 1 ? 's' : ''} included` })
-    if (l.maxWorkspaces !== undefined)   f.push({ key: 'workspaces', icon: FiUsers,     text: l.maxWorkspaces === -1 ? 'Unlimited workspaces' : `${l.maxWorkspaces} workspace${l.maxWorkspaces > 1 ? 's' : ''}` })
-    if (l.storageQuotaMB !== undefined)  f.push({ key: 'storage', icon: FiHardDrive, text: l.storageQuotaMB === -1 ? 'Unlimited storage' : l.storageQuotaMB >= 1024 ? `${Math.round(l.storageQuotaMB/1024)}GB storage` : `${l.storageQuotaMB}MB storage` })
-    if (l.aiGenerationsPerMonth !== undefined) f.push({ key: 'ai', icon: FiZap, text: l.aiGenerationsPerMonth === -1 ? 'Unlimited AI generations' : l.aiGenerationsPerMonth > 0 ? `${l.aiGenerationsPerMonth} AI generations/mo` : 'No AI generations', dim: l.aiGenerationsPerMonth === 0 })
-    if (l.maxTeamMembers > 1 || l.maxTeamMembers === -1) f.push({ key: 'team', icon: FiUsers, text: l.maxTeamMembers === -1 ? 'Unlimited team members' : `Up to ${l.maxTeamMembers} team members` })
-    if (ft.allowVideo)      f.push({ key: 'video', icon: FiCheck, text: 'Video publishing' })
-    if (ft.allowScheduling) f.push({ key: 'scheduling', icon: FiCheck, text: 'Post scheduling' })
-    f.push({ key: 'analytics', icon: FiCheck, text: 'Analytics dashboard' })
-    if (ft.allowReportBuilder) f.push({ key: 'reports', icon: FiCheck, text: 'Exportable report builder' })
-    f.push({ key: 'api', icon: FiCheck, text: 'API access' })
-    return f
+    const collaborative = l.maxTeamMembers > 1 || l.maxTeamMembers === -1
+    const fmtStorage = (mb) => mb === -1 ? 'Unlimited storage'
+      : mb >= 1024 ? `${Math.round(mb / 1024)}GB storage` : `${mb}MB storage`
+
+    return [
+      {
+        title: 'Publishing',
+        items: [
+          { text: l.maxAccounts === -1 ? 'Unlimited accounts' : `${l.maxAccounts} account${l.maxAccounts === 1 ? '' : 's'} included`, sub: l.maxExtraAccounts !== 0 ? 'Add more anytime, prorated' : null },
+          { text: l.maxWorkspaces === -1 ? 'Unlimited workspaces' : `${l.maxWorkspaces} workspace${l.maxWorkspaces === 1 ? '' : 's'}` },
+          { text: 'Post scheduling' },
+          { text: 'Video publishing' },
+        ],
+      },
+      {
+        title: 'Content',
+        items: [
+          { text: l.creditsPerMonth === -1 ? 'Unlimited credits' : `${l.creditsPerMonth} credits/mo`, sub: '1 credit per post, any number of platforms' },
+          { text: ft.allowAI
+              ? (l.aiGenerationsPerMonth === -1 ? 'Unlimited AI generations' : `${l.aiGenerationsPerMonth} AI generations/mo`)
+              : 'AI captions', off: !ft.allowAI },
+          { text: fmtStorage(l.storageQuotaMB) },
+          { text: 'Ideas boards', off: !ft.allowIdeas },
+        ],
+      },
+      // Omitted entirely on single-seat plans. A "Collaboration: Just you"
+      // block is a section header spent saying nothing, and it reads as a
+      // downgrade notice on the plans people start with.
+      ...(collaborative ? [{
+        title: 'Collaboration',
+        items: [
+          { text: l.maxTeamMembers === -1 ? 'Unlimited team members' : `Up to ${l.maxTeamMembers} team members` },
+          { text: 'Approval workflows', off: !ft.allowApprovals },
+          { text: 'Post comments', off: !ft.allowComments },
+          { text: 'Team chat', off: !ft.allowTeamChat },
+          { text: 'Access levels', off: !ft.allowAccessLevels },
+        ],
+      }] : []),
+      {
+        title: 'Insights',
+        items: [
+          { text: 'Analytics dashboard' },
+          { text: 'Exportable report builder', off: !ft.allowReportBuilder },
+          { text: 'API access' },
+        ],
+      },
+    ]
   }
 
   return (
@@ -274,7 +505,7 @@ export default function Pricing() {
                   {availableCurrencies.map(curr => (
                     <button
                       key={curr}
-                      onClick={() => setCurrency(curr)}
+                      onClick={() => { setCurrency(curr); rememberCurrency(curr) }}
                       className={`px-3.5 py-2 rounded-full text-sm font-semibold transition-all ${currency === curr ? 'bg-surface text-body shadow-sm' : 'text-subtle hover:text-muted'}`}
                     >
                       {curr}
@@ -296,18 +527,21 @@ export default function Pricing() {
             </div>
           ) : (
             <motion.div variants={fade} custom={2} initial="hidden" animate="visible"
-              className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 items-stretch pt-3"
+              className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 items-stretch pt-3"
             >
               {plans.map((plan, i) => {
                 const pricing = computePricing(plan)
-                const features = getFeatures(plan)
+                const groups = getFeatureGroups(plan)
                 const isFree = pricing.isFree
-                const colors = PLAN_COLORS[plan.name?.toLowerCase()] || DEFAULT_COLORS
-                const isPopular = plan.name?.toLowerCase() === RECOMMENDED_PLAN
-                // "Everything in X, plus" — higher tiers list only what changed vs the plan to their left.
-                const prevPlan = i > 0 ? plans[i - 1] : null
-                const prevMap = prevPlan ? Object.fromEntries(getFeatures(prevPlan).map((pf) => [pf.key, pf.text])) : {}
-                const shown = prevPlan ? features.filter((f) => prevMap[f.key] !== f.text) : features
+                const fallback = PLAN_COLORS[plan.name?.toLowerCase()] || DEFAULT_COLORS
+                // Per-key fallback, not object-level: a plan with only `accent`
+                // set should still get a sensible ring rather than losing it.
+                const colors = {
+                  accent: plan.presentation?.accent || fallback.accent,
+                  badge: plan.presentation?.badge || plan.presentation?.accent || fallback.badge || fallback.accent,
+                  ring: plan.presentation?.ring || fallback.ring,
+                }
+                const isPopular = !!plan.isRecommended
 
                 return (
                   <motion.div
@@ -321,8 +555,8 @@ export default function Pricing() {
                   >
                     {/* Badge */}
                     {isPopular && (
-                      <span className={`absolute -top-3 left-1/2 -translate-x-1/2 inline-flex items-center gap-1 text-[10px] font-bold px-3 py-1 rounded-full text-white shadow-md bg-gradient-to-r ${colors.accent}`}>
-                        <FiStar size={9} /> {RECOMMENDED_LABEL}
+                      <span className={`absolute -top-3 left-1/2 -translate-x-1/2 inline-flex items-center gap-1 text-[10px] font-bold px-3 py-1 rounded-full text-white shadow-md bg-gradient-to-r ${colors.badge}`}>
+                        <FiStar size={9} /> {plan.recommendedLabel || 'Most Popular'}
                       </span>
                     )}
 
@@ -347,7 +581,7 @@ export default function Pricing() {
                             <span className="font-display text-3xl xl:text-4xl font-extrabold text-body tracking-tight tabular-nums whitespace-nowrap">{fmt(pricing.yearlyMonthly, pricing.curr)}</span>
                             <span className="text-sm text-subtle">/mo</span>
                           </div>
-                          <p className="text-xs text-subtle mt-1.5">
+                          <p className="text-xs text-subtle mt-1.5 min-h-[2.25rem] [text-wrap:pretty]">
                             {pricing.accountsLabel} · {fmt(pricing.yearlyTotal, pricing.curr)} billed yearly <span className="text-emerald-500 font-medium">(save {yearlyDiscount.percent}%)</span>
                           </p>
                         </>
@@ -357,7 +591,7 @@ export default function Pricing() {
                             <span className="font-display text-3xl xl:text-4xl font-extrabold text-body tracking-tight tabular-nums whitespace-nowrap">{fmt(pricing.monthlyTotal, pricing.curr)}</span>
                             <span className="text-sm text-subtle">/mo</span>
                           </div>
-                          <p className="text-xs text-subtle mt-1.5">
+                          <p className="text-xs text-subtle mt-1.5 min-h-[2.25rem] [text-wrap:pretty]">
                             {pricing.accountsLabel}
                             {pricing.extraNeeded > 0 && !pricing.capped && <span className="text-muted"> · incl. {pricing.extraNeeded} extra</span>}
                           </p>
@@ -380,26 +614,72 @@ export default function Pricing() {
 
                     {/* Features */}
                     <div className="h-px bg-line my-6" />
-                    {prevPlan && (
-                      <p className="text-[13px] font-semibold text-body mb-3.5">
-                        Everything in <span className="capitalize">{prevPlan.name}</span>, plus
-                      </p>
-                    )}
-                    <ul className="space-y-3 flex-1">
-                      {shown.map((f, fi) => (
-                        <li key={f.key || fi} className={`flex items-start gap-2.5 text-[13px] ${f.dim ? 'opacity-45' : ''}`}>
-                          <span className={`w-4 h-4 rounded-full flex items-center justify-center flex-shrink-0 mt-px ${f.dim ? 'bg-line' : 'bg-emerald-500/15'}`}>
-                            <FiCheck size={9} className={f.dim ? 'text-subtle' : 'text-emerald-500'} />
-                          </span>
-                          <span className="text-muted leading-snug">{f.text}</span>
-                        </li>
+                    <div className="flex-1 space-y-5">
+                      {groups.map((g) => (
+                        <div key={g.title}>
+                          <p className="text-[11px] font-bold uppercase tracking-wider text-subtle mb-2.5">{g.title}</p>
+                          <ul className="space-y-2.5">
+                            {g.items.map((f, fi) => (
+                              <li key={fi} className={`flex items-start gap-2.5 text-[13px] ${f.off ? 'opacity-40' : ''}`}>
+                                <span className={`w-4 h-4 rounded-full flex items-center justify-center flex-shrink-0 mt-px ${f.off ? 'bg-line' : 'bg-emerald-500/15'}`}>
+                                  {f.off
+                                    ? <FiX size={9} className="text-subtle" />
+                                    : <FiCheck size={9} className="text-emerald-500" />}
+                                </span>
+                                <span className="min-w-0">
+                                  <span className="text-muted leading-snug block">{f.text}</span>
+                                  {f.sub && !f.off && (
+                                    <span className="text-[11px] text-subtle leading-snug block mt-0.5">{f.sub}</span>
+                                  )}
+                                </span>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
                       ))}
-                    </ul>
+                    </div>
                   </motion.div>
                 )
               })}
+
             </motion.div>
           )}
+
+          {/* ── Enterprise ──
+              A band rather than a fourth column. As a card it competed with
+              three real prices and squeezed them all narrower; as a tab it
+              would be hidden behind a click, and someone running 40 accounts
+              has to DISCOVER that a custom plan exists. Full width, below the
+              decision they came to make. */}
+          <motion.div variants={fade} custom={5} initial="hidden" animate="visible" className="mt-8">
+            <div className="rounded-3xl border border-line bg-surface/40 p-7 sm:p-9 flex flex-col md:flex-row md:items-center gap-7">
+              <div className="flex-1 min-w-0">
+                <div className="flex items-center gap-2.5 mb-3">
+                  <span className="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-slate-400 to-slate-600" />
+                  <h3 className="font-display text-lg font-extrabold text-body">Enterprise</h3>
+                </div>
+                <p className="text-muted text-sm max-w-xl leading-relaxed">
+                  Running dozens of accounts across multiple brands? We&apos;ll price around
+                  what you actually need — unlimited accounts and workspaces, volume rates,
+                  custom approval workflows, priority support and invoicing.
+                </p>
+              </div>
+
+              <div className="flex-shrink-0">
+                <Link
+                  href="/enterprise"
+                  className="inline-flex items-center justify-center px-6 py-3 rounded-xl border border-line text-body font-semibold text-sm hover:bg-surface transition-colors whitespace-nowrap">
+                  Talk to us
+                </Link>
+              </div>
+            </div>
+          </motion.div>
+
+          {/* ── Volume pricing table ──
+              Only rendered for plans that actually price slots in brackets. A
+              flat-rate plan already says "X/mo each" on the card, and a table
+              restating one number is noise. */}
+          <VolumeTable plans={plans} currency={currency} fmt={fmt} computePricing={computePricing} />
 
           {/* ── FAQ ── */}
           <motion.div variants={fade} custom={6} initial="hidden" animate="visible" className="mt-28 max-w-4xl mx-auto">
