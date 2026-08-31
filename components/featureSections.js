@@ -71,8 +71,47 @@ export function CodeCard({ code }) {
 }
 
 // A slot renders code when provided, otherwise the screenshot Shot.
-export function Visual({ image, code, color, Icon, label }) {
+/**
+ * A numbered flow, for features better explained as a sequence than shown as a
+ * screenshot. `steps` = [{ title, desc }].
+ *
+ * Client invites is the case this exists for: the value is in what the CLIENT
+ * does, which happens outside our UI, so a screenshot of our own form would
+ * show the least interesting part of it.
+ */
+export function FlowCard({ steps, color }) {
+  return (
+    <div className="rounded-2xl border border-line bg-raised p-6 sm:p-7" style={{ boxShadow: 'var(--card-shadow)' }}>
+      <ol className="space-y-5">
+        {steps.map((s, i) => (
+          <li key={i} className="flex gap-4">
+            <div className="flex flex-col items-center">
+              <span
+                className="flex items-center justify-center w-8 h-8 rounded-full text-[13px] font-bold shrink-0"
+                style={{ background: `color-mix(in srgb, ${color} 16%, transparent)`, color }}
+              >
+                {i + 1}
+              </span>
+              {/* Connector, so the steps read as one sequence rather than three
+                  unrelated cards. Not after the last one. */}
+              {i < steps.length - 1 && (
+                <span className="w-px flex-1 mt-2 -mb-3" style={{ background: `color-mix(in srgb, ${color} 22%, transparent)` }} />
+              )}
+            </div>
+            <div className="pb-1">
+              <p className="font-semibold text-body text-[15px] leading-snug">{s.title}</p>
+              <p className="text-sm text-muted leading-relaxed mt-1">{s.desc}</p>
+            </div>
+          </li>
+        ))}
+      </ol>
+    </div>
+  )
+}
+
+export function Visual({ image, code, steps, color, Icon, label }) {
   if (code) return <CodeCard code={code} />
+  if (steps) return <FlowCard steps={steps} color={color} />
   return <Shot image={image} color={color} Icon={Icon} label={label} />
 }
 
@@ -197,7 +236,7 @@ export function FeatureBody({ f }) {
               {blk.bullets && <Bullets items={blk.bullets} color={f.color} />}
             </div>
             <div className={blk.flip ? 'lg:order-1' : ''}>
-              <Visual image={blk.image} code={blk.code} color={f.color} Icon={Icon} label={f.label} />
+              <Visual image={blk.image} code={blk.code} steps={blk.steps} color={f.color} Icon={Icon} label={f.label} />
             </div>
           </div>
         </section>

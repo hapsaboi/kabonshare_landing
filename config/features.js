@@ -406,10 +406,14 @@ export const FEATURES = [
           'They authorise with the platform — you never see their password',
           'Links expire, and you can revoke one any time',
         ],
-        // null until the screenshot exists — Shot() renders a styled placeholder
-        // for null, but a path to a missing file renders a broken image.
-        // Replace with { light, dark } once /public/features has the shots.
-        image: null,
+        // A flow, not a screenshot. The interesting half of this feature happens
+        // on the CLIENT's side, outside our UI — a shot of our own invite form
+        // would show the least useful part of it.
+        steps: [
+          { title: 'Pick the accounts you need', desc: 'Choose the platforms and how long the link should stay valid.' },
+          { title: 'Send the link', desc: 'By email, WhatsApp, or however you already talk to them.' },
+          { title: 'They approve, you’re connected', desc: 'They sign in with each platform directly. The accounts appear in your workspace.' },
+        ],
         flip: false,
       },
     ],
