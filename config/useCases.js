@@ -22,10 +22,10 @@ export const USE_CASES = [
     id: 'agencies', slug: 'social-media-for-agencies', label: 'Agencies',
     icon: HiOutlineOfficeBuilding, color: '#3b82f6',
     menuDesc: 'Every client from one login',
-    highlights: ['Client workspaces', 'Approvals', 'Per-client reporting'],
+    highlights: ['Client invites', 'Client workspaces', 'Per-client reporting'],
     seo: {
-      title: 'Social Media Management for Agencies — Every Client, One Login',
-      description: 'Run unlimited client workspaces from a single account — separate calendars, roles, approval flows and per-client reporting for every brand you manage.',
+      title: 'Social Media Management for Agencies & Freelancers — Every Client, One Login',
+      description: 'Invite clients to connect their own accounts — no password sharing. Run unlimited client workspaces from one account, with separate calendars, roles, approval flows and per-client reporting.',
     },
   },
   {

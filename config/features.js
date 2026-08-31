@@ -341,7 +341,7 @@ export const FEATURES = [
     label: 'Collaboration',
     icon: FiUsers,
     color: '#3b82f6',
-    menuDesc: 'Workspaces, approvals, comments & chat',
+    menuDesc: 'Client invites, workspaces, approvals & chat',
     seo: {
       title: 'Social Media Team Collaboration — Approvals, Comments & Chat',
       description: 'Multiple workspaces, granular roles, configurable multi-stage approval flows, threaded post comments and built-in team chat — from planning to publishing.',
@@ -351,9 +351,9 @@ export const FEATURES = [
       title: 'Collaboration without the chaos.',
       desc: 'Multiple workspaces, granular roles, configurable approval flows, post comments and built-in team chat — from planning to publishing.',
       bullets: [
+        'Invite clients to connect their own accounts — no password sharing',
         'Multi-workspace with granular permissions',
         'Configurable, multi-stage approval flows',
-        'Threaded comments right on each post',
       ],
       image: {
         light: '/features/collaboration-hero-light.webp',
@@ -361,8 +361,8 @@ export const FEATURES = [
       },
     },
     benefits: [
+      { icon: FiKey, title: 'Client invites', desc: 'Send a link — they connect their own accounts, no password sharing.' },
       { icon: FiGrid, title: 'Workspaces', desc: 'Separate clients or brands, each with the right access.' },
-      { icon: FiShield, title: 'Granular roles', desc: 'Decide exactly who can draft, approve or publish.' },
       { icon: FiCheck, title: 'Approvals', desc: 'Route posts through review before anything goes live.' },
       { icon: FiMessageSquare, title: 'Comments & chat', desc: 'Feedback lives on the post, not in email threads.' },
     ],
@@ -396,6 +396,21 @@ export const FEATURES = [
           dark: '/features/collaboration-feedback-dark.webp',
         },
         flip: true,
+      },
+      {
+        eyebrow: 'Onboarding clients',
+        title: 'Never ask a client for their password again.',
+        desc: 'Send a link. They approve their own accounts with each platform directly, and the connections land in your workspace — no signup, no shared logins, nothing for them to learn.',
+        bullets: [
+          'One link, as many accounts as you need',
+          'They authorise with the platform — you never see their password',
+          'Links expire, and you can revoke one any time',
+        ],
+        // null until the screenshot exists — Shot() renders a styled placeholder
+        // for null, but a path to a missing file renders a broken image.
+        // Replace with { light, dark } once /public/features has the shots.
+        image: null,
+        flip: false,
       },
     ],
   },
