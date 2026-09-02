@@ -2,7 +2,7 @@
 import { useState, useEffect } from 'react'
 import Head from 'next/head'
 import Link from 'next/link'
-import { motion } from 'framer-motion'
+import { motion, AnimatePresence } from 'framer-motion'
 import { FiCheck, FiStar, FiChevronDown, FiMessageCircle, FiPlus, FiMinus, FiX } from 'react-icons/fi'
 import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
@@ -212,92 +212,34 @@ function FAQItem({ q, a, num }) {
           className={`text-muted flex-shrink-0 transition-transform duration-300 ${open ? 'rotate-180 text-indigo-400' : ''}`}
         />
       </div>
-      {/* The answer is ALWAYS in the DOM, animated open and shut rather than
-          mounted and unmounted. Conditionally rendering it meant the static
-          export shipped every question with no answer behind it — a crawler
-          indexed the questions and found nothing that answered them, on the
-          page most likely to be someone's first search result.
-
-          `height: 0` with overflow hidden keeps it visually collapsed while
-          staying in the markup. aria-hidden is deliberately NOT set: it would
-          hide the text from assistive tech, which is the same mistake in a
-          different form. */}
-      <motion.div
-        initial={false}
-        animate={{ height: open ? 'auto' : 0, opacity: open ? 1 : 0 }}
-        transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
-        style={{ overflow: 'hidden' }}
-      >
-        <div className="px-5 pb-5 pl-16 text-sm text-muted leading-relaxed">
-          {a}
-        </div>
-      </motion.div>
+      <AnimatePresence initial={false}>
+        {open && (
+          <motion.div
+            key="body"
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: 'auto', opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
+            style={{ overflow: 'hidden' }}
+          >
+            <div className="px-5 pb-5 pl-16 text-sm text-muted leading-relaxed">
+              {a}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   )
 }
 
-/**
- * Plans are fetched at BUILD time as well as on the client.
- *
- * Without this the page shipped "Loading plans…" as its only content: every
- * price, plan name and comparison row arrived from a client-side effect, so a
- * crawler that does not run JS saw an empty page — for the one URL we most want
- * ranking on our own brand name.
- *
- * The client fetch is kept and still runs. It refreshes prices that changed
- * since the last deploy, and it is what drives currency detection, which needs
- * the visitor's locale and cannot happen at build time. The build-time copy is
- * the floor, not the ceiling.
- *
- * A failed build-time fetch must not fail the build — the page still works via
- * the client fetch, and a deploy blocked by a transient API blip would be a
- * worse outcome than a page that is briefly less crawlable.
- */
-export async function getStaticProps() {
-  try {
-    const res = await fetch('https://api.kabonshare.com/api/plans')
-    if (!res.ok) throw new Error(`HTTP ${res.status}`)
-    const json = await res.json()
-    const payload = json?.data ?? json
-    return {
-      props: {
-        initialPlans: payload?.plans || [],
-        initialYearlyDiscount: payload?.yearlyDiscount || null,
-      },
-    }
-  } catch (err) {
-    console.warn('[pricing] build-time plan fetch failed, falling back to client fetch:', err.message)
-    return { props: { initialPlans: [], initialYearlyDiscount: null } }
-  }
-}
-
-export default function Pricing({ initialPlans = [], initialYearlyDiscount = null }) {
-  const [plans, setPlans] = useState(initialPlans)
-  // Only "loading" when we have nothing to show. With build-time plans the
-  // first paint is the real page, and the client fetch refreshes underneath.
-  const [loading, setLoading] = useState(initialPlans.length === 0)
+export default function Pricing() {
+  const [plans, setPlans] = useState([])
+  const [loading, setLoading] = useState(true)
   const [billingCycle, setBillingCycle] = useState('year')
-  const [accountsWanted, setAccountsWanted] = useState(() => {
-    // Same rule as fetchPlans: start at the cheapest PAID plan's included
-    // accounts. Duplicated deliberately — the server render has no effect to
-    // run, and a mismatch here would cause a hydration warning.
-    const paid = initialPlans
-      .map(p => ({ p, amt: (p.prices?.find(pr => pr.interval === 'month' && pr.currency === 'USD') || p.prices?.find(pr => pr.interval === 'month'))?.amount ?? 0 }))
-      .filter(x => x.amt > 0)
-      .sort((a, b) => a.amt - b.amt)
-    const inc = paid[0]?.p?.limits?.maxAccounts
-    return typeof inc === 'number' && inc > 0 ? inc : 1
-  })
+  const [accountsWanted, setAccountsWanted] = useState(1) // seeded to the cheapest paid plan's included accounts once plans load
   const [currency, setCurrency] = useState('USD')
-  const [availableCurrencies, setAvailableCurrencies] = useState(() => {
-    const set = new Set()
-    initialPlans.forEach(plan => plan.prices?.forEach(pr => { if (pr.currency) set.add(pr.currency) }))
-    const arr = Array.from(set)
-      .filter(c => SUPPORTED_CURRENCIES.includes(c))
-      .sort((a, b) => SUPPORTED_CURRENCIES.indexOf(a) - SUPPORTED_CURRENCIES.indexOf(b))
-    return arr.length > 0 ? arr : ['USD']
-  })
-  const [yearlyDiscount, setYearlyDiscount] = useState(initialYearlyDiscount || { percent: 20, minMonths: 12 })
+  const [availableCurrencies, setAvailableCurrencies] = useState(['USD'])
+  const [yearlyDiscount, setYearlyDiscount] = useState({ percent: 20, minMonths: 12 })
 
   useEffect(() => { fetchPlans() }, [])
 
