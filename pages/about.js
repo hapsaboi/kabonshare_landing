@@ -20,81 +20,109 @@ const LAST_UPDATED = 'September 2, 2026'
  */
 const sections = [
   {
+    id: 'why',
+    title: 'Why We Built It',
+    content: [
+      {
+        text: 'KabonShare started as our own problem. We were running social accounts across several platforms and doing the same job by hand every time: export the video, crop it for one app, rewrite the caption for another, remember that one platform rejects that aspect ratio, post, then repeat five more times. The actual work took minutes. The posting took the evening.',
+      },
+      {
+        text: 'The tools that solve this exist, but most of them are built for a marketing department with a budget to match, and they tend to treat anything beyond the big four networks as an afterthought. We wanted one place that handled every network we actually post to, priced for people who are not a marketing department.',
+      },
+      {
+        text: 'So we built it, and then kept building the parts we kept needing — a way to hand a client an invite instead of asking for their password, approvals that do not live in a group chat, and an API for the times a person should not be in the loop at all.',
+      },
+    ],
+  },
+  {
     id: 'what-we-do',
-    title: 'What KabonShare Is',
+    title: 'What KabonShare Does',
     content: [
       {
-        text: 'KabonShare is a social media management platform. It lets one person — or a whole team — plan, schedule and publish content to every major social network from a single place, instead of posting to each app by hand.',
+        text: 'One composer, nine networks. You write a post once, adapt it per platform where it matters, and KabonShare publishes it everywhere at the right time — checking each platform&rsquo;s formats, limits and rules before it goes out rather than failing silently afterwards.',
       },
       {
-        text: 'The platform supports nine networks:',
-        items: [
-          'Instagram, TikTok, YouTube, Facebook and Threads',
-          'X (Twitter), LinkedIn, Bluesky and Pinterest',
-        ],
+        text: 'The nine, in full: <strong>Instagram, TikTok, YouTube, Facebook, Threads, X (Twitter), LinkedIn, Bluesky and Pinterest.</strong> Bluesky and Pinterest in particular are ones most tools skip.',
       },
       {
-        text: 'It is available as a web dashboard, a mobile app for iOS and Android, a desktop studio for live streaming, and a public API for developers who want to build publishing into their own products.',
+        text: 'Around that sits the rest of the job — a scheduling calendar and bulk scheduler, analytics and follower tracking, AI-assisted captions written from the media itself, live streaming to several platforms at once from a desktop studio, and a documented REST API with webhooks and an MCP server for people building on top of it.',
       },
     ],
   },
   {
-    id: 'what-you-can-do',
-    title: 'What You Can Do With It',
+    id: 'built-for',
+    title: 'Who We Build For',
     content: [
       {
+        text: 'Most social tools are designed for one brand posting to its own accounts. That case is easy. We built for the harder one first — someone managing accounts that are not theirs.',
+      },
+      {
         items: [
-          '<strong>Publish everywhere at once</strong> — write a post once and adapt it per platform, with the right format, caption and limits for each',
-          '<strong>Schedule ahead</strong> — a visual calendar, bulk scheduling, and posts that fire whether or not you are online',
-          '<strong>Work as a team</strong> — separate workspaces, granular roles, approval flows and comments on each post',
-          '<strong>Onboard clients safely</strong> — send a link and a client connects their own accounts, without ever sharing a password',
-          '<strong>Measure what worked</strong> — analytics, reporting and follower tracking across every connected account',
-          '<strong>Go live</strong> — stream to several platforms simultaneously from the desktop studio',
-          '<strong>Build on it</strong> — a documented REST API, webhooks and an MCP server',
+          '<strong>Agencies, freelancers and social media managers</strong> running many clients from one login, with separate workspaces, roles and per-client reporting. Clients connect their own accounts through an invite link, so nobody has to share a password',
+          '<strong>Creators</strong> publishing to every platform they are on without opening every app',
+          '<strong>Businesses and teams</strong> that need a post reviewed before it goes out, with the approval and the comments attached to the post rather than scattered across email',
+          '<strong>Developers</strong> putting social publishing inside their own product, without owning nine OAuth integrations and their breaking changes',
         ],
       },
     ],
   },
   {
-    id: 'who-we-serve',
-    title: 'Who Uses KabonShare',
+    id: 'principles',
+    title: 'How We Work',
     content: [
       {
+        subtitle: 'We never hold your passwords',
         items: [
-          '<strong>Creators</strong> publishing their own content across several platforms',
-          '<strong>Businesses</strong> coordinating a brand presence without a large marketing team',
-          '<strong>Agencies and social media managers</strong> running many client accounts from one login',
-          '<strong>Developers</strong> adding social publishing to their own products through the API',
+          'Every account connection uses the platform&rsquo;s own authorisation flow. We receive permission to post, never a password',
+          'You can revoke that permission at any time from the platform&rsquo;s own settings, without asking us',
+          'The same applies to a client connecting through an invite — they authorise the platform directly, and the link expires',
+        ],
+      },
+      {
+        subtitle: 'We publish what you asked for, and nothing else',
+        items: [
+          'Nothing is posted that you did not schedule or approve',
+          'We do not post promotional content from your accounts, and we do not sell your data. The full detail is in our <a href="/privacy">Privacy Policy</a>',
+        ],
+      },
+      {
+        subtitle: 'We try to be clear about money',
+        items: [
+          'A free tier that is genuinely usable, and prices published on the <a href="/pricing">pricing page</a> rather than hidden behind a sales call',
+          'A <a href="/refund-policy">refund policy</a> that says plainly what is refundable and what is not, including the parts that are not',
         ],
       },
     ],
   },
   {
-    id: 'how-we-work',
-    title: 'How We Handle Your Accounts',
+    id: 'where-we-are',
+    title: 'Where We Are',
     content: [
       {
-        text: 'Connecting a social account never involves giving us a password. Every connection uses the platform’s own official authorisation flow, and you can revoke our access at any time from the platform’s settings — you do not need to ask us.',
+        text: `${siteConfig.name} is built by a small team and used by people in a lot of places. The platforms we publish to are global, our pricing is available in more than one currency, and the product does not assume where you are.`,
       },
       {
-        text: 'We publish only what you schedule or ask us to publish. How we collect, use and protect your data is set out in full in our <a href="/privacy">Privacy Policy</a>, and the rules for using the service are in our <a href="/terms">Terms of Service</a>.',
+        text: `The company behind it is <strong>${siteConfig.legalName}</strong>, registered in Nigeria. Full details are below.`,
       },
     ],
   },
   {
     id: 'contact',
-    title: 'Getting In Touch',
+    title: 'Talking To Us',
     content: [
       {
+        text: 'There is no support queue that ends at a bot. A person reads these.',
+      },
+      {
         items: [
-          `<strong>Support:</strong> <a href="mailto:${siteConfig.contact.support}">${siteConfig.contact.support}</a> — account questions, bug reports, anything technical`,
-          `<strong>Business and partnerships:</strong> <a href="mailto:${siteConfig.contact.info}">${siteConfig.contact.info}</a>`,
-          `<strong>Phone:</strong> <a href="tel:${siteConfig.phone.replace(/\s/g, '')}">${siteConfig.phone}</a>`,
-          '<strong>Documentation:</strong> <a href="https://docs.kabonshare.com">docs.kabonshare.com</a>',
+          `<strong>Support</strong> — <a href="mailto:${siteConfig.contact.support}">${siteConfig.contact.support}</a>, or Support inside your account. Account questions, bugs, billing`,
+          `<strong>Business and partnerships</strong> — <a href="mailto:${siteConfig.contact.info}">${siteConfig.contact.info}</a>`,
+          `<strong>Phone</strong> — <a href="tel:${siteConfig.phone.replace(/\s/g, '')}">${siteConfig.phone}</a>, Monday to Friday, 9 AM – 6 PM WAT`,
+          '<strong>Documentation</strong> — <a href="https://docs.kabonshare.com">docs.kabonshare.com</a>',
         ],
       },
       {
-        text: 'Support hours are Monday to Friday, 9 AM – 6 PM WAT. Email reaches us at any time and we usually reply within a few hours. Full details are on our <a href="/contact">Contact page</a>.',
+        text: 'Email reaches us at any hour and we usually reply within a few hours. More ways to reach us are on the <a href="/contact">Contact page</a>.',
       },
     ],
   },
@@ -122,7 +150,7 @@ export default function About() {
         <title>{`About Us - ${siteConfig.name}`}</title>
         <meta
           name="description"
-          content={`${siteConfig.legalName} operates ${siteConfig.name}, a social media management platform for publishing, scheduling and analytics across nine networks. Company details and contact information.`}
+          content={`Why ${siteConfig.name} exists, what it does, and who builds it. ${siteConfig.legalName} — a social media management platform for publishing, scheduling and analytics across nine networks.`}
         />
         <link rel="canonical" href="https://kabonshare.com/about/" />
         <meta property="og:title" content={`About Us - ${siteConfig.name}`} />
@@ -133,9 +161,9 @@ export default function About() {
       <LegalPage
         eyebrow="Company"
         title="About Us"
-        description={`${siteConfig.legalName} builds ${siteConfig.name} — one place to publish, schedule and measure social content across every major network.`}
+        description="We got tired of posting the same thing to nine apps by hand, so we built one place that does it."
         lastUpdated={LAST_UPDATED}
-        intro={`${siteConfig.name} exists because managing a presence on nine social networks should not mean opening nine apps. This page explains what we build, who it is for, and how to reach the company behind it.`}
+        intro="This page is the plain version: why KabonShare exists, what it actually does, who we built it for, and the details of the company behind it."
         sections={sections}
         contactPrompt="Questions about the company or the platform? Email us at"
       />
