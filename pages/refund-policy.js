@@ -105,7 +105,7 @@ const sections = [
       {
         items: [
           '<strong>Card payments</strong> are returned to the card that was charged. The payment provider typically settles this within <strong>3–5 business days</strong>, though your bank may take longer to show it',
-          '<strong>Cryptocurrency payments</strong> are returned to a wallet address you provide. You are responsible for giving us a correct address — a transfer sent to a wrong address cannot be recovered',
+          '<strong>Cryptocurrency payments</strong> are returned to the wallet address the payment was sent from. If we cannot determine that address we will ask you for one, and in that case you are responsible for giving us a correct address — a transfer sent to a wrong address cannot be recovered',
           '<strong>Bank transfers and other manual payments</strong> are returned the same way they arrived, which we arrange with you directly',
         ],
       },
@@ -162,6 +162,7 @@ export default function RefundPolicy() {
       </Head>
 
       <LegalPage
+        eyebrow="Billing"
         title="Refund Policy"
         description="How refunds work, what is eligible, and how to request one."
         lastUpdated={LAST_UPDATED}

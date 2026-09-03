@@ -105,7 +105,7 @@ const sections = [
           'An eligible <strong>subscription</strong> payment is refunded in full — we do not prorate unused time on a subscription or convert it into credit',
           '<strong>Extra account slots</strong> are the exception: they are refunded for the unused portion of the period, mirroring the way they are charged when bought part-way through one',
           'Post credits, AI generation credits and wallet top-ups are not refundable',
-          'Card refunds are returned to the original payment method; cryptocurrency refunds are sent to a wallet address you provide, and you are responsible for providing a correct address',
+          'Card refunds are returned to the original payment method; cryptocurrency refunds are sent to the wallet address the payment came from, or to an address you provide if we cannot determine it',
           'Full details are in our <a href="/refund-policy">Refund Policy</a>'
         ]
       },
