@@ -24,7 +24,8 @@ const footerLinks = {
     { label: 'About Us', href: '/about' },
     { label: 'Contact Us', href: '/contact' },
     { label: 'Terms of Service', href: '/terms' },
-    { label: 'Privacy Policy', href: '/privacy' }
+    { label: 'Privacy Policy', href: '/privacy' },
+    { label: 'Refund Policy', href: '/refund-policy' }
   ]
 }
 

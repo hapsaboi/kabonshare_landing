@@ -102,8 +102,11 @@ const sections = [
         items: [
           'You may request a refund within 7 days of a payment by contacting our support team — refunds are reviewed and processed by us and are not available as a self-service action',
           'Refund eligibility is assessed per payment; a request made more than 7 days after that payment is not eligible',
-          'We do not prorate unused time or convert it into credit — an eligible payment is refunded in full',
-          'Card refunds are returned to the original payment method; cryptocurrency refunds are sent to a wallet address you provide, and you are responsible for providing a correct address'
+          'An eligible <strong>subscription</strong> payment is refunded in full — we do not prorate unused time on a subscription or convert it into credit',
+          '<strong>Extra account slots</strong> are the exception: they are refunded for the unused portion of the period, mirroring the way they are charged when bought part-way through one',
+          'Post credits, AI generation credits and wallet top-ups are not refundable',
+          'Card refunds are returned to the original payment method; cryptocurrency refunds are sent to a wallet address you provide, and you are responsible for providing a correct address',
+          'Full details are in our <a href="/refund-policy">Refund Policy</a>'
         ]
       },
       {
