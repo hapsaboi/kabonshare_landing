@@ -95,7 +95,7 @@ export default function LegalPage({ title, description, lastUpdated, intro, sect
                           // as plain text printed the tags on the page. Same trust
                           // boundary — static content authored in this repo.
                           <p
-                            className="text-muted leading-relaxed mb-4 [&_strong]:text-slate-200 [&_strong]:font-medium [&_a]:text-indigo-400 [&_a]:underline [&_a]:underline-offset-2 hover:[&_a]:text-indigo-300"
+                            className="text-muted leading-relaxed mb-4 [&_strong]:text-body [&_strong]:font-medium [&_a]:text-indigo-400 [&_a]:underline [&_a]:underline-offset-2 hover:[&_a]:text-indigo-300"
                             dangerouslySetInnerHTML={{ __html: block.text }}
                           />
                         )}
@@ -105,7 +105,7 @@ export default function LegalPage({ title, description, lastUpdated, intro, sect
                         {block.items && (
                           <ul className="space-y-2.5">
                             {block.items.map((item, itemIndex) => (
-                              <li key={itemIndex} className="relative pl-5 text-[15px] leading-relaxed text-muted [&_strong]:text-slate-200 [&_strong]:font-medium [&_a]:text-indigo-400 [&_a]:underline [&_a]:underline-offset-2 hover:[&_a]:text-indigo-300">
+                              <li key={itemIndex} className="relative pl-5 text-[15px] leading-relaxed text-muted [&_strong]:text-body [&_strong]:font-medium [&_a]:text-indigo-400 [&_a]:underline [&_a]:underline-offset-2 hover:[&_a]:text-indigo-300">
                                 <span className="absolute left-0 top-[0.7em] w-1.5 h-px bg-slate-600" aria-hidden="true"></span>
                                 <span dangerouslySetInnerHTML={{ __html: item }} />
                               </li>

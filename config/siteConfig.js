@@ -22,6 +22,9 @@ export const siteConfig = {
   // than the product) is being identified — payment-provider KYB reviews check
   // that the site names the same entity that holds the merchant account.
   legalName: 'KabonShare Limited',
+  // CAC registration number. Named on About because a merchant review checks
+  // that the site identifies the same registered entity as the account.
+  registrationNumber: 'RC 9478291',
 
   address: {
     line1: '13A Hospital Road',

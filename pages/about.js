@@ -136,6 +136,7 @@ const sections = [
       {
         items: [
           `<strong>Registered name:</strong> ${siteConfig.legalName}`,
+          `<strong>Registration number:</strong> ${siteConfig.registrationNumber}`,
           `<strong>Registered address:</strong> ${siteConfig.address.line1}, ${siteConfig.address.line2}, ${siteConfig.address.city}, ${siteConfig.address.country}`,
           `<strong>Website:</strong> <a href="${siteConfig.url}">${siteConfig.url.replace('https://', '')}</a>`,
           `<strong>Email:</strong> <a href="mailto:${siteConfig.contact.support}">${siteConfig.contact.support}</a>`,
