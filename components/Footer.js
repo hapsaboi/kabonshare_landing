@@ -21,6 +21,7 @@ const footerLinks = {
     { label: 'Quick Start Guide', href: siteConfig.api.docs + '/quickstart' }
   ],
   company: [
+    { label: 'About Us', href: '/about' },
     { label: 'Contact Us', href: '/contact' },
     { label: 'Terms of Service', href: '/terms' },
     { label: 'Privacy Policy', href: '/privacy' }

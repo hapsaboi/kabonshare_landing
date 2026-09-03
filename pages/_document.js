@@ -1,4 +1,5 @@
 import { Html, Head, Main, NextScript } from 'next/document'
+import { siteConfig } from '../config/siteConfig'
 
 export default function Document() {
   return (
@@ -81,17 +82,21 @@ export default function Document() {
                 '@type': 'Organization',
                 name: 'KabonShare',
                 url: 'https://kabonshare.com',
+                // Read from siteConfig so the schema cannot drift from what the
+                // pages display. These disagreed before — the schema carried a
+                // different address and phone number than /contact — which is
+                // exactly what a payment provider's KYB review flags.
                 address: {
                   '@type': 'PostalAddress',
-                  streetAddress: '13A Hospital Road, Yola North',
-                  addressLocality: 'Adamawa State',
+                  streetAddress: `${siteConfig.address.line1}, ${siteConfig.address.line2}`,
+                  addressLocality: siteConfig.address.city,
                   addressCountry: 'NG'
                 },
                 contactPoint: {
                   '@type': 'ContactPoint',
-                  telephone: '+234-903-332-6993',
+                  telephone: siteConfig.phone.replace(/\s/g, '-'),
                   contactType: 'customer service',
-                  email: 'support@kabonshare.com'
+                  email: siteConfig.contact.support
                 }
               }
             })

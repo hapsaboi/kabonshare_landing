@@ -18,10 +18,15 @@ export const siteConfig = {
     youtube: 'https://www.youtube.com/@kabonshare',
   },
 
+  // Registered company name, used on About and anywhere the legal entity (rather
+  // than the product) is being identified — payment-provider KYB reviews check
+  // that the site names the same entity that holds the merchant account.
+  legalName: 'KabonShare Limited',
+
   address: {
-    line1: 'No. 5 AGF Abdulrazak Street',
-    line2: 'Off 1st Avenue, Gwarinpa',
-    city: 'FCT Abuja',
+    line1: '13A Hospital Road',
+    line2: 'Yola North',
+    city: 'Adamawa State',
     country: 'Nigeria'
   },
   

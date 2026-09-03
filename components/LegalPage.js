@@ -5,12 +5,12 @@ import Footer from './Footer'
 import { siteConfig } from '../config/siteConfig'
 
 /**
- * Shared document shell for legal pages (terms, privacy): left sticky table
+ * Shared document shell for document-style pages (terms, privacy, about): left sticky table
  * of contents with scroll-spy highlighting, numbered sections, contact box.
  * Section list items may contain HTML (links, <strong>) — trusted, static,
  * authored in this repo.
  */
-export default function LegalPage({ title, description, lastUpdated, intro, sections, contactPrompt }) {
+export default function LegalPage({ title, description, lastUpdated, intro, sections, contactPrompt, eyebrow = 'Legal' }) {
   const [activeId, setActiveId] = useState(sections[0]?.id)
 
   // Scroll-spy: the active section is the last one whose heading has scrolled
@@ -38,7 +38,7 @@ export default function LegalPage({ title, description, lastUpdated, intro, sect
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 pb-20">
           {/* Document header */}
           <header className="max-w-3xl border-b border-line pb-10 mb-10">
-            <p className="text-sm font-medium text-indigo-400 mb-3">Legal</p>
+            <p className="text-sm font-medium text-indigo-400 mb-3">{eyebrow}</p>
             <h1 className="text-4xl sm:text-5xl font-bold text-body tracking-tight mb-4">{title}</h1>
             <p className="text-lg text-muted leading-relaxed">{description}</p>
             <p className="mt-4 text-sm text-subtle">Last updated {lastUpdated}</p>
