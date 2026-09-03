@@ -7,8 +7,8 @@ import { siteConfig } from '../config/siteConfig'
 /**
  * Shared document shell for document-style pages (terms, privacy, about): left sticky table
  * of contents with scroll-spy highlighting, numbered sections, contact box.
- * Section list items may contain HTML (links, <strong>) — trusted, static,
- * authored in this repo.
+ * Section text and list items may both contain HTML (links, <strong>) — trusted,
+ * static, authored in this repo.
  */
 export default function LegalPage({ title, description, lastUpdated, intro, sections, contactPrompt, eyebrow = 'Legal' }) {
   const [activeId, setActiveId] = useState(sections[0]?.id)
@@ -90,7 +90,14 @@ export default function LegalPage({ title, description, lastUpdated, intro, sect
                     {section.content.map((block, blockIndex) => (
                       <div key={blockIndex}>
                         {block.text && (
-                          <p className="text-muted leading-relaxed mb-4">{block.text}</p>
+                          // Rendered as HTML for the same reason `items` are: these
+                          // paragraphs carry links and emphasis, and rendering them
+                          // as plain text printed the tags on the page. Same trust
+                          // boundary — static content authored in this repo.
+                          <p
+                            className="text-muted leading-relaxed mb-4 [&_strong]:text-slate-200 [&_strong]:font-medium [&_a]:text-indigo-400 [&_a]:underline [&_a]:underline-offset-2 hover:[&_a]:text-indigo-300"
+                            dangerouslySetInnerHTML={{ __html: block.text }}
+                          />
                         )}
                         {block.subtitle && (
                           <h3 className="text-base font-semibold text-body mb-3">{block.subtitle}</h3>

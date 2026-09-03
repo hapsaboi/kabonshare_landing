@@ -26,7 +26,7 @@ const sections = [
       {
         items: [
           'You can request a refund within <strong>7 days</strong> of a payment',
-          'Requests go through our support team — refunds are not self-service',
+          'Request one from <strong>Support</strong> inside your account, or by email — refunds are reviewed by our team, not self-service',
           'Eligible subscription payments are refunded <strong>in full</strong>, not prorated',
           'Extra account slots are refunded for the <strong>unused portion</strong> of the period',
           'Post credits, AI credits and wallet top-ups are <strong>not refundable</strong>',
@@ -82,10 +82,19 @@ const sections = [
     title: 'How to Request a Refund',
     content: [
       {
-        text: `Email <a href="mailto:${siteConfig.contact.support}">${siteConfig.contact.support}</a> from the address on your account, telling us which payment you would like refunded. Refunds are reviewed and processed by our team rather than being a button in the app, so that we can check the payment, confirm the window and handle the provider correctly.`,
+        text: 'There are two ways to reach us, and either is fine:',
       },
       {
-        text: 'It helps if you include the payment reference or the date and amount, especially if you have more than one payment on the account.',
+        items: [
+          `<strong>From inside your account</strong> — open <a href="${siteConfig.dashboard}/dashboard/support">Support</a> and raise a ticket under the <strong>Billing</strong> category. This is usually the faster route, because the ticket already identifies your account and we can see the payment without asking you for it`,
+          `<strong>By email</strong> — write to <a href="mailto:${siteConfig.contact.support}">${siteConfig.contact.support}</a> from the address on your account`,
+        ],
+      },
+      {
+        text: 'Tell us which payment you would like refunded. If you are emailing, or you have more than one payment on the account, including the payment reference or the date and amount helps us find it straight away.',
+      },
+      {
+        text: 'Refunds are reviewed and processed by our team rather than being a button in the app, so that we can check the payment, confirm it is inside the window, and handle the provider correctly.',
       },
     ],
   },
@@ -128,7 +137,7 @@ const sections = [
     title: 'If Something Goes Wrong',
     content: [
       {
-        text: `If a refund has not arrived when you expect it, or you believe a payment was taken in error, contact us at <a href="mailto:${siteConfig.contact.support}">${siteConfig.contact.support}</a> before raising a dispute with your bank or card issuer. We can usually resolve it faster directly, and a chargeback typically freezes the account while it is investigated.`,
+        text: `If a refund has not arrived when you expect it, or you believe a payment was taken in error, contact us — through <a href="${siteConfig.dashboard}/dashboard/support">Support</a> in your account or at <a href="mailto:${siteConfig.contact.support}">${siteConfig.contact.support}</a> — before raising a dispute with your bank or card issuer. We can usually resolve it faster directly, and a chargeback typically freezes the account while it is investigated.`,
       },
       {
         text: 'This policy sits alongside our <a href="/terms">Terms of Service</a>. Where the Terms describe billing in more general language, this page is the detailed statement of how refunds work.',
