@@ -99,10 +99,13 @@ const sections = [
     title: 'Where We Are',
     content: [
       {
-        text: `${siteConfig.name} is built by a small team and used by people in a lot of places. The platforms we publish to are global, our pricing is available in more than one currency, and the product does not assume where you are.`,
+        text: `${siteConfig.name} is built by a small, distributed team. The platforms we publish to are global, our pricing is available in more than one currency, and nothing in the product assumes where you are.`,
       },
       {
-        text: `The company behind it is <strong>${siteConfig.legalName}</strong>, registered in Nigeria. Full details are below.`,
+        // Registration jurisdiction is deliberately not stated here. It appears
+        // once, factually, in Company Details below — where a payment provider's
+        // KYB review looks for it — rather than twice in the prose.
+        text: `The company behind it is <strong>${siteConfig.legalName}</strong>. Registration and contact details are below.`,
       },
     ],
   },
