@@ -6,6 +6,7 @@ import Footer from '../../components/Footer'
 import PostCard from '../../components/blog/PostCard'
 import BlogCTA from '../../components/blog/BlogCTA'
 import AuthorBox from '../../components/blog/AuthorBox'
+import ShareRail from '../../components/blog/ShareRail'
 import PlatformBackdrop, { PlatformScatter } from '../../components/blog/PlatformBackdrop'
 import { getAllPosts, renderMarkdown, getRelatedPosts, formatPostDate } from '../../lib/blog'
 
@@ -99,7 +100,10 @@ export default function BlogArticle({ post, html, headings, related }) {
         <PlatformScatter />
         <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 pb-20">
           {/* Split hero — text left, cover right (Buffer-style) */}
-          <header className="grid lg:grid-cols-2 gap-10 lg:gap-14 items-center mb-14">
+          {/* ~70vh so the hero reads as a full opening rather than a band above
+              the article, with a floor so a short title still fills it and a
+              cap so it never pushes the first paragraph off a laptop screen. */}
+          <header className="grid lg:grid-cols-2 gap-10 lg:gap-14 items-center mb-14 lg:min-h-[70vh] lg:max-h-[760px]">
             <div>
               <div className="flex items-center gap-2 text-sm mb-6">
                 <Link href="/blog/" className="text-subtle hover:text-muted transition-colors">Blog</Link>
@@ -157,16 +161,16 @@ export default function BlogArticle({ post, html, headings, related }) {
               )}
             </div>
 
-            <div className="relative rounded-3xl overflow-hidden border border-line bg-surface">
+            <div className="relative rounded-3xl overflow-hidden border border-line bg-surface lg:h-full lg:max-h-[560px]">
               {post.coverImage?.url ? (
                 // eslint-disable-next-line @next/next/no-img-element
                 <img
                   src={post.coverImage.url}
                   alt={post.coverImage.alt || post.title}
-                  className="w-full aspect-[16/10] object-cover"
+                  className="w-full aspect-[16/10] lg:aspect-auto lg:h-full lg:max-h-[560px] object-cover"
                 />
               ) : (
-                <div className="w-full aspect-[16/10] bg-gradient-to-br from-indigo-500/20 to-violet-600/20 flex items-center justify-center overflow-hidden">
+                <div className="w-full aspect-[16/10] lg:aspect-auto lg:h-full lg:min-h-[420px] bg-gradient-to-br from-indigo-500/20 to-violet-600/20 flex items-center justify-center overflow-hidden">
                   <PlatformBackdrop size={72} gap={28} className="opacity-[0.14]" />
                 </div>
               )}
@@ -214,6 +218,8 @@ export default function BlogArticle({ post, html, headings, related }) {
                   prose-img:rounded-2xl prose-hr:border-line"
                 dangerouslySetInnerHTML={{ __html: html }}
               />
+
+              <ShareRail title={post.title} />
 
               <div className="mt-12 space-y-10">
                 <AuthorBox post={post} />
