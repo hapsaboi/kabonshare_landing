@@ -39,11 +39,22 @@ export default function Document() {
         {/* Blog RSS feed */}
         <link rel="alternate" type="application/rss+xml" title="KabonShare Blog" href="/rss.xml" />
 
-        {/* OG/Twitter defaults live in _app.js, not here. next/head only
-            dedupes tags rendered through <Head>, and _document renders
-            separately — so defaults placed here could not be overridden, and
-            every article shipped both its own og:type/og:image and these,
-            leaving scrapers to pick between conflicting values. */}
+        {/* Default OG tags (pages can override) */}
+        <meta property="og:site_name" content="KabonShare" />
+        <meta property="og:type" content="website" />
+        {/* 1200x630. WhatsApp, Twitter and LinkedIn all crop to ~1.91:1 — the
+            old square logo.png got letterboxed into a card instead of filling
+            it, which is why the preview showed an icon rather than a banner.
+            Declaring width/height lets WhatsApp render the card immediately
+            instead of waiting to fetch and measure the file. */}
+        <meta property="og:image" content="https://kabonshare.com/og-image.png" />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta property="og:image:type" content="image/png" />
+        <meta property="og:image:alt" content="KabonShare — publish once, reach everyone" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:site" content="@kabonshare" />
+        <meta name="twitter:image" content="https://kabonshare.com/og-image.png" />
 
         {/* Theme color */}
         <meta name="theme-color" content="#667eea" />
