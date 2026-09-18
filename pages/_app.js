@@ -41,6 +41,25 @@ export default function App({ Component, pageProps }) {
             Measurement will let us rank Purchase as the priority event — without
             it, Apple's privacy rules leave us on Meta's default ranking. */}
         <meta name="facebook-domain-verification" content="wop5lbf56c4drcsfya3ds0bk3zknxf" />
+
+        {/* Site-wide OG/Twitter defaults. Here rather than in _document so a
+            page can genuinely override them: next/head replaces a tag when a
+            later <Head> declares the same property, which only works for tags
+            rendered through it. */}
+        <meta key="og:site_name" property="og:site_name" content="KabonShare" />
+        <meta key="og:type" property="og:type" content="website" />
+        {/* 1200x630. WhatsApp, Twitter and LinkedIn all crop to ~1.91:1 — a
+            square logo gets letterboxed into a card instead of filling it.
+            Declaring width/height lets WhatsApp render immediately rather than
+            waiting to fetch and measure the file. */}
+        <meta key="og:image" property="og:image" content="https://kabonshare.com/og-image.png" />
+        <meta key="og:image:width" property="og:image:width" content="1200" />
+        <meta key="og:image:height" property="og:image:height" content="630" />
+        <meta key="og:image:type" property="og:image:type" content="image/png" />
+        <meta key="og:image:alt" property="og:image:alt" content="KabonShare — publish once, reach everyone" />
+        <meta key="twitter:card" name="twitter:card" content="summary_large_image" />
+        <meta key="twitter:site" name="twitter:site" content="@kabonshare" />
+        <meta key="twitter:image" name="twitter:image" content="https://kabonshare.com/og-image.png" />
       </Head>
 
       {/* Meta Pixel.

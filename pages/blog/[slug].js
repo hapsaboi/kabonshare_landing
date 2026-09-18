@@ -81,15 +81,26 @@ export default function BlogArticle({ post, html, headings, related }) {
         <title>{`${metaTitle} - KabonShare Blog`}</title>
         <meta name="description" content={metaDescription} />
         <link rel="canonical" href={canonical} />
-        <meta property="og:type" content="article" />
-        <meta property="og:title" content={metaTitle} />
-        <meta property="og:description" content={metaDescription} />
-        <meta property="og:url" content={canonical} />
-        {post.coverImage?.url && <meta property="og:image" content={post.coverImage.url} />}
+        {/* key= is what makes these REPLACE the defaults in _app rather than
+            sit alongside them. Without it a shared article carried both
+            og:type article and website, and both the post's cover and the
+            site-wide image — leaving scrapers to choose, which is why a
+            Facebook share showed the wrong card. */}
+        <meta key="og:type" property="og:type" content="article" />
+        <meta key="og:title" property="og:title" content={metaTitle} />
+        <meta key="og:description" property="og:description" content={metaDescription} />
+        <meta key="og:url" property="og:url" content={canonical} />
+        {post.coverImage?.url && (
+          <>
+            <meta key="og:image" property="og:image" content={post.coverImage.url} />
+            <meta key="og:image:alt" property="og:image:alt" content={post.coverImage.alt || post.title} />
+          </>
+        )}
         <meta property="article:published_time" content={post.publishedAt} />
         <meta property="article:modified_time" content={post.updatedAt || post.publishedAt} />
         {(post.tags || []).map(t => <meta key={t} property="article:tag" content={t} />)}
-        <meta name="twitter:card" content={post.coverImage?.url ? 'summary_large_image' : 'summary'} />
+        <meta key="twitter:card" name="twitter:card" content={post.coverImage?.url ? 'summary_large_image' : 'summary'} />
+        {post.coverImage?.url && <meta key="twitter:image" name="twitter:image" content={post.coverImage.url} />}
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       </Head>
 
