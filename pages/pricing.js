@@ -1,5 +1,6 @@
 'use client'
 import { useState, useEffect } from 'react'
+import { siteConfig } from '../config/siteConfig'
 import Head from 'next/head'
 import Link from 'next/link'
 import { motion, AnimatePresence } from 'framer-motion'
@@ -232,16 +233,75 @@ function FAQItem({ q, a, num }) {
   )
 }
 
-export default function Pricing() {
-  const [plans, setPlans] = useState([])
-  const [loading, setLoading] = useState(true)
+/**
+ * Plans are fetched here rather than in a useEffect.
+ *
+ * The page previously loaded them in the browser, so the HTML shipped with no
+ * prices at all — a pricing page that a crawler sees as empty, on exactly the
+ * content people search for. Fetching at render puts real figures in the
+ * markup; ISR keeps them current without a rebuild when a price changes.
+ *
+ * Currency DETECTION stays on the client: it depends on the visitor's locale,
+ * which the server cannot know, so the page renders in USD and switches once
+ * hydrated.
+ */
+export async function getStaticProps() {
+  try {
+    const res = await fetch(`${siteConfig.api.baseUrl}/api/plans`)
+    if (!res.ok) throw new Error(`HTTP ${res.status}`)
+    const json = await res.json()
+    const payload = json?.data ?? json
+    return {
+      props: {
+        initialPlans: payload?.plans || [],
+        initialYearlyDiscount: payload?.yearlyDiscount || { percent: 20, minMonths: 12 },
+      },
+      revalidate: 300,
+    }
+  } catch (err) {
+    // A pricing page with no prices is worse than a stale one, but failing the
+    // build over a transient API blip is worse still — the client fetch below
+    // is kept as the fallback, so the page degrades to its old behaviour.
+    console.error('Pricing build fetch failed:', err.message)
+    return { props: { initialPlans: [], initialYearlyDiscount: { percent: 20, minMonths: 12 } }, revalidate: 60 }
+  }
+}
+
+export default function Pricing({ initialPlans = [], initialYearlyDiscount }) {
+  const [plans, setPlans] = useState(initialPlans)
+  // Only "loading" when the server had nothing to give us.
+  const [loading, setLoading] = useState(initialPlans.length === 0)
   const [billingCycle, setBillingCycle] = useState('year')
   const [accountsWanted, setAccountsWanted] = useState(1) // seeded to the cheapest paid plan's included accounts once plans load
   const [currency, setCurrency] = useState('USD')
   const [availableCurrencies, setAvailableCurrencies] = useState(['USD'])
-  const [yearlyDiscount, setYearlyDiscount] = useState({ percent: 20, minMonths: 12 })
+  const [yearlyDiscount, setYearlyDiscount] = useState(initialYearlyDiscount || { percent: 20, minMonths: 12 })
 
-  useEffect(() => { fetchPlans() }, [])
+  // Re-fetch in the browser only when the server had nothing (build-time API
+  // blip). Otherwise the props are already correct and a second request would
+  // just repeat work — but currency detection still has to run, since it needs
+  // the visitor's locale.
+  useEffect(() => {
+    if (plans.length === 0) { fetchPlans(); return }
+    const currencies = new Set()
+    plans.forEach(plan => plan.prices?.forEach(pr => { if (pr.currency) currencies.add(pr.currency) }))
+    const currencyArray = Array.from(currencies)
+      .filter(c => SUPPORTED_CURRENCIES.includes(c))
+      .sort((a, b) => SUPPORTED_CURRENCIES.indexOf(a) - SUPPORTED_CURRENCIES.indexOf(b))
+    setAvailableCurrencies(currencyArray.length > 0 ? currencyArray : ['USD'])
+
+    const paid = plans
+      .map(p => ({ p, amt: (p.prices?.find(pr => pr.interval === 'month' && pr.currency === 'USD') || p.prices?.find(pr => pr.interval === 'month'))?.amount ?? 0 }))
+      .filter(x => x.amt > 0)
+      .sort((a, b) => a.amt - b.amt)
+    const inc = paid[0]?.p?.limits?.maxAccounts
+    if (typeof inc === 'number' && inc > 0) setAccountsWanted(inc)
+
+    const detected = detectCurrency(currencyArray)
+    if (detected) setCurrency(detected)
+    else if (currencyArray.length > 0 && !currencyArray.includes('USD')) setCurrency(currencyArray[0])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   const fetchPlans = async () => {
     try {
