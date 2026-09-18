@@ -4,8 +4,9 @@
   "branch": "main",
   "clonePath": "/var/www/kabonshare_landing",
   "appType": "3",
-  "nextMode": "static",
+  "nextMode": "dynamic",
   "overwrite": "y",
   "hasEnv": "y",
-  "envFile": "c:/Users/MY PC/Documents/Development/ReactJS/kabonshare-landing/.env.local"
+  "envFile": "c:/Users/MY PC/Documents/Development/ReactJS/kabonshare-landing/.env.local",
+  "port": "3002"
 }
