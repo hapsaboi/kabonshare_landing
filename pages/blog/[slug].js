@@ -102,7 +102,10 @@ export default function BlogArticle({ post, html, headings, related }) {
           {/* Split hero — text left, cover right (Buffer-style) */}
           {/* ~70vh so the hero reads as a full opening rather than a band above
               the article, with a floor so a short title still fills it and a
-              cap so it never pushes the first paragraph off a laptop screen. */}
+              cap so it never pushes the first paragraph off a laptop screen.
+              The cover keeps its 16:10 ratio rather than stretching to that
+              height — filling it turned the placeholder into a near-square
+              slab and left the two columns visibly out of step. */}
           <header className="grid lg:grid-cols-2 gap-10 lg:gap-14 items-center mb-14 lg:min-h-[70vh] lg:max-h-[760px]">
             <div>
               <div className="flex items-center gap-2 text-sm mb-6">
@@ -161,16 +164,16 @@ export default function BlogArticle({ post, html, headings, related }) {
               )}
             </div>
 
-            <div className="relative rounded-3xl overflow-hidden border border-line bg-surface lg:h-full lg:max-h-[560px]">
+            <div className="relative rounded-3xl overflow-hidden border border-line bg-surface">
               {post.coverImage?.url ? (
                 // eslint-disable-next-line @next/next/no-img-element
                 <img
                   src={post.coverImage.url}
                   alt={post.coverImage.alt || post.title}
-                  className="w-full aspect-[16/10] lg:aspect-auto lg:h-full lg:max-h-[560px] object-cover"
+                  className="w-full aspect-[16/10] object-cover"
                 />
               ) : (
-                <div className="w-full aspect-[16/10] lg:aspect-auto lg:h-full lg:min-h-[420px] bg-gradient-to-br from-indigo-500/20 to-violet-600/20 flex items-center justify-center overflow-hidden">
+                <div className="w-full aspect-[16/10] bg-gradient-to-br from-indigo-500/20 to-violet-600/20 flex items-center justify-center overflow-hidden">
                   <PlatformBackdrop size={72} gap={28} className="opacity-[0.14]" />
                 </div>
               )}
