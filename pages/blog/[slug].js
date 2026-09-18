@@ -13,19 +13,25 @@ export async function getStaticPaths() {
   const posts = await getAllPosts()
   return {
     paths: posts.map(p => ({ params: { slug: p.slug } })),
-    fallback: false,
+    // 'blocking', not false: a post published after the last deploy has no
+    // pre-generated path, and fallback:false would 404 it — which would make
+    // ISR pointless for exactly the case it exists for. Blocking renders it on
+    // first request, then caches it like any other page.
+    fallback: 'blocking',
   }
 }
 
 export async function getStaticProps({ params }) {
   const posts = await getAllPosts()
   const post = posts.find(p => p.slug === params.slug)
-  if (!post) return { notFound: true }
+  // revalidate on notFound as well: without it a slug requested before its
+  // post exists would cache as a permanent 404.
+  if (!post) return { notFound: true, revalidate: 60 }
 
   const { html, headings } = await renderMarkdown(post.content)
   const related = getRelatedPosts(post, posts)
 
-  return { props: { post, html, headings, related } }
+  return { props: { post, html, headings, related }, revalidate: 60 }
 }
 
 export default function BlogArticle({ post, html, headings, related }) {

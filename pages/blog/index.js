@@ -12,7 +12,10 @@ const PAGE_SIZE = 9
 
 export async function getStaticProps() {
   const [posts, categories] = await Promise.all([getAllPosts(), getCategories()])
-  return { props: { posts, categories } }
+  // Re-rendered at most once a minute, in the background: readers keep getting
+  // the cached page instantly while the new one builds, so a published post
+  // appears without anyone deploying.
+  return { props: { posts, categories }, revalidate: 60 }
 }
 
 export default function BlogIndex({ posts, categories }) {

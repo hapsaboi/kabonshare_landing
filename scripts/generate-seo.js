@@ -1,7 +1,12 @@
 /**
- * Post-build SEO artifacts: writes out/sitemap.xml and out/rss.xml from the
- * backend's public blog API. Runs after `next build` (static export), so it
- * overwrites the copy of anything that came from public/.
+ * Post-build SEO artifacts: writes public/sitemap.xml and public/rss.xml from
+ * the backend's public blog API.
+ *
+ * Wrote to out/ while the site was a static export. It now runs as a Node app,
+ * so the files belong in public/, which Next serves directly. Note this means
+ * the sitemap reflects the posts that existed at BUILD time — unlike the pages
+ * themselves, which revalidate. Re-run `npm run seo` after publishing if a new
+ * post needs to appear in the sitemap before the next deploy.
  *
  * This script is the single source of truth for the sitemap — when a new
  * static page ships, add it to STATIC_PAGES below.
@@ -11,7 +16,7 @@ const path = require('path')
 
 const SITE = 'https://kabonshare.com'
 const API = process.env.NEXT_PUBLIC_API_URL || 'https://api.kabonshare.com'
-const OUT = path.join(__dirname, '..', 'out')
+const OUT = path.join(__dirname, '..', 'public')
 
 // Keep the /features/<slug>/ list in sync with config/features.js (that file
 // imports react-icons, so it can't be required from this CJS script directly).
@@ -118,7 +123,7 @@ async function main() {
   const posts = await fetchAllPosts()
   fs.writeFileSync(path.join(OUT, 'sitemap.xml'), buildSitemap(posts))
   fs.writeFileSync(path.join(OUT, 'rss.xml'), buildRss(posts))
-  console.log(`✓ sitemap.xml (${STATIC_PAGES.length} static + ${posts.length} posts) and rss.xml written to out/`)
+  console.log(`✓ sitemap.xml (${STATIC_PAGES.length} static + ${posts.length} posts) and rss.xml written to public/`)
 }
 
 main().catch(err => {

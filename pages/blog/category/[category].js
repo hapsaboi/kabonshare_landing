@@ -11,15 +11,17 @@ export async function getStaticPaths() {
   const categories = await getCategories()
   return {
     paths: categories.map(c => ({ params: { category: c.category } })),
-    fallback: false,
+    // A category only exists once a post uses it, so a new one has no
+    // pre-generated path — see the comment in [slug].js.
+    fallback: 'blocking',
   }
 }
 
 export async function getStaticProps({ params }) {
   const [posts, categories] = await Promise.all([getAllPosts(), getCategories()])
   const filtered = posts.filter(p => p.category === params.category)
-  if (!filtered.length) return { notFound: true }
-  return { props: { posts: filtered, categories, category: params.category } }
+  if (!filtered.length) return { notFound: true, revalidate: 60 }
+  return { props: { posts: filtered, categories, category: params.category }, revalidate: 60 }
 }
 
 export default function BlogCategory({ posts, categories, category }) {
