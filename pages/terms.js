@@ -190,6 +190,58 @@ const sections = [
     ]
   },
   {
+    // Google Play's Child Safety Standards policy requires apps in the Social
+    // category to publish standards against child sexual abuse and
+    // exploitation, and to link them from Play Console. Play accepts terms of
+    // service as the home for them, so they live here rather than on a
+    // separate page — linked as /terms#child-safety.
+    //
+    // Every commitment below has to stay true of the product: the in-app
+    // reporting paths named here exist in the app (utils/safetyReport.js), and
+    // if they change, this changes with them.
+    id: 'child-safety',
+    title: 'Child Safety Standards',
+    content: [
+      {
+        text: 'KabonShare has zero tolerance for child sexual abuse and exploitation (CSAE). Content that sexualises, exploits or endangers a minor is prohibited without exception, whether it is reported to us or found by our own checks.'
+      },
+      {
+        text: 'The following are prohibited in uploaded media, scheduled posts, captions and any other content passing through our systems:',
+        items: [
+          'Child sexual abuse material (CSAM) in any form',
+          'Sexualised depictions of minors, including computer-generated, illustrated or AI-generated imagery',
+          'Content that sexualises a real minor, including through captions, hashtags or framing',
+          'Grooming, solicitation or sextortion of a minor',
+          'Trafficking, advertising or facilitating access to any of the above',
+          'Links or references directing people to CSAE material hosted elsewhere'
+        ]
+      },
+      {
+        text: '<strong>How to report.</strong> Anyone — customer or not — can report a suspected violation, and every report is reviewed by a person:',
+        items: [
+          'In the app: tap the flag icon on any post, or go to More &rarr; Support &amp; Legal &rarr; Report a child safety concern',
+          'By email: <a href="mailto:support@kabonshare.com">support@kabonshare.com</a> with "CHILD SAFETY" in the subject line'
+        ]
+      },
+      {
+        text: 'Please describe what you saw and where, but <strong>do not attach or forward the material itself</strong> — reproducing it may be unlawful. Reports are acknowledged within 24 hours and are not disclosed to the account being reported.'
+      },
+      {
+        text: '<strong>What happens next.</strong> When we receive a report or detect a violation:',
+        items: [
+          'The content is removed and scheduled publishing is halted immediately',
+          'The account is suspended pending investigation',
+          'We preserve the evidence required by law, even where the account is otherwise being deleted',
+          'Substantiated cases are reported to the relevant law enforcement and child protection authorities, in line with our legal obligations',
+          'Confirmed violations result in permanent termination'
+        ]
+      },
+      {
+        text: 'Accounts must be held by someone at least 18 years old, and KabonShare is not directed at children. Connected social accounts are authenticated through each platform\'s official OAuth flow, and content published through KabonShare is additionally subject to the receiving platform\'s own CSAE detection. Our designated point of contact for child safety and CSAM prevention matters is <a href="mailto:support@kabonshare.com">support@kabonshare.com</a>.'
+      }
+    ]
+  },
+  {
     id: 'content-liability',
     title: 'Content and Liability',
     content: [
