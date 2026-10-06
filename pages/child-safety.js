@@ -84,7 +84,7 @@ const sections = [
       {
         items: [
           `<strong>Email</strong>: <a href="mailto:${siteConfig.contact.support}">${siteConfig.contact.support}</a> with "CHILD SAFETY" in the subject line`,
-          '<strong>In the app</strong>: use the Report option on any post or workspace, or Help &rarr; Report a concern',
+          '<strong>In the app</strong>: tap the flag icon on any post, or go to More &rarr; Support &amp; Legal &rarr; Report a child safety concern',
           `<strong>Urgent cases</strong>: mark the email URGENT and we will prioritise it ahead of all other support`,
         ],
       },
