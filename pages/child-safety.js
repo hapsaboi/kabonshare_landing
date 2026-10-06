@@ -108,7 +108,7 @@ const sections = [
           'The content is <strong>removed and scheduled publishing is halted</strong> immediately, before any review is complete',
           'The account is <strong>suspended</strong> pending investigation',
           'We <strong>preserve the evidence</strong> required by law, in a restricted-access form, even where the account is otherwise being deleted',
-          'Substantiated cases are <strong>reported to the relevant authorities</strong> — including the National Center for Missing &amp; Exploited Children (NCMEC) in the United States, and the equivalent national body in other jurisdictions where we are required to report',
+          'Substantiated cases are <strong>reported to the relevant law enforcement and child protection authorities</strong>, in line with our legal obligations in the jurisdictions where we operate',
           'Confirmed violations result in <strong>permanent termination</strong>, and we block attempts to re-register',
         ],
       },
