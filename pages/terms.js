@@ -219,7 +219,7 @@ const sections = [
       {
         text: '<strong>How to report.</strong> Anyone — customer or not — can report a suspected violation, and every report is reviewed by a person:',
         items: [
-          'In the app: tap the flag icon on any post, or go to More &rarr; Support &amp; Legal &rarr; Report a child safety concern',
+          'In the app: press and hold any chat message to report it, or go to More &rarr; Support &amp; Legal &rarr; Report a child safety concern. Reports are raised as priority support tickets you can follow in the app',
           'By email: <a href="mailto:support@kabonshare.com">support@kabonshare.com</a> with "CHILD SAFETY" in the subject line'
         ]
       },
